@@ -20,9 +20,21 @@
 				<p:panel header="Teste">
 					<p:messages />
 				</p:panel>
-			</div>			
-			
+			</div>	
+						
 		</ui:define>
+		<ui:define name="sidebar" >
+			<h:form >
+				<p:panel >
+					<p:messages />
+					<h:panelGrid columns="2">
+						<h:outputLabel  />
+						<p:inputText value="#{loginMB.usuario.login}"/>
+					</h:panelGrid>
+				</p:panel>
+			</h:form>
+		</ui:define>
+		
 	</ui:composition>
 </h:body>
 </html>
