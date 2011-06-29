@@ -10,6 +10,8 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import util.PersistenceUtil;
+
 public class ContextListener implements ServletContextListener {
 
 	@Override
@@ -32,6 +34,7 @@ public class ContextListener implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		PersistenceUtil.getEntityManager();
 		Logger logger = LoggerFactory.getLogger("Quartz");
 		logger.info("Inicializando Quartz Scheduler");
 		SchedulerFactory sf = new StdSchedulerFactory();

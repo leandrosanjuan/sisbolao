@@ -1,15 +1,14 @@
-import java.util.Vector;
+package pojo;
 
-public class Perfil {
 
-  public USUARIO;
+public enum Perfil {
 
-  public ADMINISTRADOR;
+	USUARIO(0), ADMINISTRADOR(1);
 
-    /**
-   * 
-   * @element-type Usuario
-   */
-  public Vector  myUsuario;
+	private int perfil;
 
+	private Perfil(int perfil) {
+		this.perfil = perfil;
+	}
+	
 }
