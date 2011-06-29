@@ -8,6 +8,7 @@ import javax.faces.event.PhaseEvent;
 import javax.faces.event.PhaseId;
 import javax.faces.event.PhaseListener;
 
+import managedBean.CadastroMB;
 import managedBean.LoginMB;
 
 
@@ -27,14 +28,22 @@ public class LoginFilter implements PhaseListener {
 	                            String.format("#{%s}", "loginMB"), Object.class);
 
 	       LoginMB loginMB = (LoginMB) expression.getValue(context.getELContext());
-	       //descomentar depois q criar os usuários no banco
-	       if(!isCadastro && !isRecuperacao && !( isIndex) && loginMB.getUsuario().getLogin()== null ) {
-	           NavigationHandler nh = app.getNavigationHandler();
-	           nh.handleNavigation(context, null, "index?faces-redirect=true");
-	       }else if(loginMB.getUsuario().getLogin()!= null) {
-	    	   NavigationHandler nh = app.getNavigationHandler();
-	           nh.handleNavigation(context, null,view);
+	      
+	       if(loginMB!=null){
+	    	   if(!isCadastro && !isRecuperacao && !( isIndex) && loginMB.getUsuario().getLogin()== null ) {
+		           NavigationHandler nh = app.getNavigationHandler();
+		           nh.handleNavigation(context, null, "index?faces-redirect=true");
+		       }else if(loginMB.getUsuario().getLogin()!= null) {
+		    	   NavigationHandler nh = app.getNavigationHandler();
+		           nh.handleNavigation(context, null,view);
+		       }
+	       } else {
+	    	   if(!isCadastro && !isRecuperacao && !isIndex){
+	    		   NavigationHandler nh = app.getNavigationHandler();
+		           nh.handleNavigation(context, null, "index?faces-redirect=true");
+	    	   } 
 	       }
+	       
 		
 	}
 

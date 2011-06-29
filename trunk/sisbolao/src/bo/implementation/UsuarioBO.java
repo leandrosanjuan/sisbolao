@@ -8,7 +8,9 @@ import javax.persistence.NoResultException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pojo.Perfil;
 import pojo.Usuario;
+import util.CriaHash;
 import util.MessagesReader;
 import dao.UsuarioDao;
 import bo.IUsuarioBO;
@@ -21,20 +23,27 @@ public class UsuarioBO implements IUsuarioBO {
 
 	public UsuarioBO() {
 		usuarioDao = new UsuarioDao();
-		ctx = FacesContext.getCurrentInstance();
+		
 		logger = LoggerFactory.getLogger("UsuarioBO");
 	}
 
 	@Override
 	public void create(Usuario usuario) {
+		ctx = FacesContext.getCurrentInstance();
 		try {
+			usuario.setSenha(CriaHash.SHA1(usuario.getSenha()));
+			usuario.setPerfil(Perfil.USUARIO);
 			usuarioDao.create(usuario);
+			String mensagem = MessagesReader
+			.getMessages().getProperty("cadastroSucesso");
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem ,mensagem);
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			String mensagem = MessagesReader
 			.getMessages().getProperty("erroPersistUpdate");
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,mensagem ,mensagem);
-			ctx.addMessage(null, msg);
+			ctx.addMessage(null, msg);			
 		}
 
 	}
@@ -78,8 +87,8 @@ public class UsuarioBO implements IUsuarioBO {
 	}
 	@Override
 	public boolean existeLogin(String login) {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return usuarioDao.verificaLoginExistente(login);
 	}
 
 }

@@ -8,6 +8,11 @@
 	
 	<lifecycle>
 		<phase-listener>filter.LoginFilter</phase-listener>
-	</lifecycle>	
+	</lifecycle>
+	
+	<validator>
+		<validator-id>validaUsuarioExistente</validator-id>
+		<validator-class>validator.UsuarioExistenteValidator</validator-class>
+	</validator>	
 	
 </faces-config>

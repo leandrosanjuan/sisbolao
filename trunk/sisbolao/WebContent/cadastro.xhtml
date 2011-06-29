@@ -15,25 +15,72 @@
 
 <h:body>
 	<ui:composition template="template/common.xhtml">
-		<ui:define name="content-nosidebar">
-			<div class="post"><p:wizard widgetVar="wiz"
-				showStepStatus="true" nextLabel="#{msg.proximo}"
-				backLabel="#{msg.anterior}">
-				
-				<p:tab title="#{msg.dadosUsuario}" id="dadosUsuario">
-					<p:outputPanel >
-						<p:messages />
-						
-						<h:panelGrid columns="2">
+		<ui:define name="content">
+			<div class="post-maior"><h:form>
+				<p:wizard widgetVar="wiz" showStepStatus="true"
+					nextLabel="#{msg.proximo}" backLabel="#{msg.anterior}">
+
+					<p:tab title="#{msg.dadosUsuario}" id="dadosUsuario">
+						<p:outputPanel>
 							
+
+							<h:panelGrid columns="3">
+
+								<h:outputLabel for="nome" value="#{msg.nome}" />
+								<p:inputText id="nome" required="true" value="#{cadastroMB.usuario.nome}" />
+								<p:message for="nome" />
+
+								<h:outputLabel for="email" value="#{msg.email}" />
+								<p:inputText id="email" required="true" value="#{cadastroMB.usuario.email}" />
+								<p:message for="email"/>
+								
+								<h:outputLabel for="login" value="#{msg.login}" />
+								<p:inputText id="login" required="true" value="#{cadastroMB.usuario.login}" validator="validaUsuarioExistente" />
+								<p:message for="login"/>
+								
+								<h:outputLabel for="senha" value="#{msg.senha}" />
+								<p:password  id="senha" required="true" value="#{cadastroMB.usuario.senha}"  />
+								<p:message for="senha"/>
+								
+								
+								
+
+
+							</h:panelGrid>
 							
-							
-						</h:panelGrid>
-						
-					</p:outputPanel>
-				</p:tab>
-				
-			</p:wizard></div>
+						</p:outputPanel>
+					</p:tab>
+					<p:tab title="#{msg.confirmacao}" id="confirmacao" >
+							<p:outputPanel id="msg">
+								<p:messages />
+							</p:outputPanel>
+							<p:outputPanel  >
+								<p:messages />
+								<h:panelGrid columns="2" >
+								
+									<h:outputLabel for="nomeOut" value="#{msg.nome}: " />
+									<h:outputText  id="nomeOut"  value="#{cadastroMB.usuario.nome}" />
+									
+									<h:outputLabel for="emailOut" value="#{msg.email}: " />
+									<h:outputText id="emailOut"  value="#{cadastroMB.usuario.email}" />
+									
+									<h:outputLabel for="loginOut" value="#{msg.login}: " />
+									<h:outputText id="loginOut"   value="#{cadastroMB.usuario.login}"  />
+									
+																		
+									
+								</h:panelGrid>
+								<div style="text-align: right">
+									<p:outputPanel id="btns">
+										<p:commandButton rendered="#{cadastroMB.usuario.nome != null}"  update="msg,btns" value="#{msg.confirma}" action="#{cadastroMB.cadastrar}"/>
+										<p:button rendered="#{cadastroMB.usuario.nome == null}" value="#{msg.paginaInicial}"  outcome="index" />
+									</p:outputPanel>
+								</div>
+							</p:outputPanel>
+					</p:tab>
+
+				</p:wizard>
+			</h:form></div>
 
 		</ui:define>
 	</ui:composition>
