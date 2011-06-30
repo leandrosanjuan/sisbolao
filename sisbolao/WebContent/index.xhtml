@@ -18,19 +18,25 @@
 		<ui:define name="content">
 			<div class="post">
 				<p:panel header="Teste">
-					<p:messages />
+					<p:button outcome="cadastro" value="#{msg.cadastrarse}"/>
 				</p:panel>
 			</div>	
 						
 		</ui:define>
 		<ui:define name="sidebar" >
 			<h:form >
-				<p:panel >
-					<p:messages />
-					<h:panelGrid columns="2">
-						<h:outputLabel  />
-						<p:inputText value="#{loginMB.usuario.login}"/>
+				<p:panel id="pnlLogin" >
+					<p:messages   />
+					<h:panelGrid  columns="2">
+						<h:outputLabel for="login" value="#{msg.login}" />
+						<p:inputText required="true" size="14" id="login" value="#{loginMB.usuario.login}"/>
+						
+						<h:outputLabel for="senha" value="#{msg.senha}" />
+						<p:password size="14" required="true" feedback="false" id="senha" value="#{loginMB.usuario.senha}"/>
+												
 					</h:panelGrid>
+					<p:spacer height="20"/>
+					<p:commandButton update="pnlLogin"  value="#{msg.entrar}" action="#{loginMB.entrar}"/>
 				</p:panel>
 			</h:form>
 		</ui:define>
