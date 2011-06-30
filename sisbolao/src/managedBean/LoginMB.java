@@ -27,6 +27,7 @@ public class LoginMB {
 	public LoginMB() {
 		usuario = new Usuario();
 		usuarioBO = new UsuarioBO();
+		isAdmin = false;
 	}
 
 	public String entrar() {
@@ -41,6 +42,11 @@ public class LoginMB {
 			return null;
 		}
 
+	}
+	
+	public String sair(){
+		usuarioLogado = null;
+		return "index?faces-redirect=true";
 	}
 	
 	public String criarBolao(){
