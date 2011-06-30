@@ -6,6 +6,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import pojo.Perfil;
 import pojo.Permissao;
 import pojo.Usuario;
 import bo.IUsuarioBO;
@@ -15,9 +16,11 @@ import bo.implementation.UsuarioBO;
 @SessionScoped
 public class LoginMB {
 
+
 	private Usuario usuario;
 	private Usuario usuarioLogado;
 	private List<Permissao> permissoes;
+	private boolean isAdmin;
 
 	public IUsuarioBO usuarioBO;
 
@@ -63,6 +66,9 @@ public class LoginMB {
 		this.usuarioLogado = usuarioLogado;
 	}
 
+	public boolean getIsAdmin() {
+		return (usuarioLogado.getPerfil() == Perfil.ADMINISTRADOR)?true:false;
+	}
 	public List<Permissao> getPermissoes() {
 		if(permissoes == null) {
 			permissoes = new ArrayList<Permissao>();
