@@ -16,13 +16,25 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post"><h:form>
-				<p:outputPanel>
-					<p:panel header="Bolão">
-						<p:commandLink value="#{msg.criarBolao}" action="#{loginMB.criarBolao}" />
-					</p:panel>
-				</p:outputPanel>
-			</h:form></div>
+			<h:form>
+				<p:menubar >
+					<p:submenu label="#{msg.bolao}">
+						<p:menuitem value="#{msg.criar}"/>
+						<p:menuitem value="#{msg.meusBoloes}"/>
+					</p:submenu >
+					<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.campeonato}">
+						<p:menuitem value="#{msg.criar}"/>
+										
+					</p:submenu >
+					<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.rodada}">
+						<p:menuitem value="#{msg.criar}"/>									
+					</p:submenu >
+					<p:submenu  label="#{msg.dadosUsuario}">
+						<p:menuitem value="#{msg.alterar}"/>									
+					</p:submenu >
+				</p:menubar>
+				
+			</h:form>
 
 		</ui:define>
 
