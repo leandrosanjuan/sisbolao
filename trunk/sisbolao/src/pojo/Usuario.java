@@ -14,6 +14,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="usuario")
@@ -39,6 +40,9 @@ public class Usuario {
 
 	@Column
 	private String senha;
+	
+	@Transient
+	private List<Permissao> permissoes;
 
 	/**
 	 * 
@@ -126,6 +130,14 @@ public class Usuario {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public void setPermissoes(List<Permissao> permissoes) {
+		this.permissoes = permissoes;
+	}
+
+	public List<Permissao> getPermissoes() {
+		return permissoes;
 	}
 
 }
