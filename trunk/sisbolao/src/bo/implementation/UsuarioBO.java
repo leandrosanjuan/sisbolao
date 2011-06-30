@@ -1,5 +1,8 @@
 package bo.implementation;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
@@ -64,13 +67,31 @@ public class UsuarioBO implements IUsuarioBO {
 
 	@Override
 	public Usuario login(Usuario usuario) {
+		ctx = FacesContext.getCurrentInstance();
 		try{
+			usuario.setSenha(CriaHash.SHA1(usuario.getSenha()));
 			return usuarioDao.findByLoginSenha(usuario);
 			 
 		} catch(NoResultException e) {
 			logger.error(e.getMessage());
 			String mensagem = MessagesReader
 			.getMessages().getProperty("loginSenhaInvalido");
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem ,mensagem);
+			ctx.addMessage(null, msg);
+			
+			return null;
+		} catch (NoSuchAlgorithmException e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader
+			.getMessages().getProperty("problemaSistema");
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem ,mensagem);
+			ctx.addMessage(null, msg);
+			
+			return null;
+		} catch (UnsupportedEncodingException e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader
+			.getMessages().getProperty("problemaSistema");
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem ,mensagem);
 			ctx.addMessage(null, msg);
 			
