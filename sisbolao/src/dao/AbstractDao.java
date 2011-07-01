@@ -41,6 +41,16 @@ public class AbstractDao<T> {
 			throw new Exception();
 		}
 	}
+	public void delete(T objeto)  throws Exception {
+		try {
+			em.getTransaction().begin();
+				em.remove(objeto);
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			em.getTransaction().rollback();
+			throw new Exception();
+		}
+	}
 	@SuppressWarnings("unchecked")
 	public Collection<T> findAll(Class<T> clazz) {
 		try {
