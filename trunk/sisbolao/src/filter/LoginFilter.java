@@ -33,7 +33,7 @@ public class LoginFilter implements PhaseListener {
 	    	   if(!isCadastro && !isRecuperacao && !( isIndex) && loginMB.getUsuarioLogado()== null ) {
 		           NavigationHandler nh = app.getNavigationHandler();
 		           nh.handleNavigation(context, null, "index?faces-redirect=true");
-		       }else if(loginMB.getUsuarioLogado()!= null) {
+		       }else if(loginMB.getUsuarioLogado()!= null && isIndex) {
 		    	   NavigationHandler nh = app.getNavigationHandler();
 		           nh.handleNavigation(context, null,"principal");
 		       }

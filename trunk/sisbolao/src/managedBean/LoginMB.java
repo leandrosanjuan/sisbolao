@@ -49,9 +49,15 @@ public class LoginMB {
 		return "index?faces-redirect=true";
 	}
 	
+	public String criarCampeonato(){
+		if(CampeonatoMB.permissao(usuarioLogado)) {
+			return "criarcampeonato?faces-redirect=true";
+		}
+		return null;
+	}
 	public String criarBolao(){
-		if(BolaoMB.permissaoBolao(usuarioLogado)) {
-			return "criarbolao";
+		if(BolaoMB.permissao(usuarioLogado)) {
+			return "criarbolao?faces-redirect=true";
 		}
 		return null;
 	}
