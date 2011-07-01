@@ -47,8 +47,18 @@ public class BolaoBO implements IBolaoBO {
 
 	@Override
 	public void delete(Bolao bolao) {
-		// TODO Auto-generated method stub
+		ctx = FacesContext.getCurrentInstance();
 
+		try {
+			bolaoDAO.delete(bolao);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroDelete");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
 	}
 
 	@Override
