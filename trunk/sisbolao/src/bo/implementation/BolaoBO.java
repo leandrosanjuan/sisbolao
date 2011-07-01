@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dao.BolaoDAO;
+import dao.BolaoDao;
 import dao.UsuarioDao;
 
 import pojo.Bolao;
@@ -21,11 +21,11 @@ public class BolaoBO implements IBolaoBO {
 
 	FacesContext ctx;
 	FacesMessage msg;
-	BolaoDAO bolaoDAO;
+	BolaoDao bolaoDAO;
 	Logger logger;
 
 	public BolaoBO() {
-		BolaoDAO bolaoDAO = new BolaoDAO();
+		BolaoDao bolaoDAO = new BolaoDao();
 		logger = LoggerFactory.getLogger("BolaoBO");
 	}
 
