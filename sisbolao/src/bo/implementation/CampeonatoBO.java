@@ -8,24 +8,20 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dao.BolaoDAO;
-import dao.CampeonatoDAO;
-
 import pojo.Bolao;
 import pojo.Campeonato;
-import pojo.Perfil;
-import util.CriaHash;
 import util.MessagesReader;
 import bo.ICampeonatoBO;
+import dao.CampeonatoDao;
 
 public class CampeonatoBO implements ICampeonatoBO {
 	FacesContext ctx;
 	FacesMessage msg;
-	CampeonatoDAO campeonatoDAO;
+	CampeonatoDao campeonatoDAO;
 	Logger logger;
 
 	public CampeonatoBO() {
-		campeonatoDAO = new CampeonatoDAO();
+		campeonatoDAO = new CampeonatoDao();
 		logger = LoggerFactory.getLogger("CampeonatoBO");
 	}
 

@@ -23,7 +23,7 @@ public class BolaoMB {
 	private List<Campeonato> campeonatosDisponiveis;
 	private Campeonato campeonato;
 	
-	public static boolean permissaoBolao(Usuario usuarioLogado){
+	public static boolean permissao(Usuario usuarioLogado){
 		usuario = usuarioLogado;
 		if(usuario.getPermissoes().contains(Permissao.BOLAO)){
 			return true;

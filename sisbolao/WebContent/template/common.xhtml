@@ -46,29 +46,29 @@
 <!-- end #logo -->
 	<div id="page">
 	<div id="page-bgtop">
-		<h:form prependId="false" >
-			<p:menubar autoSubmenuDisplay="true"  rendered="#{loginMB.usuarioLogado != null}" >
+		<h:form >
+			<p:menubar  autoSubmenuDisplay="true"  rendered="#{loginMB.usuarioLogado != null}" >
 				<p:submenu label="#{msg.bolao}">
-					<p:menuitem value="#{msg.criar}"/>
-					<p:menuitem value="#{msg.meusBoloes}"/>
+					<p:menuitem   value="#{msg.criar}" ajax="true"  action="#{loginMB.criarBolao}"/>
+					<p:menuitem  value="#{msg.meusBoloes}"/>
 				</p:submenu >
-				<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.campeonato}">
-					<p:menuitem value="#{msg.criar}"/>
+				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.campeonato}">
+					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criaCampeonato}"/>
 									
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.rodada}">
-					<p:menuitem value="#{msg.criar}"/>									
+					<p:menuitem  value="#{msg.criar}"/>									
 				</p:submenu >
 				<p:submenu  label="#{msg.dadosUsuario}">
-					<p:menuitem value="#{msg.alterar}"/>									
+					<p:menuitem  value="#{msg.alterar}"/>									
 				</p:submenu >				
-				<p:menuitem   value="#{msg.sair}" action="#{loginMB.sair}"/>
+				<p:menuitem    value="#{msg.sair}" action="#{loginMB.sair}"/>
 				
 			</p:menubar>
 				
 		</h:form>
 	<div id="page-bgbtm">
-	
+	<p:spacer height="30"/>
 	<div id="content"><ui:insert name="content">
 
 	</ui:insert></div>
