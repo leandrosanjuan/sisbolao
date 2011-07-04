@@ -7,6 +7,7 @@ import javax.faces.bean.SessionScoped;
 
 import pojo.Campeonato;
 import pojo.Permissao;
+import pojo.Rodada;
 import pojo.Usuario;
 import bo.ICampeonatoBO;
 import bo.implementation.CampeonatoBO;
@@ -18,6 +19,8 @@ public class CampeonatoMB {
 
 	private ICampeonatoBO campeonatoBO;
 	private Campeonato campeonato;
+	
+	private int numRodadas;
 
 	public CampeonatoMB() {
 		campeonato = new Campeonato();
@@ -33,7 +36,9 @@ public class CampeonatoMB {
 	}
 
 	public void criarCampeonato() {
-		campeonatoBO.create(campeonato);
+		Rodada rodada = new Rodada();		
+		rodada.setCampeonato(campeonato);		
+		campeonatoBO.create(campeonato);		
 		campeonato = new Campeonato();
 	}
 
@@ -55,6 +60,14 @@ public class CampeonatoMB {
 
 	public void setCampeonato(Campeonato campeonato) {
 		this.campeonato = campeonato;
+	}
+
+	public int getNumRodadas() {
+		return numRodadas;
+	}
+
+	public void setNumRodadas(int numRodadas) {
+		this.numRodadas = numRodadas;
 	}
 		
 }
