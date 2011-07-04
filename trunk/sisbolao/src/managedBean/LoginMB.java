@@ -62,9 +62,9 @@ public class LoginMB {
 		return null;
 	}
 	
-	public String criarPartida(){
-		if(PartidaMB.permissaoPartida(usuarioLogado)) {
-			return "criarpartida";
+	public String criarRodada(){
+		if(RodadaMB.permissaoRodada(usuarioLogado)) {
+			return "criarrodada?faces-redirect=true";
 		}
 		return null;
 	}
