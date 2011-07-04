@@ -2,9 +2,9 @@ package managedBean;
 
 import pojo.Usuario;
 
-public class PartidaMB {
+public class RodadaMB {
 
-	public static boolean permissaoPartida(Usuario usuarioLogado) {
+	public static boolean permissaoRodada(Usuario usuarioLogado) {
 		// TODO Auto-generated method stub
 		return false;
 	}
