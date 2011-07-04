@@ -16,10 +16,20 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post">
-				<p:panel header="Criar campeonato">
-			</div>
-			
+			<div class="post"><h:form>
+				<p:panel id="pnlCampeonato" header="#{msg.criarCampeonato}">
+					<p:messages />
+					<h:panelGrid columns="2">
+
+						<h:outputLabel for="nome" value="#{msg.campeonato}" />
+						<p:inputText required="true" id="nome" value="#{campeonatoMB.campeonato.nome}" />
+
+					</h:panelGrid>
+					<p:commandButton  action="#{campeonatoMB.criarCampeonato}"
+						value="#{msg.criar}" update="pnlCampeonato"/>
+				</p:panel>
+			</h:form></div>
+
 		</ui:define>
 	</ui:composition>
 </h:body>
