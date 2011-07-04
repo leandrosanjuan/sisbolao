@@ -16,10 +16,57 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post"><h:form>
-				<p:outputPanel>
-					
+			<div class="post"><h:form id="form">
+
+				<p:growl id="msgs" />
+
+				<p:panel header="Nova partida">
+					<h:panelGrid columns="2" id="grid">
+						<h:outputLabel value="Equipe da casa :" for="txt_casa"/>
+						<p:selectOneMenu id="timeCasa" value="#{rodadaMB.timeCasa}"/>
+						
+						<h:outputLabel value="Equipe visitante :" for="txt_visitante"/>
+						<p:selectOneMenu id="timeVisitante" value="#{rodadaMB.timeVisitante}"/>
+
+						<p:commandButton value="Limpar" type="reset" />
+						<p:commandButton value="Adicionar" update="books msgs @parent"
+							action="#{rodadaMB.criarRodada}">
+							<p:collector value="#{rodadaMB.partida}"
+								addTo="#{rodadaMB.partidas}" />
+						</p:commandButton>
+					</h:panelGrid>
+				</p:panel>
+
+				<p:outputPanel id="books">
+					<p:dataTable value="#{createBookBean.books}" var="book">
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Title" />
+							</f:facet>
+							<h:outputText value="#{book.title}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Author" />
+							</f:facet>
+							<h:outputText value="#{book.author}" />
+						</p:column>
+
+						<p:column>
+							<f:facet name="header">
+								<h:outputText value="Operation" />
+							</f:facet>
+							<p:commandLink value="Remove" update="form:books" process="@this">
+								<p:collector value="#{book}"
+									removeFrom="#{createBookBean.books}" />
+							</p:commandLink>
+						</p:column>
+
+					</p:dataTable>
 				</p:outputPanel>
+
 			</h:form></div>
 
 		</ui:define>

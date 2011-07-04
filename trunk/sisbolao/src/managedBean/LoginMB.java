@@ -16,7 +16,6 @@ import bo.implementation.UsuarioBO;
 @SessionScoped
 public class LoginMB {
 
-
 	private Usuario usuario;
 	private Usuario usuarioLogado;
 	private List<Permissao> permissoes;
@@ -32,7 +31,7 @@ public class LoginMB {
 
 	public String entrar() {
 
-		usuarioLogado = usuarioBO.login(usuario);		
+		usuarioLogado = usuarioBO.login(usuario);
 		usuario = new Usuario();
 		if (usuarioLogado != null) {
 			usuarioLogado.setPermissoes(getPermissoes());
@@ -43,27 +42,28 @@ public class LoginMB {
 		}
 
 	}
-	
-	public String sair(){
+
+	public String sair() {
 		usuarioLogado = null;
 		return "index?faces-redirect=true";
 	}
-	
-	public String criarCampeonato(){
-		if(CampeonatoMB.permissao(usuarioLogado)) {
+
+	public String criarCampeonato() {
+		if (CampeonatoMB.permissao(usuarioLogado)) {
 			return "criarcampeonato?faces-redirect=true";
 		}
 		return null;
 	}
-	public String criarBolao(){
-		if(BolaoMB.permissao(usuarioLogado)) {
+
+	public String criarBolao() {
+		if (BolaoMB.permissao(usuarioLogado)) {
 			return "criarbolao?faces-redirect=true";
 		}
 		return null;
 	}
-	
-	public String criarRodada(){
-		if(RodadaMB.permissaoRodada(usuarioLogado)) {
+
+	public String criarRodada() {
+		if (RodadaMB.permissao(usuarioLogado)) {
 			return "criarrodada?faces-redirect=true";
 		}
 		return null;
@@ -86,16 +86,18 @@ public class LoginMB {
 	}
 
 	public boolean getIsAdmin() {
-		return (usuarioLogado.getPerfil() == Perfil.ADMINISTRADOR)?true:false;
+		return (usuarioLogado.getPerfil() == Perfil.ADMINISTRADOR) ? true
+				: false;
 	}
+
 	public List<Permissao> getPermissoes() {
-		if(permissoes == null) {
+		if (permissoes == null) {
 			permissoes = new ArrayList<Permissao>();
 			switch (usuarioLogado.getPerfil()) {
 			case USUARIO:
 				permissoes.add(Permissao.BOLAO);
 				permissoes.add(Permissao.DADOSPESSOAIS);
-				
+
 				break;
 			case ADMINISTRADOR:
 				permissoes.add(Permissao.BOLAO);
@@ -104,10 +106,10 @@ public class LoginMB {
 				permissoes.add(Permissao.RODADA);
 				permissoes.add(Permissao.TIME);
 				break;
-			
+
 			}
 		}
-		
+
 		return permissoes;
 	}
 
