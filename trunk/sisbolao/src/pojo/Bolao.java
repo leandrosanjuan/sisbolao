@@ -14,9 +14,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-
-
-
 @Entity
 @Table(name = "bolao")
 public class Bolao {
@@ -29,40 +26,56 @@ public class Bolao {
 	@Column
 	private String nome;
 
-	@ManyToOne(targetEntity=Campeonato.class,fetch=FetchType.LAZY)
+	@ManyToOne(targetEntity = Campeonato.class, fetch = FetchType.LAZY)
 	private Campeonato campeonato;
 	/**
 	 * 
 	 * @element-type Usuario
 	 */
-	@ManyToMany(targetEntity=Usuario.class,fetch=FetchType.LAZY)
+	@ManyToMany(targetEntity = Usuario.class, fetch = FetchType.LAZY)
 	private List<Usuario> usuarios;
-	
+
+	@Column
+	private Usuario usuarioDono;
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public Campeonato getCampeonato() {
 		return campeonato;
 	}
+
 	public void setCampeonato(Campeonato campeonato) {
 		this.campeonato = campeonato;
 	}
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
+
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
 
+	public Usuario getUsuarioDono() {
+		return usuarioDono;
+	}
 
+	public void setUsuarioDono(Usuario usuarioDono) {
+		this.usuarioDono = usuarioDono;
+	}
 
 }

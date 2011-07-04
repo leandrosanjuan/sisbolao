@@ -61,6 +61,13 @@ public class LoginMB {
 		}
 		return null;
 	}
+	
+	public String criarPartida(){
+		if(PartidaMB.permissaoPartida(usuarioLogado)) {
+			return "criarpartida";
+		}
+		return null;
+	}
 
 	public Usuario getUsuario() {
 		return usuario;
