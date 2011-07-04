@@ -23,7 +23,9 @@
 
 						<h:outputLabel for="nome" value="#{msg.campeonato}" />
 						<p:inputText required="true" id="nome" value="#{campeonatoMB.campeonato.nome}" />
-
+						
+						<h:outputLabel for="rodadas" value="#{msg.numRodadas}" />
+						<p:spinner id="rodadas" min="1" value="#{campeonatoMB.numRodadas}"/>
 					</h:panelGrid>
 					<p:commandButton  action="#{campeonatoMB.criarCampeonato}"
 						value="#{msg.criar}" update="pnlCampeonato"/>
