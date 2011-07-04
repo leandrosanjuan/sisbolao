@@ -34,6 +34,7 @@ public class CampeonatoMB {
 
 	public void criarCampeonato() {
 		campeonatoBO.create(campeonato);
+		campeonato = new Campeonato();
 	}
 
 	public void alterarCampeonato() {
@@ -46,6 +47,14 @@ public class CampeonatoMB {
 
 	public List<Campeonato> listarCampeonatos() {
 		return campeonatoBO.findAll();
+	}
+
+	public Campeonato getCampeonato() {
+		return campeonato;
+	}
+
+	public void setCampeonato(Campeonato campeonato) {
+		this.campeonato = campeonato;
 	}
 		
 }

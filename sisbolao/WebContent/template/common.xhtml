@@ -53,7 +53,7 @@
 					<p:menuitem  value="#{msg.meusBoloes}"/>
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.campeonato}">
-					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criaCampeonato}"/>
+					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarCampeonato}"/>
 									
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.rodada}">
@@ -68,7 +68,8 @@
 				
 		</h:form>
 	<div id="page-bgbtm">
-	<p:spacer height="30"/>
+	<br />
+	<br />
 	<div id="content"><ui:insert name="content">
 
 	</ui:insert></div>
