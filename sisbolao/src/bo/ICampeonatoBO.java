@@ -9,6 +9,6 @@ public interface ICampeonatoBO {
 	public void create(Campeonato campeonato);
 	public void update(Campeonato campeonato);
 	public void delete(Campeonato campeonato);
-	public Bolao findById(Campeonato campeonato);
+	public Campeonato findById(Campeonato campeonato);
 	public List<Campeonato> findAll();
 }

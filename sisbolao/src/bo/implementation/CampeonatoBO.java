@@ -28,7 +28,7 @@ public class CampeonatoBO implements ICampeonatoBO {
 	@Override
 	public void create(Campeonato campeonato) {
 		ctx = FacesContext.getCurrentInstance();
-		try {			
+		try {
 			campeonatoDAO.create(campeonato);
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"campeonatoCadastroSucesso");
@@ -49,7 +49,7 @@ public class CampeonatoBO implements ICampeonatoBO {
 	@Override
 	public void update(Campeonato campeonato) {
 		ctx = FacesContext.getCurrentInstance();
-		try {			
+		try {
 			campeonatoDAO.update(campeonato);
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"campeonatoAlteradoSucesso");
@@ -70,7 +70,7 @@ public class CampeonatoBO implements ICampeonatoBO {
 	@Override
 	public void delete(Campeonato campeonato) {
 		ctx = FacesContext.getCurrentInstance();
-		try {			
+		try {
 			campeonatoDAO.delete(campeonato);
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"campeonatoExcluidoSucesso");
@@ -89,15 +89,14 @@ public class CampeonatoBO implements ICampeonatoBO {
 	}
 
 	@Override
-	public Bolao findById(Campeonato campeonato) {
-		// TODO Auto-generated method stub
-		return null;
+	public Campeonato findById(Campeonato campeonato) {
+		return campeonatoDAO.findById(Campeonato.class, campeonato.getId());
+
 	}
 
 	@Override
 	public List<Campeonato> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Campeonato>) campeonatoDAO.findAll(Campeonato.class);
 	}
 
 }
