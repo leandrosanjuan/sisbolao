@@ -1,7 +1,13 @@
 package managedBean;
 
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.event.DragDropEvent;
 
 import pojo.Permissao;
 import pojo.Rodada;
@@ -18,12 +24,15 @@ public class RodadaMB {
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
-	
-	private Time timeCasa;
 
+	private Time timeCasa;
 	private Time timeVisitante;
-	
-	public RodadaMB(){
+
+	private List<Time> times;
+
+	private List<Time> timesEscolhidos;
+
+	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
 	}
@@ -34,6 +43,15 @@ public class RodadaMB {
 			return true;
 		}
 		return false;
+	}
+
+	public void onDrop(DragDropEvent event) {
+		Time time = (Time) event.getData();
+
+		timesEscolhidos.add(time);
+
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(time.getNome() + " adicionado"));
 	}
 
 	public void setRodada(Rodada rodada) {
@@ -58,6 +76,22 @@ public class RodadaMB {
 
 	public void setTimeVisitante(Time timeVisitante) {
 		this.timeVisitante = timeVisitante;
+	}
+
+	public void setTimes(List<Time> times) {
+		this.times = times;
+	}
+
+	public List<Time> getTimes() {
+		return times;
+	}
+
+	public void setTimesEscolhidos(List<Time> timesEscolhidos) {
+		this.timesEscolhidos = timesEscolhidos;
+	}
+
+	public List<Time> getTimesEscolhidos() {
+		return timesEscolhidos;
 	}
 
 }

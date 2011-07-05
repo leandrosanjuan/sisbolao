@@ -18,15 +18,30 @@
 		<ui:define name="content">
 			<div class="post"><h:form id="form">
 
-				<p:growl id="msgs" />
+				<p:growl id="partida" />
 
 				<p:panel header="Nova partida">
+
 					<h:panelGrid columns="2" id="grid">
-						<h:outputLabel value="Equipe da casa :" for="txt_casa"/>
-						<p:selectOneMenu id="timeCasa" value="#{rodadaMB.timeCasa}"/>
-						
-						<h:outputLabel value="Equipe visitante :" for="txt_visitante"/>
-						<p:selectOneMenu id="timeVisitante" value="#{rodadaMB.timeVisitante}"/>
+						<p:panel header="Equipes">
+
+							<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
+								columns="4">
+								<p:column>
+									<p:graphicImage id="time" value="#{time.imagemStream}" />
+
+									<p:draggable for="time" revert="true" />
+								</p:column>
+							</p:dataGrid>
+						</p:panel>
+
+
+						<h:outputLabel value="Equipe da casa :" for="txt_casa" />
+						<p:selectOneMenu id="timeCasa" value="#{rodadaMB.timeCasa}" />
+
+						<h:outputLabel value="Equipe visitante :" for="txt_visitante" />
+						<p:selectOneMenu id="timeVisitante"
+							value="#{rodadaMB.timeVisitante}" />
 
 						<p:commandButton value="Limpar" type="reset" />
 						<p:commandButton value="Adicionar" update="books msgs @parent"
