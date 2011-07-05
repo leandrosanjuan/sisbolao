@@ -6,11 +6,11 @@
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 <f:loadBundle var="msg" basename="message"></f:loadBundle>
 <h:head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta http-equiv="content-type"  content="text/html; charset=utf-8" />
 	<title><h:outputText value="#{msg.title}"/> </title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
-	<link type="text/css" rel="stylesheet" href="recursos/lefrog/skin.css" />
+	<link type="text/css" rel="stylesheet" href="recursos/trontastic/skin.css" />
 	<link href="recursos/style.css" rel="stylesheet" type="text/css" media="screen" />
 </h:head>
 <h:body>
@@ -51,6 +51,9 @@
 				<p:submenu label="#{msg.bolao}">
 					<p:menuitem   value="#{msg.criar}" ajax="true"  action="#{loginMB.criarBolao}"/>
 					<p:menuitem  value="#{msg.meusBoloes}"/>
+				</p:submenu >
+				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.time}">
+					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarTime}"/>								
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.campeonato}">
 					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarCampeonato}"/>
