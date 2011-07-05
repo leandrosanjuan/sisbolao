@@ -1,0 +1,50 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="multipart/form-data"
+		charset="utf-8" />
+	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
+		media="screen" />
+</h:head>
+
+<h:body>
+	<ui:composition template="template/common.xhtml">
+		<ui:define name="content">
+			<div class="post"><h:form id="frmTimeUpload" prependId="false"
+				enctype="multipart/form-data">
+				<p:panel  id="pnlTime" header="#{msg.criarTime}">
+					<p:messages />
+					<h:panelGrid columns="3">
+						<h:outputLabel for="time" value="#{msg.time}" />
+						<p:inputText required="true" id="time" value="#{timeMB.time.nome}" />
+						<h:inputHidden />
+
+						<h:outputLabel for="img" value="#{msg.imagem}" />
+						<p:fileUpload fileUploadListener="#{timeMB.upload}"
+							allowTypes="png,gif,jpg,jpeg" sizeLimit="10000"
+							value="#{timeMB.arquivo}" id="img" required="true" update="imgS"  oncomplete="btnEnviar.enable();imgShow.show()" />
+						<p:panel  widgetVar="imgShow" id="imgS" visible="false"  >
+							<p:graphicImage  width="24" height="24" value="#{timeMB.imagem}" />
+						</p:panel>
+
+					</h:panelGrid>
+
+					<p:commandButton disabled="#{timeMB.arquivo == null}" value="#{msg.enviar}" widgetVar="btnEnviar"
+						action="#{timeMB.criar}" update="pnlTime" />
+				</p:panel>
+			</h:form></div>
+
+		</ui:define>
+
+
+	</ui:composition>
+</h:body>
+</html>
