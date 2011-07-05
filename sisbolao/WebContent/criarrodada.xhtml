@@ -16,72 +16,83 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post"><h:form id="form">
+			<div class="post">
+			
+			<h:form id="form">
 
-				<p:growl id="partida" />
+				<h:outputText value="Campeonato: " />
+				<p:selectOneMenu value="#{campeonatoMB.listarCampeonatos}">
+				
+				<h:outputText value="Rodada: " />
+				<p:selectOneMenu value="#{rodadaMB.rodadas}">
 
-				<p:panel header="Nova partida">
+					<p:growl id="partidaGrowl" />
 
-					<h:panelGrid columns="2" id="grid">
-						<p:panel header="Equipes">
+					<p:panel header="Nova partida">
 
-							<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
-								columns="4">
-								<p:column>
-									<p:graphicImage id="time" value="#{time.imagemStream}" />
+						<h:panelGrid columns="2" id="grid">
+							<p:panel header="Equipes">
+								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
+									columns="4">
+									<p:column>
+										<p:graphicImage id="time" value="#{time.imagemStream}" />
+										<p:draggable for="time" revert="true" />
+									</p:column>
+								</p:dataGrid>
+							</p:panel>
 
-									<p:draggable for="time" revert="true" />
-								</p:column>
-							</p:dataGrid>
-						</p:panel>
+
+							<h:panelGroup>
+								<h:panelGrid columns="2" style="margin-left:40px;">
+									<p:outputPanel id="partida" styleClass="slot">
+										<p:droppable tolerance="fit" activeStyleClass="slotActive"
+											scope="forward" onDrop="handleDrop" datasource="times">
+											<p:ajax listener="#{rodadaMB.onDrop}"
+												update="timesEscolhidos growl" />
+										</p:droppable>
+									</p:outputPanel>
+							</h:panelGroup>
 
 
-						<h:outputLabel value="Equipe da casa :" for="txt_casa" />
-						<p:selectOneMenu id="timeCasa" value="#{rodadaMB.timeCasa}" />
+							<p:commandButton value="Limpar" type="reset" />
+							<p:commandButton value="Adicionar" update="books msgs @parent"
+								action="#{rodadaMB.criarRodada}">
+								<p:collector value="#{rodadaMB.partida}"
+									addTo="#{rodadaMB.partidas}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:panel>
 
-						<h:outputLabel value="Equipe visitante :" for="txt_visitante" />
-						<p:selectOneMenu id="timeVisitante"
-							value="#{rodadaMB.timeVisitante}" />
+					<p:outputPanel id="books">
+						<p:dataTable value="#{createBookBean.books}" var="book">
 
-						<p:commandButton value="Limpar" type="reset" />
-						<p:commandButton value="Adicionar" update="books msgs @parent"
-							action="#{rodadaMB.criarRodada}">
-							<p:collector value="#{rodadaMB.partida}"
-								addTo="#{rodadaMB.partidas}" />
-						</p:commandButton>
-					</h:panelGrid>
-				</p:panel>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Title" />
+								</f:facet>
+								<h:outputText value="#{book.title}" />
+							</p:column>
 
-				<p:outputPanel id="books">
-					<p:dataTable value="#{createBookBean.books}" var="book">
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Author" />
+								</f:facet>
+								<h:outputText value="#{book.author}" />
+							</p:column>
 
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Title" />
-							</f:facet>
-							<h:outputText value="#{book.title}" />
-						</p:column>
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="Operation" />
+								</f:facet>
+								<p:commandLink value="Remove" update="form:books"
+									process="@this">
+									<p:collector value="#{book}"
+										removeFrom="#{createBookBean.books}" />
+								</p:commandLink>
+							</p:column>
 
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Author" />
-							</f:facet>
-							<h:outputText value="#{book.author}" />
-						</p:column>
-
-						<p:column>
-							<f:facet name="header">
-								<h:outputText value="Operation" />
-							</f:facet>
-							<p:commandLink value="Remove" update="form:books" process="@this">
-								<p:collector value="#{book}"
-									removeFrom="#{createBookBean.books}" />
-							</p:commandLink>
-						</p:column>
-
-					</p:dataTable>
-				</p:outputPanel>
-
+						</p:dataTable>
+					</p:outputPanel>
 			</h:form></div>
 
 		</ui:define>

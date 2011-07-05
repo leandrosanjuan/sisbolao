@@ -1,5 +1,7 @@
 package managedBean;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -9,6 +11,8 @@ import javax.faces.context.FacesContext;
 
 import org.primefaces.event.DragDropEvent;
 
+import pojo.Campeonato;
+import pojo.Partida;
 import pojo.Permissao;
 import pojo.Rodada;
 import pojo.Time;
@@ -24,17 +28,29 @@ public class RodadaMB {
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
+	private List<Rodada> rodadas;
+	
+	private List<Campeonato> campeonatos;
+	
+	private Campeonato campeonato;
+	
+	private List<Time> times;
+	private List<Time> timesEscolhidos;
 
 	private Time timeCasa;
+
 	private Time timeVisitante;
 
-	private List<Time> times;
-
-	private List<Time> timesEscolhidos;
+	private Calendar dataHora;
+	
 
 	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
+		times = new ArrayList<Time>();
+		timesEscolhidos = new ArrayList<Time>();
+		campeonatos = new ArrayList<Campeonato>();
+
 	}
 
 	public static boolean permissao(Usuario usuarioLogado) {
@@ -52,6 +68,26 @@ public class RodadaMB {
 
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(time.getNome() + " adicionado"));
+	}
+	
+	public void criarRodada(){
+		Partida partida = new Partida();
+		partida.setTimeCasa(timeCasa);
+		partida.setTimeVisitante(timeVisitante);
+		partida.setDataHora(dataHora);
+		partida.setRodada(rodada);
+	}
+
+	public void alterarRodada() {
+		rodadaBO.update(rodada);
+	}
+
+	public void excluirRodada() {
+		rodadaBO.delete(rodada);
+	}
+
+	public List<Rodada> listarRodadas() {
+		return rodadaBO.findAll();
 	}
 
 	public void setRodada(Rodada rodada) {
@@ -92,6 +128,23 @@ public class RodadaMB {
 
 	public List<Time> getTimesEscolhidos() {
 		return timesEscolhidos;
+	}
+
+	public void setRodadas(List<Rodada> rodadas) {
+		this.rodadas = rodadas;
+	}
+
+	public List<Rodada> getRodadas() {
+		rodadas = rodadaBO.findByCampeonato(campeonato);		
+		return rodadas;
+	}
+
+	public void setCampeonatos(List<Campeonato> campeonatos) {
+		this.campeonatos = campeonatos;
+	}
+
+	public List<Campeonato> getCampeonatos() {
+		return campeonatos;
 	}
 
 }
