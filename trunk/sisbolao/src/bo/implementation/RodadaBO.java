@@ -2,6 +2,7 @@ package bo.implementation;
 
 import java.util.List;
 
+import pojo.Campeonato;
 import pojo.Rodada;
 import bo.IRodadaBO;
 
@@ -35,6 +36,12 @@ public class RodadaBO implements IRodadaBO {
 	public void update(Rodada rodada) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public List<Rodada> findByCampeonato(Campeonato campeonato) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
