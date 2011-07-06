@@ -1,0 +1,73 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
+		media="screen" />
+</h:head>
+
+<h:body>
+	<ui:composition template="template/common.xhtml">
+		<ui:define name="content">
+			<div class="post">
+
+				<h:form id="form">
+
+					<h:outputText value="Campeonato: " />
+					<p:selectOneMenu value="#{campeonatoMB.listarCampeonatos}">
+
+						<h:outputText value="Rodada: " />
+						<p:selectOneMenu value="#{rodadaMB.rodadas}">
+
+							<p:growl id="partidaGrowl" />
+
+							<p:panel header="Nova partida">
+
+								<h:panelGrid columns="2" id="grid">
+									<p:panel header="Equipes">
+										<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
+											columns="4">
+											<p:column>
+												<p:graphicImage id="time" value="#{time.imagemStream}" />
+												<p:draggable for="time" revert="true" />
+											</p:column>
+										</p:dataGrid>
+									</p:panel>
+
+
+									<h:panelGroup>
+										<h:panelGrid columns="2" style="margin-left:40px;">
+											<p:outputPanel id="partida" styleClass="slot">
+												<p:droppable tolerance="fit" activeStyleClass="slotActive"
+													scope="forward" onDrop="handleDrop" datasource="times">
+													<p:ajax listener="#{rodadaMB.onDrop}"
+														update="timesEscolhidos growl" />
+												</p:droppable>
+											</p:outputPanel>
+									</h:panelGroup>
+
+
+									<p:commandButton value="Limpar" type="reset" />
+									<p:commandButton value="Adicionar" update="books msgs @parent"
+										action="#{rodadaMB.criarRodada}">
+										<p:collector value="#{rodadaMB.partida}"
+											addTo="#{rodadaMB.partidas}" />
+									</p:commandButton>
+								</h:panelGrid>
+							</p:panel>
+				</h:form>
+			</div>
+
+		</ui:define>
+
+
+	</ui:composition>
+</h:body>
+</html>
