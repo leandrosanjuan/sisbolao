@@ -1,9 +1,11 @@
 package managedBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.model.SelectItem;
 
 import pojo.Campeonato;
 import pojo.Permissao;
@@ -50,8 +52,15 @@ public class CampeonatoMB {
 		campeonatoBO.delete(campeonato);
 	}
 
-	public List<Campeonato> listarCampeonatos() {
-		return campeonatoBO.findAll();
+	public List<SelectItem> getCampeonatos() {
+		
+		List<Campeonato> campeonatos = campeonatoBO.findAll();
+		List<SelectItem> campeonatosSI = new ArrayList<SelectItem>();
+		for (Campeonato campeonato : campeonatos) {
+			SelectItem si = new SelectItem(campeonato,campeonato.getNome());
+			campeonatosSI.add(si);
+		}
+		return campeonatosSI;
 	}
 
 	public Campeonato getCampeonato() {
