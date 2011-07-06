@@ -7,14 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.omg.CORBA.portable.InputStream;
+import org.hibernate.annotations.Type;
 import org.primefaces.model.DefaultStreamedContent;
-
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
+import org.primefaces.model.StreamedContent;
 
 @Entity
 @Table(name = "time")
@@ -31,8 +31,11 @@ public class Time {
 	@Column
 	private byte[] imagem;
 
+	@Column
+	private String imagemContentType;
+
 	@Transient
-	private DefaultStreamedContent imagemStream;
+	private StreamedContent imagemStream;
 
 	/**
 	 * 
@@ -47,7 +50,7 @@ public class Time {
 		this.id = id;
 	}
 
-	public String getNome() {
+	public String getNome() {		
 		return nome;
 	}
 
@@ -63,11 +66,26 @@ public class Time {
 		this.imagem = imagem;
 	}
 
-	public DefaultStreamedContent getImagemStream() {
+	public void setImagemStream(StreamedContent imagemStream) {
+		this.imagemStream = imagemStream;
+	}
+
+	public StreamedContent getImagemStream() {		
 
 		ByteArrayInputStream is = new ByteArrayInputStream(imagem);
 
-		return new DefaultStreamedContent(is);
+		imagemStream = new DefaultStreamedContent(is, imagemContentType);
+
+		return imagemStream;
+
+	}
+
+	public void setImagemContentType(String imagemContentType) {
+		this.imagemContentType = imagemContentType;
+	}
+
+	public String getImagemContentType() {
+		return imagemContentType;
 	}
 
 }
