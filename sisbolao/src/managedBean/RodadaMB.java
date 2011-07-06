@@ -8,6 +8,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import org.primefaces.event.DragDropEvent;
 
@@ -18,6 +19,7 @@ import pojo.Rodada;
 import pojo.Time;
 import pojo.Usuario;
 import bo.IRodadaBO;
+import bo.implementation.CampeonatoBO;
 import bo.implementation.RodadaBO;
 
 @ManagedBean(name = "rodadaMB")
@@ -28,12 +30,11 @@ public class RodadaMB {
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
-	private List<Rodada> rodadas;
-	
 	private List<Campeonato> campeonatos;
-	
+
+	private CampeonatoBO campeonatoBO;
 	private Campeonato campeonato;
-	
+
 	private List<Time> times;
 	private List<Time> timesEscolhidos;
 
@@ -42,7 +43,6 @@ public class RodadaMB {
 	private Time timeVisitante;
 
 	private Calendar dataHora;
-	
 
 	public RodadaMB() {
 		rodada = new Rodada();
@@ -69,8 +69,8 @@ public class RodadaMB {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(time.getNome() + " adicionado"));
 	}
-	
-	public void criarRodada(){
+
+	public void criarRodada() {
 		Partida partida = new Partida();
 		partida.setTimeCasa(timeCasa);
 		partida.setTimeVisitante(timeVisitante);
@@ -130,13 +130,15 @@ public class RodadaMB {
 		return timesEscolhidos;
 	}
 
-	public void setRodadas(List<Rodada> rodadas) {
-		this.rodadas = rodadas;
-	}
 
-	public List<Rodada> getRodadas() {
-		rodadas = rodadaBO.findByCampeonato(campeonato);		
-		return rodadas;
+	public List<SelectItem> getRodadas() {
+		List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
+		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
+
+		for (Rodada rodada : rodadas) {
+			rodadasSI.add(new SelectItem(rodada, rodada.getNome()));
+		}
+		return rodadasSI;
 	}
 
 	public void setCampeonatos(List<Campeonato> campeonatos) {
@@ -145,6 +147,14 @@ public class RodadaMB {
 
 	public List<Campeonato> getCampeonatos() {
 		return campeonatos;
+	}
+
+	public Campeonato getCampeonato() {
+		return campeonato;
+	}
+
+	public void setCampeonato(SelectItem campeonato) {
+		this.campeonato = campeonatoBO.findByName(campeonato.getLabel());
 	}
 
 }
