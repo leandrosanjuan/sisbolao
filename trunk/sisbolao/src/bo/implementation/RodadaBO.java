@@ -2,12 +2,25 @@ package bo.implementation;
 
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+
+import org.slf4j.Logger;
+
+import dao.CampeonatoDao;
+import dao.RodadaDao;
+
 import pojo.Campeonato;
 import pojo.Rodada;
 import bo.IRodadaBO;
 
 public class RodadaBO implements IRodadaBO {
 
+	FacesContext ctx;
+	FacesMessage msg;
+	RodadaDao rodadaDao;
+	Logger logger;
+	
 	@Override
 	public void create(Rodada rodada) {
 		// TODO Auto-generated method stub
@@ -22,8 +35,7 @@ public class RodadaBO implements IRodadaBO {
 
 	@Override
 	public List<Rodada> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return (List<Rodada>) rodadaDao.findAll(Rodada.class);
 	}
 
 	@Override
@@ -39,9 +51,8 @@ public class RodadaBO implements IRodadaBO {
 	}
 
 	@Override
-	public List<Rodada> findByCampeonato(Campeonato campeonato) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Rodada> findByCampeonato(Campeonato campeonato) {		
+		return (List<Rodada>) rodadaDao.findAll(Rodada.class);
 	}
 
 }

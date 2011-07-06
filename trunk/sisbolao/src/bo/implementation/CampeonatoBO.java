@@ -99,4 +99,9 @@ public class CampeonatoBO implements ICampeonatoBO {
 		return (List<Campeonato>) campeonatoDAO.findAll(Campeonato.class);
 	}
 
+	public Campeonato findByName(String label) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
