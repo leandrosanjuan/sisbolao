@@ -1,10 +1,7 @@
 package managedBean;
 
-import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -30,6 +27,7 @@ public class TimeMB {
 	FacesMessage msg;
 	private ITimeBO timeBO;
 	private Time time;
+	private List<Time> times;
 	private StreamedContent imagem;
 	private UploadedFile arquivo;
 
@@ -93,5 +91,8 @@ public class TimeMB {
 
 	public UploadedFile getArquivo() {
 		return arquivo;
+	}
+	public List<Time> getTimes() {
+		return timeBO.findAll();
 	}
 }

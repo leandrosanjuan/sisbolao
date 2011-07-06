@@ -53,7 +53,8 @@
 					<p:menuitem  value="#{msg.meusBoloes}"/>
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.time}">
-					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarTime}"/>								
+					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarTime}"/>
+					<p:menuitem  value="#{msg.listar}" action="#{loginMB.listarTimes}"/>									
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.campeonato}">
 					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarCampeonato}"/>

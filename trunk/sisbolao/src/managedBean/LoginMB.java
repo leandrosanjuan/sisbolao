@@ -68,12 +68,16 @@ public class LoginMB {
 		}
 		return null;
 	}
-	
+
 	public String criarTime() {
-		if(TimeMB.permissao(usuarioLogado)) {
+		if (TimeMB.permissao(usuarioLogado)) {
 			return "criartime?faces-redirect=true";
 		}
 		return null;
+	}
+
+	public String listarTimes() {
+		return "listartimes?faces-redirect=true";
 	}
 
 	public Usuario getUsuario() {

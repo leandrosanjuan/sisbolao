@@ -1,0 +1,47 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<meta http-equiv="content-type" content="multipart/form-data"
+		charset="utf-8" />
+	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
+		media="screen" />
+</h:head>
+
+<h:body>
+	<ui:composition template="template/common.xhtml">
+		<ui:define name="content">
+			<div class="post"><h:form>
+				<p:panel header="#{msg.times}">
+					<p:dataTable value="#{timeMB.times}" var="time">
+						<p:column headerText="#{msg.nome}">
+							<h:outputText value="#{time.nome}" />
+						</p:column>						
+						<p:column style="text-align:center;" headerText="#{msg.opcoes}">
+
+							<h:commandLink>
+								<h:graphicImage url="recursos/images/edit.png" />
+							</h:commandLink>
+							<p:spacer width="5"/>
+							<h:commandLink>
+								<h:graphicImage url="recursos/images/trash.png" />
+							</h:commandLink>
+
+						</p:column>
+					</p:dataTable>
+				</p:panel>
+			</h:form></div>
+
+		</ui:define>
+
+
+	</ui:composition>
+</h:body>
+</html>

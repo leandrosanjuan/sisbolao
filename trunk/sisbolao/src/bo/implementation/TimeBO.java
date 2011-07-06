@@ -26,7 +26,7 @@ public class TimeBO implements ITimeBO{
 	@Override
 	public void create(Time time) {
 		ctx = FacesContext.getCurrentInstance();
-		try {
+		try {			
 			timeDao.create(time);
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"timeCadastradoSucesso");
