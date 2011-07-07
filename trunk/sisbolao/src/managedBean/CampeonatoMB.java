@@ -11,8 +11,11 @@ import pojo.Campeonato;
 import pojo.Permissao;
 import pojo.Rodada;
 import pojo.Usuario;
+import util.MessagesReader;
 import bo.ICampeonatoBO;
+import bo.IRodadaBO;
 import bo.implementation.CampeonatoBO;
+import bo.implementation.RodadaBO;
 
 @ManagedBean(name = "campeonatoMB")
 @SessionScoped
@@ -20,6 +23,7 @@ public class CampeonatoMB {
 	private static Usuario usuario;
 
 	private ICampeonatoBO campeonatoBO;
+	private IRodadaBO rodadaBO;
 	private Campeonato campeonato;
 	
 	private int numRodadas;
@@ -27,6 +31,7 @@ public class CampeonatoMB {
 	public CampeonatoMB() {
 		campeonato = new Campeonato();
 		campeonatoBO = new CampeonatoBO();
+		
 	}
 
 	public static boolean permissao(Usuario usuarioLogado) {
@@ -38,9 +43,17 @@ public class CampeonatoMB {
 	}
 
 	public void criarCampeonato() {
-		Rodada rodada = new Rodada();		
-		rodada.setCampeonato(campeonato);		
-		campeonatoBO.create(campeonato);		
+		rodadaBO = new RodadaBO();
+		campeonatoBO.create(campeonato);	
+		for(int i =0;i<numRodadas;i++){
+			Rodada rodada = new Rodada();
+			String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodada");
+			rodada.setNome(i+nomeRodada);
+			rodada.setCampeonato(campeonato);
+			rodadaBO.create(rodada);
+		}			
+		
+			
 		campeonato = new Campeonato();
 	}
 
