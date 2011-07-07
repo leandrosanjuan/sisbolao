@@ -19,26 +19,38 @@
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
 			<div class="post"><h:form>
-				<p:panel header="#{msg.times}">
+				<p:panel id="pnlTimes" header="#{msg.times}">
+					<p:messages />
 					<p:dataTable value="#{timeMB.times}" var="time">
 						<p:column headerText="#{msg.nome}">
 							<h:outputText value="#{time.nome}" />
-						</p:column>						
+						</p:column>
 						<p:column style="text-align:center;" headerText="#{msg.opcoes}">
 
-							<h:commandLink  action="alterartime?faces-redirect=true">
+							<p:commandLink  action="alterartime?faces-redirect=true">
 								<h:graphicImage url="recursos/images/edit.png" />
-								<f:setPropertyActionListener target="#{timeMB.time}" value="#{time}"></f:setPropertyActionListener>
-							</h:commandLink>
-							<p:spacer width="5"/>
-							<h:commandLink>
+								<f:setPropertyActionListener target="#{timeMB.time}"
+									value="#{time}"></f:setPropertyActionListener>
+							</p:commandLink>
+							<p:spacer width="5" />
+							<p:commandLink  onclick="dlg.show()" >
 								<h:graphicImage url="recursos/images/trash.png" />
-								
-							</h:commandLink>
+								<f:setPropertyActionListener target="#{timeMB.time}"
+									value="#{time}"></f:setPropertyActionListener>
+							</p:commandLink>
 
 						</p:column>
 					</p:dataTable>
 				</p:panel>
+				<p:confirmDialog  message="#{msg.desejaExcluirTime}" id="dialog"
+					widgetVar="dlg" modal="true">
+
+					<p:commandButton value="#{msg.sim}" update="pnlTimes"
+						action="#{timeMB.excluir}" oncomplete="dlg.hide()" />
+					<p:commandButton value="#{msg.nao}" onclick="dlg.hide();" />
+
+
+				</p:confirmDialog>
 			</h:form></div>
 
 		</ui:define>

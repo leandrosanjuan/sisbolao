@@ -72,6 +72,9 @@ public class TimeMB {
 	public void alterar() {
 		timeBO.update(time);
 	}
+	public void excluir(){
+		timeBO.delete(time);
+	}
 
 	public void setTime(Time time) {
 		this.time = time;
