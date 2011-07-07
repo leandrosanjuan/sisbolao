@@ -21,6 +21,10 @@ public class RodadaBO implements IRodadaBO {
 	RodadaDao rodadaDao;
 	Logger logger;
 	
+	
+	public RodadaBO() {
+		rodadaDao = new RodadaDao();
+	}
 	@Override
 	public void create(Rodada rodada) {
 		// TODO Auto-generated method stub
