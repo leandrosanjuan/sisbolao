@@ -49,6 +49,7 @@ public class TimeMB {
 		try {
 			arquivo = event.getFile();
 			imagem = new DefaultStreamedContent(arquivo.getInputstream());
+			time.setImagem(arquivo.getContents());
 		} catch (IOException e) {
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"problemaArquivo");
@@ -60,17 +61,20 @@ public class TimeMB {
 	}
 
 	public void criar() {
-		
-		time.setImagem(arquivo.getContents());
+				
 		timeBO.create(time);
 		time = new Time();
 		imagem = null;
 		arquivo = null;
 
 	}
+	
+	public void alterar() {
+		timeBO.update(time);
+	}
 
 	public void setTime(Time time) {
-		time = time;
+		this.time = time;
 	}
 
 	public Time getTime() {
