@@ -47,8 +47,8 @@ public class CampeonatoMB {
 		campeonatoBO.create(campeonato);	
 		for(int i =0;i<numRodadas;i++){
 			Rodada rodada = new Rodada();
-			String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodada");
-			rodada.setNome(i+nomeRodada);
+			String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodadas");
+			rodada.setNome((i+1)+nomeRodada);
 			rodada.setCampeonato(campeonato);
 			rodadaBO.create(rodada);
 		}			
