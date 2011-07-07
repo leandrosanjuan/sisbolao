@@ -26,12 +26,14 @@
 						</p:column>						
 						<p:column style="text-align:center;" headerText="#{msg.opcoes}">
 
-							<h:commandLink>
+							<h:commandLink  action="alterartime?faces-redirect=true">
 								<h:graphicImage url="recursos/images/edit.png" />
+								<f:setPropertyActionListener target="#{timeMB.time}" value="#{time}"></f:setPropertyActionListener>
 							</h:commandLink>
 							<p:spacer width="5"/>
 							<h:commandLink>
 								<h:graphicImage url="recursos/images/trash.png" />
+								
 							</h:commandLink>
 
 						</p:column>
