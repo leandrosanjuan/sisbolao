@@ -31,6 +31,7 @@ public class CampeonatoMB {
 	public CampeonatoMB() {
 		campeonato = new Campeonato();
 		campeonatoBO = new CampeonatoBO();
+		numRodadas = 1;
 		
 	}
 
@@ -55,6 +56,7 @@ public class CampeonatoMB {
 		
 			
 		campeonato = new Campeonato();
+		numRodadas = 1;
 	}
 
 	public void alterarCampeonato() {
