@@ -26,7 +26,7 @@
 					</p:selectOneMenu>
 
 					<h:outputText value="Rodada: " />
-					<p:selectOneMenu>
+					<p:selectOneMenu valueChangeListener="#{rodadaMB.campeonato}">
 						<f:selectItems value="#{rodadaMB.rodadas}" />
 					</p:selectOneMenu>
 

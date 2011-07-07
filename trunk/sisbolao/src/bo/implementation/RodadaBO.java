@@ -1,18 +1,19 @@
 package bo.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.slf4j.Logger;
-
-import dao.CampeonatoDao;
-import dao.RodadaDao;
+import org.slf4j.LoggerFactory;
 
 import pojo.Campeonato;
 import pojo.Rodada;
+import util.MessagesReader;
 import bo.IRodadaBO;
+import dao.RodadaDao;
 
 public class RodadaBO implements IRodadaBO {
 
@@ -20,47 +21,105 @@ public class RodadaBO implements IRodadaBO {
 	FacesMessage msg;
 	RodadaDao rodadaDao;
 	Logger logger;
-	
-	
+
 	public RodadaBO() {
 		rodadaDao = new RodadaDao();
+		logger = LoggerFactory.getLogger("RodadaBO");
 	}
+
 	@Override
 	public void create(Rodada rodada) {
+		ctx = FacesContext.getCurrentInstance();
 		try {
 			rodadaDao.create(rodada);
-		} catch (Exception e) {			
-			e.printStackTrace();
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroPersistUpdate");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
 		}
 
 	}
 
 	@Override
 	public void delete(Rodada rodada) {
-		// TODO Auto-generated method stub
+		ctx = FacesContext.getCurrentInstance();
+		try {
+			rodadaDao.delete(rodada);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroDelete");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
 
 	}
 
 	@Override
 	public List<Rodada> findAll() {
-		return (List<Rodada>) rodadaDao.findAll(Rodada.class);
-	}
-
-	@Override
-	public Rodada findById(Rodada rodada) {
-		// TODO Auto-generated method stub
+		ctx = FacesContext.getCurrentInstance();
+		try {
+			return (List<Rodada>) rodadaDao.findAll(Rodada.class);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroFind");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
 		return null;
 	}
 
 	@Override
-	public void update(Rodada rodada) {
-		// TODO Auto-generated method stub
+	public Rodada findById(Rodada rodada) {
+		ctx = FacesContext.getCurrentInstance();
+		try {
+			return rodadaDao.findById(Rodada.class, rodada.getId());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroFind");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
+		return null;
 
 	}
 
 	@Override
-	public List<Rodada> findByCampeonato(Campeonato campeonato) {		
-		return (List<Rodada>) rodadaDao.findAll(Rodada.class);
+	public void update(Rodada rodada) {
+		ctx = FacesContext.getCurrentInstance();
+		try {
+			rodadaDao.update(rodada);
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroPersistUpdate");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
+	}
+
+	@Override
+	public List<Rodada> findByCampeonato(Campeonato campeonato) {
+		List<Rodada> listaRodada = (List<Rodada>) rodadaDao
+				.findAll(Rodada.class);
+		List<Rodada> listaRodadaFiltrada = new ArrayList<Rodada>();
+
+		for (Rodada rodada : listaRodada) {
+			if (rodada.getCampeonato().getId() == campeonato.getId()) {
+				listaRodadaFiltrada.add(rodada);
+			}
+		}
+		return listaRodadaFiltrada;
+
 	}
 
 }
