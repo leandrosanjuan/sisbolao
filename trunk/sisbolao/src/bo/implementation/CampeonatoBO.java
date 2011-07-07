@@ -99,13 +99,13 @@ public class CampeonatoBO implements ICampeonatoBO {
 		return (List<Campeonato>) campeonatoDAO.findAll(Campeonato.class);
 	}
 
-	public Campeonato findByName(String label) {
+	public Campeonato findByName(String nome) {
 
 		try {
 			List<Campeonato> listaCampeonato = this.findAll();
 
 			for (Campeonato campeonato : listaCampeonato) {
-				if (campeonato.getNome().equals(label)) {
+				if (campeonato.getNome().equals(nome)) {
 					return campeonato;
 				}
 			}
