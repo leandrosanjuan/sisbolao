@@ -50,6 +50,7 @@ public class RodadaMB {
 		times = new ArrayList<Time>();
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatos = new ArrayList<Campeonato>();
+		campeonato = new Campeonato();
 
 	}
 

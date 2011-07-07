@@ -20,8 +20,8 @@
 				<h:form id="form">
 
 					<h:outputText value="Campeonato: " />
-					<p:selectOneMenu converter="campeonatoConverter">
-						<f:selectItems binding="#{rodadaMB.campeonato}"
+					<p:selectOneMenu  value="#{rodadaMB.campeonato}"  converter="campeonatoConverter" >					
+						<f:selectItems 
 							value="#{campeonatoMB.campeonatos}"/>						
 					</p:selectOneMenu>
 
