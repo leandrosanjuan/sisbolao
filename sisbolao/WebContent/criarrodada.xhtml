@@ -16,20 +16,23 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post"><h:form id="form">
+			<div class="post">
+				<h:form id="form">
 
-				<h:outputText value="Campeonato: " />
-				<p:selectOneMenu>
-					<f:selectItems binding="#{rodadaMB.campeonato}"  value="#{campeonatoMB.campeonatos}" />
-				</p:selectOneMenu>
-				
-				<h:outputText value="Rodada: " />
-				<p:selectOneMenu>
-					<f:selectItems value="#{rodadaMB.rodadas}" />
-				</p:selectOneMenu>
+					<h:outputText value="Campeonato: " />
+					<p:selectOneMenu converter="campeonatoConverter">
+						<f:selectItems binding="#{rodadaMB.campeonato}"
+							value="#{campeonatoMB.campeonatos}"/>						
+					</p:selectOneMenu>
+
+					<h:outputText value="Rodada: " />
+					<p:selectOneMenu>
+						<f:selectItems value="#{rodadaMB.rodadas}" />
+					</p:selectOneMenu>
 
 
-			</h:form></div>
+				</h:form>
+			</div>
 
 		</ui:define>
 

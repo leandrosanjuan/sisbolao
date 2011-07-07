@@ -100,8 +100,20 @@ public class CampeonatoBO implements ICampeonatoBO {
 	}
 
 	public Campeonato findByName(String label) {
-		// TODO Auto-generated method stub
+
+		try {
+			List<Campeonato> listaCampeonato = this.findAll();
+
+			for (Campeonato campeonato : listaCampeonato) {
+				if (campeonato.getNome().equals(label)) {
+					return campeonato;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return null;
+
 	}
 
 }
