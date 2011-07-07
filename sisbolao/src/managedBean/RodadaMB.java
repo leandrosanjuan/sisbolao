@@ -30,8 +30,9 @@ public class RodadaMB {
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
+	private List<Rodada> rodadas;
+	
 	private List<Campeonato> campeonatos;
-
 	private CampeonatoBO campeonatoBO;
 	private Campeonato campeonato;
 
@@ -77,6 +78,10 @@ public class RodadaMB {
 		partida.setTimeVisitante(timeVisitante);
 		partida.setDataHora(dataHora);
 		partida.setRodada(rodada);
+	}
+	
+	public void filtrarRodadas(){
+		rodadas=rodadaBO.findByCampeonato(campeonato);
 	}
 
 	public void alterarRodada() {
@@ -154,8 +159,12 @@ public class RodadaMB {
 		return campeonato;
 	}
 
-	public void setCampeonato(SelectItem campeonato) {
-		this.campeonato = campeonatoBO.findByName(campeonato.getLabel());
+	public void setCampeonato(SelectItem siCampeonato) {
+		this.campeonato = campeonatoBO.findByName(siCampeonato.getLabel());
+	}
+	
+	public void setCampeonato(Campeonato campeonato) {
+		this.campeonato = campeonato;
 	}
 
 }

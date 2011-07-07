@@ -16,23 +16,51 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post">
-				<h:form id="form">
+			<div class="post"><h:form id="form">
 
-					<h:outputText value="Campeonato: " />
-					<p:selectOneMenu  value="#{rodadaMB.campeonato}"  converter="campeonatoConverter" >					
-						<f:selectItems 
-							value="#{campeonatoMB.campeonatos}"/>						
-					</p:selectOneMenu>
+				<h:outputText value="Campeonato: " />
 
-					<h:outputText value="Rodada: " />
-					<p:selectOneMenu valueChangeListener="#{rodadaMB.campeonato}">
-						<f:selectItems value="#{rodadaMB.rodadas}" />
-					</p:selectOneMenu>
+				<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
+					converter="campeonatoConverter">
+					<f:selectItems value="#{campeonatoMB.campeonatos}" />
+					<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
+						update="rodadas" />
+				</p:selectOneMenu>
+
+				<h:outputText value="Rodada: " />
+
+				<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodada}">
+					<f:selectItems value="#{rodadaMB.rodadas}" />
+				</p:selectOneMenu>
 
 
-				</h:form>
-			</div>
+				<p:growl id="partidaGrowl" />
+
+				<h:panelGrid columns="2" id="grid" rendered="#{rodadaMB.rodada != null}">
+					<p:panel header="Equipes">
+						<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
+							columns="4">
+							<p:column>
+								<p:graphicImage id="time" value="#{time.imagemStream}" />
+								<p:draggable for="time" revert="true" />
+							</p:column>
+						</p:dataGrid>
+					</p:panel>
+
+
+					<h:panelGroup>
+						<h:panelGrid columns="2" style="margin-left:40px;">
+							<p:outputPanel id="partida" styleClass="slot">
+								<p:droppable tolerance="fit" activeStyleClass="slotActive"
+									scope="forward" onDrop="handleDrop" datasource="times">
+									<p:ajax listener="#{rodadaMB.onDrop}"
+										update="timesEscolhidos growl" />
+								</p:droppable>
+							</p:outputPanel>
+						</h:panelGrid>
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form></div>
 
 		</ui:define>
 
