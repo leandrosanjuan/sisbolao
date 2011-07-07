@@ -27,7 +27,11 @@ public class RodadaBO implements IRodadaBO {
 	}
 	@Override
 	public void create(Rodada rodada) {
-		// TODO Auto-generated method stub
+		try {
+			rodadaDao.create(rodada);
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
 
 	}
 
