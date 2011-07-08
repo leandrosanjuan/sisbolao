@@ -24,7 +24,7 @@
 					<p:messages />
 					<h:panelGrid columns="3">
 						<h:outputLabel for="time" value="#{msg.time}" />
-						<p:inputText required="true" id="time" value="#{timeMB.time.nome}" />
+						<p:inputText required="true" id="time" value="#{timeMB.time.nome}" />						
 						<h:inputHidden />
 
 						<h:outputLabel for="img" value="#{msg.imagem}" />
@@ -38,7 +38,7 @@
 					</h:panelGrid>
 
 					<p:commandButton disabled="#{timeMB.arquivo == null}" value="#{msg.enviar}" widgetVar="btnEnviar"
-						action="#{timeMB.criar}" update="pnlTime" />
+						action="#{timeMB.criar}" update="frmTimeUpload" />
 				</p:panel>
 			</h:form></div>
 

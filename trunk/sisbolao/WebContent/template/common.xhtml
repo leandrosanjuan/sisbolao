@@ -53,18 +53,23 @@
 					<p:menuitem  value="#{msg.meusBoloes}"/>
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.time}">
-					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarTime}"/>
+					<p:menuitem  value="#{msg.criar}" action="#{timeMB.preIncluir}"/>
 					<p:menuitem  value="#{msg.listar}" action="#{loginMB.listarTimes}"/>									
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.campeonato}">
-					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarCampeonato}"/>
-									
+					<p:menuitem  value="#{msg.criar}" action="#{campeonatoMB.preIncluir}"/>
+					<p:menuitem value="#{msg.listar}" action="listarcampeonatos?faces-redirect=true"/>				
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.rodada}">
 					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarRodada}"/>									
 				</p:submenu >
 				<p:submenu  label="#{msg.dadosUsuario}">
-					<p:menuitem  value="#{msg.alterar}"/>									
+					<p:menuitem  value="#{msg.alterarEmail}" action="#{loginMB.preAlterar}">
+						<f:param name="#{loginMB.parametro}" value="0"/>
+					</p:menuitem>
+					<p:menuitem  value="#{msg.alterarSenha}" action="#{loginMB.preAlterar}">
+						<f:param name="#{loginMB.parametro}" value="1"/>
+					</p:menuitem>										
 				</p:submenu >				
 				<p:menuitem    value="#{msg.sair}" action="#{loginMB.sair}"/>
 				
