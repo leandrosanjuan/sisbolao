@@ -16,8 +16,9 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post-maior"><h:form>
+			<div class="post"><h:form id="frmDados">
 				<p:fieldset legend="#{msg.alterarEmail}" id="dados">
+					<p:messages />
 					<h:panelGrid columns="3">											
 						
 						<h:outputLabel for="email" value="#{msg.email}" />
@@ -27,6 +28,7 @@
 						
 						
 					</h:panelGrid>
+					<p:commandButton value="#{msg.confirma}" update="frmDados" action="#{loginMB.alterarEmail}"/>
 				</p:fieldset>
 										
 			</h:form></div>

@@ -65,10 +65,10 @@
 				</p:submenu >
 				<p:submenu  label="#{msg.dadosUsuario}">
 					<p:menuitem  value="#{msg.alterarEmail}" action="#{loginMB.preAlterar}">
-						<f:param name="#{loginMB.parametro}" value="0"/>
+						<f:setPropertyActionListener target="#{loginMB.parametro}" value="0" /> 
 					</p:menuitem>
 					<p:menuitem  value="#{msg.alterarSenha}" action="#{loginMB.preAlterar}">
-						<f:param name="#{loginMB.parametro}" value="1"/>
+						<f:setPropertyActionListener target="#{loginMB.parametro}" value="1" /> 
 					</p:menuitem>										
 				</p:submenu >				
 				<p:menuitem    value="#{msg.sair}" action="#{loginMB.sair}"/>

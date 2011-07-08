@@ -1,14 +1,20 @@
 package managedBean;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 import pojo.Perfil;
 import pojo.Permissao;
 import pojo.Usuario;
+import util.CriaHash;
+import util.MessagesReader;
 import bo.IUsuarioBO;
 import bo.implementation.UsuarioBO;
 
@@ -20,7 +26,11 @@ public class LoginMB {
 	private Usuario usuarioLogado;
 	private List<Permissao> permissoes;
 	private boolean isAdmin;
-	private int parametro;
+	private int parametro;	
+	private String novaSenha;
+	private String confirmaNovaSenha;
+	private FacesContext ctx;
+	
 
 	public IUsuarioBO usuarioBO;
 
@@ -47,21 +57,55 @@ public class LoginMB {
 	}
 
 	public String sair() {
+		usuario = new Usuario();
 		usuarioLogado = null;
 		return "index?faces-redirect=true";
 	}
 	
 	public String preAlterar(){
-		usuario = usuarioLogado;
+		
 		switch (parametro) {
 		case 0:
+			usuario = usuarioLogado;
 			return "alteraremail?faces-redirect=true";
 			
 		case 1:
+			usuario = new Usuario();
 			return "alterarsenha?faces-redirect=true";			
 		
 		}
 		return null;
+	}
+	public void alterarEmail(){
+		usuarioLogado.setEmail(usuario.getEmail());
+		usuarioBO.update(usuarioLogado);
+	}
+	public void alterarSenha(){
+		ctx = FacesContext.getCurrentInstance();
+		String msg;
+		FacesMessage facesMsg;
+		
+		try {
+			String senha = CriaHash.SHA1(usuario.getSenha());
+			if(!senha.equals(usuarioLogado.getSenha())) {
+				msg = MessagesReader.getMessages().getProperty("senhasIncorreta");
+				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+				
+			}else if(!novaSenha.equals(confirmaNovaSenha)) {
+				msg = MessagesReader.getMessages().getProperty("senhasDiferentes");
+				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+			} else {
+				usuarioLogado.setSenha(senha);
+				usuarioBO.update(usuarioLogado);
+			}
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	public String criarCampeonato() {
 		if (CampeonatoMB.permissao(usuarioLogado)) {
@@ -149,6 +193,30 @@ public class LoginMB {
 
 	public int getParametro() {
 		return parametro;
+	}
+
+
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
+
+
+
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+
+
+	public void setConfirmaNovaSenha(String confirmaNovaSenha) {
+		this.confirmaNovaSenha = confirmaNovaSenha;
+	}
+
+
+
+	public String getConfirmaNovaSenha() {
+		return confirmaNovaSenha;
 	}
 
 }

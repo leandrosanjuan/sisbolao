@@ -53,8 +53,13 @@ public class UsuarioBO implements IUsuarioBO {
 
 	@Override
 	public void update(Usuario usuario) {
+		ctx = FacesContext.getCurrentInstance();
 		try {
 			usuarioDao.update(usuario);
+			String mensagem = MessagesReader
+			.getMessages().getProperty("dadosAlteradosSucesso");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,mensagem ,mensagem);
+			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			String mensagem = MessagesReader
