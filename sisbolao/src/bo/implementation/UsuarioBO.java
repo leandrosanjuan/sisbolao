@@ -58,7 +58,7 @@ public class UsuarioBO implements IUsuarioBO {
 			usuarioDao.update(usuario);
 			String mensagem = MessagesReader
 			.getMessages().getProperty("dadosAlteradosSucesso");
-			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,mensagem ,mensagem);
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO,mensagem ,mensagem);
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());

@@ -90,12 +90,14 @@ public class LoginMB {
 			if(!senha.equals(usuarioLogado.getSenha())) {
 				msg = MessagesReader.getMessages().getProperty("senhasIncorreta");
 				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+				ctx.addMessage(null, facesMsg);
 				
 			}else if(!novaSenha.equals(confirmaNovaSenha)) {
 				msg = MessagesReader.getMessages().getProperty("senhasDiferentes");
 				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+				ctx.addMessage(null, facesMsg);
 			} else {
-				usuarioLogado.setSenha(senha);
+				usuarioLogado.setSenha(CriaHash.SHA1(novaSenha));
 				usuarioBO.update(usuarioLogado);
 			}
 		} catch (NoSuchAlgorithmException e) {
@@ -105,6 +107,9 @@ public class LoginMB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		usuario= new Usuario();
+		novaSenha = new String();
+		confirmaNovaSenha = new String();
 		
 	}
 	public String criarCampeonato() {
