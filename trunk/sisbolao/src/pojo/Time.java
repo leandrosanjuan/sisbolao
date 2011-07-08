@@ -29,10 +29,7 @@ public class Time {
 	private String nome;
 
 	@Column
-	private byte[] imagem;
-
-	@Column
-	private String imagemContentType;
+	private String imagem;
 
 	@Transient
 	private StreamedContent imagemStream;
@@ -50,7 +47,7 @@ public class Time {
 		this.id = id;
 	}
 
-	public String getNome() {		
+	public String getNome() {
 		return nome;
 	}
 
@@ -58,34 +55,20 @@ public class Time {
 		this.nome = nome;
 	}
 
-	public byte[] getImagem() {
-		return imagem;
-	}
-
-	public void setImagem(byte[] imagem) {
+	public void setImagem(String imagem) {
 		this.imagem = imagem;
 	}
 
+	public String getImagem() {
+		return imagem;
+	}
+	public StreamedContent getImagemStream() {
+		return imagemStream;
+	}
 	public void setImagemStream(StreamedContent imagemStream) {
 		this.imagemStream = imagemStream;
 	}
-
-	public StreamedContent getImagemStream() {		
-
-		ByteArrayInputStream is = new ByteArrayInputStream(imagem);
-
-		imagemStream = new DefaultStreamedContent(is, imagemContentType);
-
-		return imagemStream;
-
-	}
-
-	public void setImagemContentType(String imagemContentType) {
-		this.imagemContentType = imagemContentType;
-	}
-
-	public String getImagemContentType() {
-		return imagemContentType;
-	}
+	
+	
 
 }
