@@ -33,7 +33,7 @@ public class RodadaMB {
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
 	private List<Rodada> rodadas;
-	
+
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
 	private Campeonato campeonato;
@@ -51,11 +51,11 @@ public class RodadaMB {
 	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
-		timeBO =  new TimeBO();
-		times = timeBO.findAll(); //Alterar depois!!!
+		timeBO = new TimeBO();
+		times = timeBO.findAll(); // Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatos = new ArrayList<Campeonato>();
-		campeonato = new Campeonato();	
+		campeonato = new Campeonato();
 
 	}
 
@@ -83,9 +83,9 @@ public class RodadaMB {
 		partida.setDataHora(dataHora);
 		partida.setRodada(rodada);
 	}
-	
-	public void filtrarRodadas(){
-		rodadas=rodadaBO.findByCampeonato(campeonato);
+
+	public void filtrarRodadas() {
+		rodadas = rodadaBO.findByCampeonato(campeonato);
 	}
 
 	public void alterarRodada() {
@@ -140,7 +140,6 @@ public class RodadaMB {
 		return timesEscolhidos;
 	}
 
-
 	public List<SelectItem> getRodadas() {
 		List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
 		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
@@ -166,7 +165,7 @@ public class RodadaMB {
 	public void setCampeonato(SelectItem siCampeonato) {
 		this.campeonato = campeonatoBO.findByName(siCampeonato.getLabel());
 	}
-	
+
 	public void setCampeonato(Campeonato campeonato) {
 		this.campeonato = campeonato;
 	}

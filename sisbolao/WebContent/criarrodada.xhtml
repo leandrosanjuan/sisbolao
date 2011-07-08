@@ -22,7 +22,7 @@
 					<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
 					<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 						converter="campeonatoConverter">
-						<f:selectItems value="#{campeonatoMB.campeonatos}" />
+						<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
 						<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
 							update="rodadas" />
 					</p:selectOneMenu>
@@ -41,7 +41,9 @@
 								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
 									columns="4">
 									<p:column>
-										<p:graphicImage id="time" value="#{time.imagemStream}" />
+										<!--<p:graphicImage id="time" value="#{time.imagemStream}" />
+										-->
+										<h:outputText id="time" value="#{time.nome}"/>
 										<p:draggable for="time" revert="true" />
 									</p:column>
 								</p:dataGrid>
