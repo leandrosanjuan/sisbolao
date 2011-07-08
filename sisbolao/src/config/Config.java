@@ -32,7 +32,9 @@ public class Config {
 		}
 		return config;
 	}
-	
+	public static void setProperty(String key,String value) {
+		getConfig().setProperty(key, value);
+	}
 	public static String getProperty(String property) {
 		return getConfig().getProperty(property);
 		

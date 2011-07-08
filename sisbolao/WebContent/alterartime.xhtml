@@ -32,7 +32,7 @@
 							allowTypes="png,gif,jpg,jpeg" sizeLimit="10000"
 						 id="img" required="true" update="imgS"  oncomplete="btnEnviar.enable();imgShow.show()" />
 						<p:panel  widgetVar="imgShow" id="imgS"   >
-							<p:graphicImage  width="24" height="24" value="#{timeMB.time.imagemStream}" />
+							<p:graphicImage  width="24" height="24" value="#{timeMB.filePath}#{timeMB.time.imagem}" />
 						</p:panel>
 
 					</h:panelGrid>

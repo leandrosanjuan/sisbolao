@@ -29,6 +29,9 @@
 							headerText="#{msg.nome}">
 							<h:outputText value="#{time.nome}" />
 						</p:column>
+						<p:column headerText="#{msg.escudo}">
+							<p:graphicImage width="30" height="30" value="#{timeMB.path}#{time.imagem}" />
+						</p:column>
 						<p:column style="text-align:center;" headerText="#{msg.opcoes}">
 
 							<p:commandLink action="alterartime?faces-redirect=true">
@@ -39,7 +42,7 @@
 							<p:spacer width="5" />
 							<p:commandLink onclick="dlg.show()">
 								<h:graphicImage url="recursos/images/trash.png" />
-								<f:setPropertyActionListener target="#{timeMB.time}"
+								<f:setPropertyActionListener  target="#{timeMB.time}"
 									value="#{time}"></f:setPropertyActionListener>
 							</p:commandLink>
 
