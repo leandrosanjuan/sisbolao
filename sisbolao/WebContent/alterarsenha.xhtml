@@ -16,19 +16,33 @@
 <h:body>
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
-			<div class="post-maior"><h:form>
-				<p:fieldset legend="#{msg.alterarEmail}" id="dados">
-					<h:panelGrid columns="3">											
+			<div class="post"><h:form id="frmDados">
+				<p:fieldset legend="#{msg.alterarSenha}" id="dados">
+					<p:messages />
+					<h:panelGrid columns="3">
+
+						<h:outputLabel for="senha" value="#{msg.senha}" />
+						<p:password feedback="false" id="senha" required="true"
+							value="#{loginMB.usuario.senha}" />
+						<p:message for="senha" />
 						
-						<h:outputLabel for="email" value="#{msg.email}" />
-						<p:inputText id="email" required="true"
-							value="#{loginMB.usuario.email}" />
-						<p:message for="email" />
-						
-						
+						<h:outputLabel for="novaSenha" value="#{msg.novaSenha}" />
+						<p:password id="novaSenha" required="true"
+							value="#{loginMB.novaSenha}" />
+						<p:message for="novaSenha" />
+
+						<h:outputLabel for="confirmaNovaSenha" value="#{msg.confirmaSenha}" />
+						<p:password feedback="false" id="confirmaNovaSenha"
+							required="true" value="#{loginMB.confirmaNovaSenha}" />
+						<p:message for="confirmaNovaSenha" />
+
+
 					</h:panelGrid>
+
+					<p:commandButton value="#{msg.confirma}"
+						action="#{loginMB.alterarSenha}" update="frmDados"/>
 				</p:fieldset>
-										
+
 			</h:form></div>
 
 		</ui:define>
