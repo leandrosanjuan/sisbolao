@@ -15,4 +15,6 @@ public interface ICampeonatoBO {
 	public Campeonato findById(Campeonato campeonato);
 
 	public List<Campeonato> findAll();
+
+	public Campeonato findByName(String label);
 }

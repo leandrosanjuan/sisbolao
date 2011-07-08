@@ -18,58 +18,57 @@
 		<ui:define name="content">
 			<div class="post"><h:form id="form">
 
-				<p:panel header="Campeonato: ">
-				<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
-					converter="campeonatoConverter">
-					<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
-					<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
-						update="rodadas" />
-				</p:selectOneMenu>
-				</p:panel>
-				
-				<p:panel header="Rodada: " >
-				<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodada}">
-					<f:selectItems value="#{rodadaMB.rodadas}" />
-				</p:selectOneMenu>
-				</p:panel>
-				
+				<p:fieldset legend="#{msg.criarRodada}">
+					<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
+					<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
+						converter="campeonatoConverter">
+						<f:selectItems value="#{campeonatoMB.campeonatos}" />
+						<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
+							update="rodadas" />
+					</p:selectOneMenu>
 
-				<p:panel header="Nova partida">
-					<p:growl id="partidaGrowl" />
+					<h:outputLabel for="rodadas" value="#{msg.rodada}" />
+					<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodada}">
+						<f:selectItems value="#{rodadaMB.rodadas}" />
+					</p:selectOneMenu>
 
-					<h:panelGrid columns="2" id="grid"
-						rendered="#{rodadaMB.rodada != null}">
-						<p:panel header="Equipes">
-							<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
-								columns="4">
-								<p:column>
-									<p:graphicImage id="time" value="#{time.imagemStream}" />
-									<p:draggable for="time" revert="true" />
-								</p:column>
-							</p:dataGrid>
-						</p:panel>
+					<p:panel header="#{msg.criarPartida}">
+						<p:growl id="partidaGrowl" />
+
+						<h:panelGrid columns="2" id="grid"
+							rendered="#{rodadaMB.rodada != null}">
+							<p:panel header="#{msg.times}">
+								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
+									columns="4">
+									<p:column>
+										<p:graphicImage id="time" value="#{time.imagemStream}" />
+										<p:draggable for="time" revert="true" />
+									</p:column>
+								</p:dataGrid>
+							</p:panel>
 
 
-						<h:panelGroup>
-							<h:panelGrid columns="2" style="margin-left:40px;">
-								<p:outputPanel id="partida" styleClass="slot">
-									<p:droppable tolerance="fit" activeStyleClass="slotActive"
-										scope="forward" onDrop="handleDrop" datasource="times">
-										<p:ajax listener="#{rodadaMB.onDrop}"
-											update="timesEscolhidos growl" />
-									</p:droppable>
-								</p:outputPanel>
-							</h:panelGrid>
-						</h:panelGroup>
+							<h:panelGroup>
+								<h:panelGrid columns="2" style="margin-left:40px;">
+									<p:outputPanel id="partida" styleClass="slot">
+										<p:droppable tolerance="fit" activeStyleClass="slotActive"
+											scope="forward" onDrop="handleDrop" datasource="times">
+											<p:ajax listener="#{rodadaMB.onDrop}"
+												update="timesEscolhidos growl" />
+										</p:droppable>
+									</p:outputPanel>
+								</h:panelGrid>
+							</h:panelGroup>
 
-						<p:commandButton value="Limpar" type="reset" />
-						<p:commandButton value="Adicionar" update="books msgs @parent"
-							action="#{rodadaMB.criarRodada}">
-							<p:collector value="#{rodadaMB.partida}"
-								addTo="#{rodadaMB.partidas}" />
-						</p:commandButton>
-					</h:panelGrid>
-				</p:panel>
+							<p:commandButton value="Limpar" type="reset" />
+							<p:commandButton value="Adicionar" update="books msgs @parent"
+								action="#{rodadaMB.criarRodada}">
+								<p:collector value="#{rodadaMB.partida}"
+									addTo="#{rodadaMB.partidas}" />
+							</p:commandButton>
+						</h:panelGrid>
+					</p:panel>
+				</p:fieldset>
 			</h:form></div>
 
 		</ui:define>
