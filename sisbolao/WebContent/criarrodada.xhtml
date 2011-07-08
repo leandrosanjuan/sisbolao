@@ -32,43 +32,51 @@
 						<f:selectItems value="#{rodadaMB.rodadas}" />
 					</p:selectOneMenu>
 
-					<p:panel header="#{msg.criarPartida}">
-						<p:growl id="partidaGrowl" />
+					<p:spacer />
 
-						<h:panelGrid columns="2" id="grid"
-							rendered="#{rodadaMB.rodada != null}">
+					<p:panel header="#{msg.criarPartida}">						
+
+						<h:panelGrid columns="2" id="grid" rendered="#{rodadaMB.rodada != null}">
 							<p:panel header="#{msg.times}">
 								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
 									columns="4">
 									<p:column>
 										<!--<p:graphicImage id="time" value="#{time.imagemStream}" />
 										-->
-										<h:outputText id="time" value="#{time.nome}"/>
+										<h:outputText id="time" value="#{time.nome}" />
 										<p:draggable for="time" revert="true" />
+										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
+										</p:droppable>
 									</p:column>
 								</p:dataGrid>
 							</p:panel>
+							
+							<p:panel header="#{msg.partida}">
 
-
-							<h:panelGroup>
-								<h:panelGrid columns="2" style="margin-left:40px;">
-									<p:outputPanel id="partida" styleClass="slot">
-										<p:droppable tolerance="fit" activeStyleClass="slotActive"
-											scope="forward" onDrop="handleDrop" datasource="times">
-											<p:ajax listener="#{rodadaMB.onDrop}"
-												update="timesEscolhidos growl" />
+								<h:panelGrid columns="3" style="margin-left:120px;">
+									<p:outputPanel id="timeCasa" styleClass="slot">
+										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
 										</p:droppable>
+									<p:spacer height="20" />
+									</p:outputPanel>
+									<h:outputText value=" X "/>
+									<p:outputPanel id="timeVisitante" styleClass="slot">
+										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
+										</p:droppable>
+									<p:spacer height="20" />
 									</p:outputPanel>
 								</h:panelGrid>
-							</h:panelGroup>
+							</p:panel>						
 
-							<p:commandButton value="Limpar" type="reset" />
-							<p:commandButton value="Adicionar" update="books msgs @parent"
-								action="#{rodadaMB.criarRodada}">
-								<p:collector value="#{rodadaMB.partida}"
-									addTo="#{rodadaMB.partidas}" />
-							</p:commandButton>
 						</h:panelGrid>
+
+						<p:commandButton value="Limpar" type="reset" />
+						<p:commandButton value="Adicionar" update="books msgs @parent"
+							action="#{rodadaMB.criarRodada}">
+							<p:collector value="#{rodadaMB.partida}"
+								addTo="#{rodadaMB.partidas}" />
+						</p:commandButton>
+
 					</p:panel>
 				</p:fieldset>
 			</h:form></div>
