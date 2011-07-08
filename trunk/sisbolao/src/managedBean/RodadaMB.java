@@ -18,9 +18,11 @@ import pojo.Permissao;
 import pojo.Rodada;
 import pojo.Time;
 import pojo.Usuario;
+import bo.ICampeonatoBO;
 import bo.IRodadaBO;
-import bo.implementation.CampeonatoBO;
+import bo.ITimeBO;
 import bo.implementation.RodadaBO;
+import bo.implementation.TimeBO;
 
 @ManagedBean(name = "rodadaMB")
 @SessionScoped
@@ -33,9 +35,10 @@ public class RodadaMB {
 	private List<Rodada> rodadas;
 	
 	private List<Campeonato> campeonatos;
-	private CampeonatoBO campeonatoBO;
+	private ICampeonatoBO campeonatoBO;
 	private Campeonato campeonato;
 
+	private ITimeBO timeBO;
 	private List<Time> times;
 	private List<Time> timesEscolhidos;
 
@@ -48,10 +51,11 @@ public class RodadaMB {
 	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
-		times = new ArrayList<Time>();
+		timeBO =  new TimeBO();
+		times = timeBO.findAll(); //Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatos = new ArrayList<Campeonato>();
-		campeonato = new Campeonato();
+		campeonato = new Campeonato();	
 
 	}
 
