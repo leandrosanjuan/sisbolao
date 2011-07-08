@@ -38,7 +38,8 @@
 					</h:panelGrid>
 
 					<p:commandButton  value="#{msg.alterar}" widgetVar="btnEnviar"
-						action="#{timeMB.alterar}" update="pnlTime" />
+						action="#{timeMB.alterar}" update="frmTimeUpload" />
+					<p:button value="#{msg.voltar}" outcome="listartimes?faces-redirect=true"/>
 				</p:panel>
 			</h:form></div>
 

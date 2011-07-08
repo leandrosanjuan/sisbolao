@@ -1,0 +1,37 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
+		media="screen" />
+</h:head>
+
+<h:body>
+	<ui:composition template="template/common.xhtml">
+		<ui:define name="content">
+			<div class="post-maior"><h:form>
+				<p:fieldset legend="#{msg.alterarEmail}" id="dados">
+					<h:panelGrid columns="3">											
+						
+						<h:outputLabel for="email" value="#{msg.email}" />
+						<p:inputText id="email" required="true"
+							value="#{loginMB.usuario.email}" />
+						<p:message for="email" />
+						
+						
+					</h:panelGrid>
+				</p:fieldset>
+										
+			</h:form></div>
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

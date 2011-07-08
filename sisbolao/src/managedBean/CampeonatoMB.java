@@ -26,6 +26,7 @@ public class CampeonatoMB {
 	private IRodadaBO rodadaBO;
 	private Campeonato campeonato;
 	
+	
 	private int numRodadas;
 
 	public CampeonatoMB() {
@@ -42,7 +43,11 @@ public class CampeonatoMB {
 		}
 		return false;
 	}
-
+	
+	public String preIncluir(){
+		campeonato = new Campeonato();
+		return "criarcampeonato?faces-redirect=true";
+	}
 	public void criarCampeonato() {
 		rodadaBO = new RodadaBO();
 		campeonatoBO.create(campeonato);	
@@ -59,17 +64,17 @@ public class CampeonatoMB {
 		numRodadas = 1;
 	}
 
-	public void alterarCampeonato() {
+	public void alterar() {
 		campeonatoBO.update(campeonato);
 	}
 
-	public void excluirCampeonato() {
+	public void excluir() {
 		campeonatoBO.delete(campeonato);
 	}
 
-	public List<SelectItem> getCampeonatos() {
+	public List<SelectItem> getCampeonatosSI() {
+		List<Campeonato> campeonatos = getCampeonatos();
 		
-		List<Campeonato> campeonatos = campeonatoBO.findAll();
 		List<SelectItem> campeonatosSI = new ArrayList<SelectItem>();
 		for (Campeonato campeonato : campeonatos) {
 			SelectItem si = new SelectItem(campeonato,campeonato.getNome());
@@ -92,6 +97,11 @@ public class CampeonatoMB {
 
 	public void setNumRodadas(int numRodadas) {
 		this.numRodadas = numRodadas;
+	}
+	
+	public List<Campeonato> getCampeonatos(){
+		return campeonatoBO.findAll();
+		
 	}
 		
 }

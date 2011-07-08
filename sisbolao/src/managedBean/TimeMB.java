@@ -38,12 +38,16 @@ public class TimeMB {
 	}
 
 	public static boolean permissao(Usuario usuarioLogado) {
-		if (usuarioLogado.getPermissoes().contains(Permissao.TIME)) {
+		
+		if (usuarioLogado.getPermissoes().contains(Permissao.TIME)) {			
 			return true;
 		}
 		return false;
 	}
-
+	public String preIncluir(){
+		time = new Time();
+		return "criartime?faces-redirect=true";
+	}
 	public void upload(FileUploadEvent event) {
 		ctx = FacesContext.getCurrentInstance();
 		try {

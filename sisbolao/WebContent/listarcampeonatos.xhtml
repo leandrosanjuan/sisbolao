@@ -19,39 +19,39 @@
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
 			<div class="post"><h:form>
-				<p:panel id="pnlTimes" header="#{msg.times}">
+				<p:panel  header="#{msg.campeonatos}" id="pnl">
 					<p:messages />
 					<p:dataTable
 						paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 						paginator="true" paginatorAlwaysVisible="false" rows="10"   rowsPerPageTemplate="10,15,20" paginatorPosition="bottom"
-						value="#{timeMB.times}" var="time">
-						<p:column filterBy="#{time.nome}" sortBy="#{time.nome}"
+						value="#{campeonatoMB.campeonatos}" var="campeonato">
+						<p:column filterBy="#{campeonato.nome}" sortBy="#{campeonato.nome}"
 							headerText="#{msg.nome}">
-							<h:outputText value="#{time.nome}" />
+							<h:outputText value="#{campeonato.nome}" />
 						</p:column>
 						<p:column style="text-align:center;" headerText="#{msg.opcoes}">
 
-							<p:commandLink action="alterartime?faces-redirect=true">
+							<p:commandLink action="alterarcampeonato?faces-redirect=true">
 								<h:graphicImage url="recursos/images/edit.png" />
-								<f:setPropertyActionListener target="#{timeMB.time}"
-									value="#{time}"></f:setPropertyActionListener>
+								<f:setPropertyActionListener target="#{campeonatoMB.campeonato}"
+									value="#{campeonato}"></f:setPropertyActionListener>
 							</p:commandLink>
 							<p:spacer width="5" />
 							<p:commandLink onclick="dlg.show()">
 								<h:graphicImage url="recursos/images/trash.png" />
-								<f:setPropertyActionListener target="#{timeMB.time}"
-									value="#{time}"></f:setPropertyActionListener>
+								<f:setPropertyActionListener target="#{campeonatoMB.campeonato}"
+									value="#{campeonato}"></f:setPropertyActionListener>
 							</p:commandLink>
 
 						</p:column>
 					</p:dataTable>
-					<p:commandButton value="#{msg.addnovo}" action="#{timeMB.preIncluir}"/>
+					<p:commandButton value="#{msg.addnovo}" action="#{campeonatoMB.preIncluir}"/>
 				</p:panel>
-				<p:confirmDialog message="#{msg.desejaExcluirTime}" id="dialog"
+				<p:confirmDialog message="#{msg.desejaExcluirCampeonato}" id="dialog"
 					widgetVar="dlg" modal="true">
 
-					<p:commandButton value="#{msg.sim}" update="pnlTimes"
-						action="#{timeMB.excluir}" oncomplete="dlg.hide()" />
+					<p:commandButton value="#{msg.sim}" update="pnl"
+						action="#{campeonatoMB.excluir}" oncomplete="dlg.hide()" />
 					<p:commandButton value="#{msg.nao}" onclick="dlg.hide();" />
 
 

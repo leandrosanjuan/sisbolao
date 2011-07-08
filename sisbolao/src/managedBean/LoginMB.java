@@ -20,6 +20,7 @@ public class LoginMB {
 	private Usuario usuarioLogado;
 	private List<Permissao> permissoes;
 	private boolean isAdmin;
+	private int parametro;
 
 	public IUsuarioBO usuarioBO;
 
@@ -28,7 +29,9 @@ public class LoginMB {
 		usuarioBO = new UsuarioBO();
 		isAdmin = false;
 	}
-
+	
+	
+	
 	public String entrar() {
 
 		usuarioLogado = usuarioBO.login(usuario);
@@ -47,7 +50,19 @@ public class LoginMB {
 		usuarioLogado = null;
 		return "index?faces-redirect=true";
 	}
-
+	
+	public String preAlterar(){
+		usuario = usuarioLogado;
+		switch (parametro) {
+		case 0:
+			return "alteraremail?faces-redirect=true";
+			
+		case 1:
+			return "alterarsenha?faces-redirect=true";			
+		
+		}
+		return null;
+	}
 	public String criarCampeonato() {
 		if (CampeonatoMB.permissao(usuarioLogado)) {
 			return "criarcampeonato?faces-redirect=true";
@@ -122,6 +137,18 @@ public class LoginMB {
 		}
 
 		return permissoes;
+	}
+
+
+
+	public void setParametro(int parametro) {
+		this.parametro = parametro;
+	}
+
+
+
+	public int getParametro() {
+		return parametro;
 	}
 
 }

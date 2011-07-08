@@ -21,7 +21,7 @@
 				<p:panel header="Campeonato: ">
 				<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 					converter="campeonatoConverter">
-					<f:selectItems value="#{campeonatoMB.campeonatos}" />
+					<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
 					<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
 						update="rodadas" />
 				</p:selectOneMenu>
