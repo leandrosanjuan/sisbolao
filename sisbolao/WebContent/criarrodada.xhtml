@@ -34,39 +34,44 @@
 
 					<p:spacer />
 
-					<p:panel header="#{msg.criarPartida}">						
+					<p:panel header="#{msg.criarPartida}">
 
-						<h:panelGrid columns="2" id="grid" rendered="#{rodadaMB.rodada != null}">
+						<h:panelGrid columns="2" id="grid"
+							rendered="#{rodadaMB.rodada != null}">
 							<p:panel header="#{msg.times}">
-								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
-									columns="4">
+								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time">
 									<p:column>
-										<!--<p:graphicImage id="time" value="#{time.imagemStream}" />
-										-->
-										<h:outputText id="time" value="#{time.nome}" />
+										<p:outputPanel id="time">
+											<p:graphicImage value="#{timeMB.path}#{time.imagem}"
+												width="30" height="30" />
+											<h:outputText value="#{time.nome}" style="font-size:10px"/>
+										</p:outputPanel>
 										<p:draggable for="time" revert="true" />
-										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
+										<p:droppable datasource="times"
+											dropListener="#{rodadaMB.onDropBack}" for="time">
 										</p:droppable>
 									</p:column>
 								</p:dataGrid>
 							</p:panel>
-							
+
 							<p:panel header="#{msg.partida}">
 
 								<h:panelGrid columns="3" style="margin-left:120px;">
 									<p:outputPanel id="timeCasa" styleClass="slot">
-										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
+										<p:droppable datasource="times"
+											dropListener="#{rodadaMB.onDrop}" tolerance="fit">
 										</p:droppable>
-									<p:spacer height="20" />
+										<p:spacer height="20" />
 									</p:outputPanel>
-									<h:outputText value=" X "/>
+									<h:outputText value=" X " />
 									<p:outputPanel id="timeVisitante" styleClass="slot">
-										<p:droppable datasource="times" dropListener="#{rodadaMB.onDrop}" >
+										<p:droppable datasource="times"
+											dropListener="#{rodadaMB.onDrop}" tolerance="fit">
 										</p:droppable>
-									<p:spacer height="20" />
+										<p:spacer height="20" />
 									</p:outputPanel>
 								</h:panelGrid>
-							</p:panel>						
+							</p:panel>
 
 						</h:panelGrid>
 

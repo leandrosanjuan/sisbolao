@@ -75,6 +75,12 @@ public class RodadaMB {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(time.getNome() + " adicionado"));
 	}
+	
+	public void onDropBack(DragDropEvent event) {
+		Time time = (Time) event.getData();
+
+		timesEscolhidos.remove(time);
+	}
 
 	public void criarRodada() {
 		Partida partida = new Partida();
