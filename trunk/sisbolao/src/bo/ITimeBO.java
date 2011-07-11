@@ -14,4 +14,6 @@ public interface ITimeBO {
 	public Time findById(Time time);
 
 	public List<Time> findAll();
+	
+	public Time findByName(String nome);
 }
