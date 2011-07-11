@@ -5,26 +5,26 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 
+<ui:define name="head">
+	<script type="text/javascript">
+			function handleDrop(event, ui) {
+				ui.draggable.fadeOut(function() {$(this).fadeIn();});
+
+				$(this).droppable('disable');
+			}
+</script>
+</ui:define>
+
 <h:head>
 	<title></title>
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
-		media="screen" />	
-
-
+		media="screen" />
 </h:head>
 
 <h:body>
-	
 	<ui:composition template="template/common.xhtml">
-	<script type="text/javascript">
-                        function handleDrop(event, ui) {
-                                ui.draggable.fadeOut(function() {$(this).fadeIn();});
-
-                                $(this).droppable('disable');
-                        }
-                </script>
 		<ui:define name="content">
 			<div class="post"><h:form id="form">
 
@@ -33,7 +33,7 @@
 					<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 						converter="campeonatoConverter">
 						<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
-						<p:ajax listener="#{rodadaMB.filtrarRodadas}" event="change"
+						<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
 							update="rodadas" />
 					</p:selectOneMenu>
 
@@ -45,56 +45,24 @@
 					<p:spacer />
 
 					<p:panel header="#{msg.criarPartida}">
+						
+							<h:panelGrid columns="5" id="grid">
+								<h:outputLabel value="#{msg.timeCasa}" for="sl_casa"></h:outputLabel>
+								<p:selectOneMenu id="sl_casa" value="#{rodadaMB.times}" required="true"/> 
+								
+								<h:outputText value="  X  " />
+								
+								<h:outputLabel value="#{msg.timeVisitante}" for="sl_visitante"></h:outputLabel>
+								<p:selectOneMenu id="sl_visitante" value="#{rodadaMB.times}" required="true"/>								
 
-						<h:panelGrid columns="2" id="grid"
-							rendered="#{rodadaMB.rodada != null}">
-							<p:panel header="#{msg.times}">
-								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time">
-									<p:column  styleClass="slot">
-										<p:outputPanel id="time">
-											<p:graphicImage value="#{timeMB.path}#{time.imagem}"
-												width="30" height="30" />
-											<h:outputText value="#{time.nome}" style="font-size:10px" />
-										</p:outputPanel>
-										<p:draggable for="time" revert="true" />
-										<p:droppable datasource="times" for="time">
-											<p:ajax listener="#{rodadaMB.onDropBack}"></p:ajax>
-										</p:droppable>
-									</p:column>
-								</p:dataGrid>
-							</p:panel>
-
-							<p:panel header="#{msg.partida}">
-
-								<h:panelGrid columns="3" style="margin-left:120px;">
-									<p:outputPanel id="timeCasa" styleClass="slot">
-										<p:droppable datasource="times"
-											tolerance="fit">
-											<p:ajax event="onDrop"  listener="#{rodadaMB.onDrop}"></p:ajax>
-										</p:droppable>
-										<p:spacer height="20" />
-									</p:outputPanel>
-									<h:outputText value=" X " />
-									<p:outputPanel id="timeVisitante" styleClass="slot">
-										<p:droppable datasource="times" 
-											tolerance="touch">
-											<p:ajax event="onDrop" listener="#{rodadaMB.onDrop}"></p:ajax>
-										</p:droppable>
-										<p:spacer height="20" />
-									</p:outputPanel>
-								</h:panelGrid>
-							</p:panel>
-
-						</h:panelGrid>
-
-						<p:commandButton value="Limpar" type="reset" />
-						<p:commandButton value="Adicionar" update="books msgs @parent"
-							action="#{rodadaMB.criarRodada}">
-							<p:collector value="#{rodadaMB.partida}"
-								addTo="#{rodadaMB.partidas}" />
-						</p:commandButton>
-
-					</p:panel>
+								<p:commandButton value="Reset" type="reset" />
+								<p:commandButton value="Add" update="books msgs @parent"
+									action="#{rodadaMB.criarRodada}">
+									<p:collector value="#{rodadaMB.partida}"
+										addTo="#{rodadaMB.partidas}" />
+								</p:commandButton>
+							</h:panelGrid>
+						</p:panel>				
 				</p:fieldset>
 			</h:form></div>
 
