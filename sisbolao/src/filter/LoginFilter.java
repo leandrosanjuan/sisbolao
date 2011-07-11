@@ -32,17 +32,26 @@ public class LoginFilter implements PhaseListener {
 	       if(loginMB!=null){
 	    	   if(!isCadastro && !isRecuperacao && !( isIndex) && loginMB.getUsuarioLogado()== null ) {
 		           NavigationHandler nh = app.getNavigationHandler();
+		           loginMB.setLastPage(view);
 		           nh.handleNavigation(context, null, "index?faces-redirect=true");
 		       }else if(loginMB.getUsuarioLogado()!= null && isIndex) {
 		    	   NavigationHandler nh = app.getNavigationHandler();
 		           nh.handleNavigation(context, null,"principal");
+		       } else  if(loginMB.isTestLogged()){
+	    		   NavigationHandler nh = app.getNavigationHandler();
+	    		   loginMB.setTestLogged(false);
+	    		   
+		           nh.handleNavigation(context, null, loginMB.getLastPage()+"?faces-redirect=true");
+		           loginMB.setLastPage("principal");
+		           
 		       }
 	       } else {
 	    	   if(!isCadastro && !isRecuperacao && !isIndex){
 	    		   NavigationHandler nh = app.getNavigationHandler();
 		           nh.handleNavigation(context, null, "index?faces-redirect=true");
-	    	   } 
-	       }
+	    	   }
+	    	   
+	       } 
 	       
 		
 	}
