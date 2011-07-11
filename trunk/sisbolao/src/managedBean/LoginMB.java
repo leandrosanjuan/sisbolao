@@ -10,6 +10,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.model.DashboardColumn;
+import org.primefaces.model.DashboardModel;
+import org.primefaces.model.DefaultDashboardColumn;
+import org.primefaces.model.DefaultDashboardModel;
+
 import pojo.Perfil;
 import pojo.Permissao;
 import pojo.Usuario;
@@ -26,7 +31,7 @@ public class LoginMB {
 	private Usuario usuarioLogado;
 	private List<Permissao> permissoes;
 	private boolean isAdmin;
-	private int parametro;	
+	private int parametro;
 	private String novaSenha;
 	private String confirmaNovaSenha;
 	private FacesContext ctx;
@@ -34,28 +39,51 @@ public class LoginMB {
 	private boolean testLogged;
 	private String lastPage;
 
+	private DashboardModel model;
+
 	public IUsuarioBO usuarioBO;
 
 	public LoginMB() {
+		model = new DefaultDashboardModel();
+		DashboardColumn column1 = new DefaultDashboardColumn();
+		DashboardColumn column2 = new DefaultDashboardColumn();
+		DashboardColumn column3 = new DefaultDashboardColumn();
+		DashboardColumn column4 = new DefaultDashboardColumn();
+		DashboardColumn column5 = new DefaultDashboardColumn();
+		
+		column1.addWidget("ranking");        
+          
+        column2.addWidget("proxRodada");  
+          
+        column3.addWidget("resUltimaRodada");  
+        column4.addWidget("null");    
+        column5.addWidget("null5");    
+        
+		
+        model.addColumn(column1);  
+        model.addColumn(column2);  
+        model.addColumn(column3);
+        model.addColumn(column4);
+        model.addColumn(column5);
 		usuario = new Usuario();
 		usuarioBO = new UsuarioBO();
 		isAdmin = false;
 		testLogged = false;
-		
+
 	}
-	
-	
+
 	public static Usuario getUsuarioLogadoExt() {
 		return usuarioLogadoCP;
 	}
+
 	public String entrar() {
 
 		usuarioLogado = usuarioBO.login(usuario);
-		
+
 		usuario = new Usuario();
 		if (usuarioLogado != null) {
 			usuarioLogado.setPermissoes(getPermissoes());
-			usuarioLogadoCP = usuarioLogado;	
+			usuarioLogadoCP = usuarioLogado;
 			testLogged = true;
 			return "principal?faces-redirect=true";
 		} else {
@@ -67,44 +95,51 @@ public class LoginMB {
 
 	public String sair() {
 		usuario = new Usuario();
-		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+		FacesContext.getCurrentInstance().getExternalContext()
+				.invalidateSession();
 		usuarioLogado = null;
 		return "index?faces-redirect=true";
 	}
-	
-	public String preAlterar(){
-		
+
+	public String preAlterar() {
+
 		switch (parametro) {
 		case 0:
 			usuario = usuarioLogado;
 			return "alteraremail?faces-redirect=true";
-			
+
 		case 1:
 			usuario = new Usuario();
-			return "alterarsenha?faces-redirect=true";			
-		
+			return "alterarsenha?faces-redirect=true";
+
 		}
 		return null;
 	}
-	public void alterarEmail(){
+
+	public void alterarEmail() {
 		usuarioLogado.setEmail(usuario.getEmail());
 		usuarioBO.update(usuarioLogado);
 	}
-	public void alterarSenha(){
+
+	public void alterarSenha() {
 		ctx = FacesContext.getCurrentInstance();
 		String msg;
 		FacesMessage facesMsg;
-		
+
 		try {
 			String senha = CriaHash.SHA1(usuario.getSenha());
-			if(!senha.equals(usuarioLogado.getSenha())) {
-				msg = MessagesReader.getMessages().getProperty("senhasIncorreta");
-				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+			if (!senha.equals(usuarioLogado.getSenha())) {
+				msg = MessagesReader.getMessages().getProperty(
+						"senhasIncorreta");
+				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,
+						msg);
 				ctx.addMessage(null, facesMsg);
-				
-			}else if(!novaSenha.equals(confirmaNovaSenha)) {
-				msg = MessagesReader.getMessages().getProperty("senhasDiferentes");
-				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR,msg, msg);
+
+			} else if (!novaSenha.equals(confirmaNovaSenha)) {
+				msg = MessagesReader.getMessages().getProperty(
+						"senhasDiferentes");
+				facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg,
+						msg);
 				ctx.addMessage(null, facesMsg);
 			} else {
 				usuarioLogado.setSenha(CriaHash.SHA1(novaSenha));
@@ -117,11 +152,12 @@ public class LoginMB {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		usuario= new Usuario();
+		usuario = new Usuario();
 		novaSenha = new String();
 		confirmaNovaSenha = new String();
-		
+
 	}
+
 	public String criarCampeonato() {
 		if (CampeonatoMB.permissao(usuarioLogado)) {
 			return "criarcampeonato?faces-redirect=true";
@@ -198,60 +234,52 @@ public class LoginMB {
 		return permissoes;
 	}
 
-
-
 	public void setParametro(int parametro) {
 		this.parametro = parametro;
 	}
-
-
 
 	public int getParametro() {
 		return parametro;
 	}
 
-
-
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
 	}
-
-
 
 	public String getNovaSenha() {
 		return novaSenha;
 	}
 
-
-
 	public void setConfirmaNovaSenha(String confirmaNovaSenha) {
 		this.confirmaNovaSenha = confirmaNovaSenha;
 	}
-
-
 
 	public String getConfirmaNovaSenha() {
 		return confirmaNovaSenha;
 	}
 
-
 	public void setLastPage(String lastPage) {
 		this.lastPage = lastPage;
 	}
-
 
 	public String getLastPage() {
 		return lastPage;
 	}
 
-
 	public void setTestLogged(boolean testLogged) {
 		this.testLogged = testLogged;
 	}
 
-
 	public boolean isTestLogged() {
 		return testLogged;
+	}
+
+	public void setModel(DashboardModel model) {
+		this.model = model;
+	}
+
+	public DashboardModel getModel() {
+		return model;
 	}
 
 }

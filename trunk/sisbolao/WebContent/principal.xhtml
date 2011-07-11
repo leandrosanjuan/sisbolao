@@ -14,11 +14,57 @@
 </h:head>
 
 <h:body>
-	<ui:composition template="template/common.xhtml">
+	<ui:composition template="template/common-nosidebar.xhtml">
 		<ui:define name="content">
-			<div class="post"><h:form>
-				<p:fieldset legend="Principal" />
-			</h:form></div>
+			<h:form>
+				<p:accordionPanel collapsible="false">
+					<p:tab title="#{msg.ranking}">
+						<p:panel id="ranking" header="#{msg.ranking}">
+							<ol>
+								<li>X</li>
+								<li>Y</li>
+								<li>A</li>
+								<li>B</li>
+							</ol>
+						</p:panel>
+					</p:tab>
+					<p:tab title="#{msg.proxRodada}">
+						<p:panel id="proxRodada" header="#{msg.proxRodada}">
+							<h:panelGrid columns="5">
+								<h:outputText value="FLAMENGO" />
+								<p:inputText size="2" />
+								<h:outputText value="X"></h:outputText>
+								<h:outputText value="Fluminense" />
+								<p:inputText size="2" />
+
+								<h:outputText value="auishd" />
+								<p:inputText size="2" />
+								<h:outputText value="X"></h:outputText>
+								<h:outputText value="gasfsd" />
+								<p:inputText size="2" />
+
+								<h:outputText value="adfs" />
+								<p:inputText size="2" />
+								<h:outputText value="X"></h:outputText>
+								<h:outputText value="gfds" />
+								<p:inputText size="2" />
+							</h:panelGrid>
+						</p:panel>
+					</p:tab>
+					<p:tab title="#{msg.resUltimaRodada}">
+
+						<p:panel id="resUltimaRodada" header="#{msg.resUltimaRodada}">
+							<h:outputText value="FLAMENGO" />
+							<h:outputText value="1"></h:outputText>
+							<h:outputText value="X"></h:outputText>
+							<h:outputText value="Fluminense" />
+							<h:outputText value="0"></h:outputText>
+						</p:panel>
+					</p:tab>
+				</p:accordionPanel>
+
+
+			</h:form>
 		</ui:define>
 
 

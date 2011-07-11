@@ -258,6 +258,8 @@ hr {
 	width: 610px;
 }
 
+
+
 #content-nosidebar {
 	float: left;
 	width: 850px;
@@ -482,3 +484,9 @@ hr {
 #footer a {
 	
 }
+
+.dashboard {
+	background-color: gray;
+	border: thin solid red;
+	width: 850px;
+	}
