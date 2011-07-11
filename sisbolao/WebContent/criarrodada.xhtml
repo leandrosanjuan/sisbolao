@@ -10,11 +10,21 @@
 	<meta name="keywords" content="" />
 	<meta name="description" content="" />
 	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
-		media="screen" />
+		media="screen" />	
+
+
 </h:head>
 
 <h:body>
+	
 	<ui:composition template="template/common.xhtml">
+	<script type="text/javascript">
+                        function handleDrop(event, ui) {
+                                ui.draggable.fadeOut(function() {$(this).fadeIn();});
+
+                                $(this).droppable('disable');
+                        }
+                </script>
 		<ui:define name="content">
 			<div class="post"><h:form id="form">
 
@@ -23,7 +33,7 @@
 					<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 						converter="campeonatoConverter">
 						<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
-						<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
+						<p:ajax listener="#{rodadaMB.filtrarRodadas}" event="change"
 							update="rodadas" />
 					</p:selectOneMenu>
 
@@ -40,15 +50,15 @@
 							rendered="#{rodadaMB.rodada != null}">
 							<p:panel header="#{msg.times}">
 								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time">
-									<p:column>
+									<p:column  styleClass="slot">
 										<p:outputPanel id="time">
 											<p:graphicImage value="#{timeMB.path}#{time.imagem}"
 												width="30" height="30" />
-											<h:outputText value="#{time.nome}" style="font-size:10px"/>
+											<h:outputText value="#{time.nome}" style="font-size:10px" />
 										</p:outputPanel>
 										<p:draggable for="time" revert="true" />
-										<p:droppable datasource="times"
-											dropListener="#{rodadaMB.onDropBack}" for="time">
+										<p:droppable datasource="times" for="time">
+											<p:ajax listener="#{rodadaMB.onDropBack}"></p:ajax>
 										</p:droppable>
 									</p:column>
 								</p:dataGrid>
@@ -59,14 +69,16 @@
 								<h:panelGrid columns="3" style="margin-left:120px;">
 									<p:outputPanel id="timeCasa" styleClass="slot">
 										<p:droppable datasource="times"
-											dropListener="#{rodadaMB.onDrop}" tolerance="fit">
+											tolerance="fit">
+											<p:ajax event="onDrop"  listener="#{rodadaMB.onDrop}"></p:ajax>
 										</p:droppable>
 										<p:spacer height="20" />
 									</p:outputPanel>
 									<h:outputText value=" X " />
 									<p:outputPanel id="timeVisitante" styleClass="slot">
-										<p:droppable datasource="times"
-											dropListener="#{rodadaMB.onDrop}" tolerance="fit">
+										<p:droppable datasource="times" 
+											tolerance="touch">
+											<p:ajax event="onDrop" listener="#{rodadaMB.onDrop}"></p:ajax>
 										</p:droppable>
 										<p:spacer height="20" />
 									</p:outputPanel>

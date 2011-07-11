@@ -3,6 +3,7 @@ package bo;
 import java.util.List;
 
 import pojo.Bolao;
+import pojo.Usuario;
 
 public interface IBolaoBO {
 	public void create(Bolao bolao);
@@ -14,4 +15,6 @@ public interface IBolaoBO {
 	public Bolao findById(Bolao bolao);
 
 	public List<Bolao> findAll();
+	
+	public List<Bolao> findByParticipant(Usuario participante);
 }

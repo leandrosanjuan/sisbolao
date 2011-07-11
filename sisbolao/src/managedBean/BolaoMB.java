@@ -35,6 +35,7 @@ public class BolaoMB {
 	private List<Campeonato> campeonatosDisponiveis;
 	private List<SelectItem> campeonatosSI;
 	private Campeonato campeonato;
+	private List<Bolao> meusBoloes;
 	private String participantes;
 	
 	public BolaoMB() {
@@ -70,8 +71,9 @@ public class BolaoMB {
 		for(String convidado:convidados) {
 			
 			try {
-				EnviaEmail.enviar("convite", "sisbolao", convidado, convidado);
-				bolaoBO.create(bolao);
+			//	EnviaEmail.enviar("convite", "sisbolao", convidado, convidado);
+				
+				bolaoBO.create(bolao);							
 			} catch (Exception e) {
 				String m = MessagesReader.getMessages().getProperty("problemaEmail");
 				FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, m, m);
@@ -131,6 +133,12 @@ public class BolaoMB {
 		return participantes;
 	}
 
+
+	public List<Bolao> getMeusBoloes() {
+		return bolaoBO.findByParticipant(LoginMB.getUsuarioLogadoExt());
+	}
+
+	
 
 	
 

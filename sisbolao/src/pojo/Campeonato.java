@@ -1,5 +1,6 @@
 package pojo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -49,6 +50,9 @@ public class Campeonato {
 		this.nome = nome;
 	}
 	public List<Bolao> getBoloes() {
+		if(boloes == null) {
+			boloes = new ArrayList<Bolao>();
+		}
 		return boloes;
 	}
 	public void setBoloes(List<Bolao> boloes) {

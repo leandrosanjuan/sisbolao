@@ -67,6 +67,7 @@ public class LoginMB {
 
 	public String sair() {
 		usuario = new Usuario();
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		usuarioLogado = null;
 		return "index?faces-redirect=true";
 	}

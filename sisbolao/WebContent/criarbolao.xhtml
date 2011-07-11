@@ -17,7 +17,7 @@
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
 			<div class="post"><h:form>
-				<p:panel>
+				<p:panel id="pnl">
 					<p:messages />
 					<h:panelGrid columns="2">
 					<h:outputLabel for="nome" value="#{msg.nome}" />
@@ -29,10 +29,10 @@
 					</p:selectOneMenu>
 					
 					<h:outputLabel for="participantes" value="#{msg.participantes}"/>
-					<p:inputTextarea value="#{bolaoMB.participantes}">
+					<p:inputTextarea id="participantes" value="#{bolaoMB.participantes}">
 					</p:inputTextarea>
 					</h:panelGrid>		
-					<p:commandButton value="#{msg.criar}" action="#{bolaoMB.criar}"></p:commandButton>	
+					<p:commandButton  update="pnl" value="#{msg.criar}" action="#{bolaoMB.criar}"></p:commandButton>	
 				</p:panel>
 			</h:form></div>
 
