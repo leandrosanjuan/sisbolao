@@ -1,7 +1,6 @@
 package bo.implementation;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -10,12 +9,11 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dao.BolaoDao;
-import dao.UsuarioDao;
-
 import pojo.Bolao;
+import pojo.Usuario;
 import util.MessagesReader;
 import bo.IBolaoBO;
+import dao.BolaoDao;
 
 public class BolaoBO implements IBolaoBO {
 
@@ -25,16 +23,21 @@ public class BolaoBO implements IBolaoBO {
 	Logger logger;
 
 	public BolaoBO() {
-		BolaoDao bolaoDAO = new BolaoDao();
+		bolaoDAO = new BolaoDao();
 		logger = LoggerFactory.getLogger("BolaoBO");
 	}
 
 	@Override
 	public void create(Bolao bolao) {
 		ctx = FacesContext.getCurrentInstance();
-
+		
 		try {
 			bolaoDAO.create(bolao);
+			String mensagem = MessagesReader.getMessages().getProperty(
+			"bolaoCadastradoSucesso");
+			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
+			mensagem);
+	ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 			String mensagem = MessagesReader.getMessages().getProperty(
@@ -112,6 +115,11 @@ public class BolaoBO implements IBolaoBO {
 			ctx.addMessage(null, msg);
 		}
 
+	}
+	
+	@Override
+	public List<Bolao> findByParticipant(Usuario participante) {
+		return bolaoDAO.findByParticipant(participante); 
 	}
 
 }

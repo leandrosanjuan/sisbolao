@@ -50,7 +50,7 @@
 			<p:menubar  autoSubmenuDisplay="true"  rendered="#{loginMB.usuarioLogado != null}" >
 				<p:submenu label="#{msg.bolao}">
 					<p:menuitem   value="#{msg.criar}" ajax="true"  action="#{bolaoMB.preCriar}"/>
-					<p:menuitem  value="#{msg.meusBoloes}"/>
+					<p:menuitem  value="#{msg.meusBoloes}" action="meusboloes?faces-redirect=true"/>
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.time}">
 					<p:menuitem  value="#{msg.criar}" action="#{timeMB.preIncluir}"/>
