@@ -13,20 +13,21 @@ import util.MessagesReader;
 import bo.ITimeBO;
 import dao.TimeDao;
 
-public class TimeBO implements ITimeBO{
+public class TimeBO implements ITimeBO {
 	FacesContext ctx;
 	FacesMessage msg;
 	TimeDao timeDao;
 	Logger logger;
-	
+
 	public TimeBO() {
 		timeDao = new TimeDao();
 		logger = LoggerFactory.getLogger("TimeBO");
 	}
+
 	@Override
 	public void create(Time time) {
 		ctx = FacesContext.getCurrentInstance();
-		try {			
+		try {
 			timeDao.create(time);
 			String mensagem = MessagesReader.getMessages().getProperty(
 					"timeCadastradoSucesso");
@@ -41,7 +42,7 @@ public class TimeBO implements ITimeBO{
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-		
+
 	}
 
 	@Override
@@ -62,7 +63,7 @@ public class TimeBO implements ITimeBO{
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-		
+
 	}
 
 	@Override
@@ -83,7 +84,7 @@ public class TimeBO implements ITimeBO{
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-		
+
 	}
 
 	@Override
@@ -96,4 +97,18 @@ public class TimeBO implements ITimeBO{
 		return (List<Time>) timeDao.findAll(Time.class);
 	}
 
+	public Time findByName(String texto) {
+		try {
+			List<Time> times = this.findAll();
+
+			for (Time time : times) {
+				if (time.getNome().equals(texto)) {
+					return time;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

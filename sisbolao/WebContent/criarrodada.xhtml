@@ -5,16 +5,6 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 
-<ui:define name="head">
-	<script type="text/javascript">
-			function handleDrop(event, ui) {
-				ui.draggable.fadeOut(function() {$(this).fadeIn();});
-
-				$(this).droppable('disable');
-			}
-</script>
-</ui:define>
-
 <h:head>
 	<title></title>
 	<meta name="keywords" content="" />
@@ -48,12 +38,18 @@
 						
 							<h:panelGrid columns="5" id="grid">
 								<h:outputLabel value="#{msg.timeCasa}" for="sl_casa"></h:outputLabel>
-								<p:selectOneMenu id="sl_casa" value="#{rodadaMB.times}" required="true"/> 
+								<p:selectOneMenu id="sl_casa" value="#{rodadaMB.timeCasa}" required="true" converter="timeConverter" >								 
+								<f:selectItem itemLabel="Selecione um time" itemValue=""/>
+								<f:selectItems value="#{rodadaMB.times}" var="timeCasa" itemLabel="#{timeCasa.nome}" itemValue="#{timeCasa}"/>
+								</p:selectOneMenu>
 								
 								<h:outputText value="  X  " />
 								
 								<h:outputLabel value="#{msg.timeVisitante}" for="sl_visitante"></h:outputLabel>
-								<p:selectOneMenu id="sl_visitante" value="#{rodadaMB.times}" required="true"/>								
+								<p:selectOneMenu id="sl_visitante" value="#{rodadaMB.timeVisitante}" required="true" converter="timeConverter">
+								<f:selectItem itemLabel="Selecione um time" itemValue=""/>
+								<f:selectItems value="#{rodadaMB.times}" var="timeVisitante" itemLabel="#{timeVisitante.nome}" itemValue="#{timeVisitante}"/>
+								</p:selectOneMenu>								
 
 								<p:commandButton value="Reset" type="reset" />
 								<p:commandButton value="Add" update="books msgs @parent"
