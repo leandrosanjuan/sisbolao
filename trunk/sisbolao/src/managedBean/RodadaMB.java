@@ -47,6 +47,9 @@ public class RodadaMB {
 	private Time timeVisitante;
 
 	private Calendar dataHora;
+	
+	private Partida partida;
+	private List<Partida> partidas; 
 
 	public RodadaMB() {
 		rodada = new Rodada();
@@ -174,6 +177,22 @@ public class RodadaMB {
 
 	public void setCampeonato(Campeonato campeonato) {
 		this.campeonato = campeonato;
+	}
+
+	public void setPartidas(List<Partida> partidas) {
+		this.partidas = partidas;
+	}
+
+	public List<Partida> getPartidas() {
+		return partidas;
+	}
+
+	public void setPartida(Partida partida) {
+		this.partida = partida;
+	}
+
+	public Partida getPartida() {
+		return partida;
 	}
 
 }

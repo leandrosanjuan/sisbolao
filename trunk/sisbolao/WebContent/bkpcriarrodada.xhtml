@@ -5,6 +5,16 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.prime.com.tr/ui">
 
+<ui:define name="head">
+<script type="text/javascript">
+			function handleDrop(event, ui) {
+				ui.draggable.fadeOut(function() {$(this).fadeIn();});
+
+				$(this).droppable('disable');
+			}
+</script>
+</ui:define>
+
 <h:head>
 	<title></title>
 	<meta name="keywords" content="" />
@@ -18,50 +28,73 @@
 		<ui:define name="content">
 			<div class="post"><h:form id="form">
 
-				<h:outputText value="Campeonato: " />
-				<p:selectOneMenu value="#{campeonatoMB.listarCampeonatos}">
+				<p:fieldset legend="#{msg.criarRodada}">
+					<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
+					<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
+						converter="campeonatoConverter">
+						<f:selectItems value="#{campeonatoMB.campeonatosSI}" />
+						<p:ajax actionlistener="#{rodadaMB.filtrarRodadas}" event="change"
+							update="rodadas" />
+					</p:selectOneMenu>
 
-					<h:outputText value="Rodada: " />
-					<p:selectOneMenu>
+					<h:outputLabel for="rodadas" value="#{msg.rodada}" />
+					<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodada}">
 						<f:selectItems value="#{rodadaMB.rodadas}" />
 					</p:selectOneMenu>
 
-					<p:growl id="partidaGrowl" />
+					<p:spacer />
 
-					<p:panel header="Nova partida">
+					<p:panel header="#{msg.criarPartida}">
 
-						<h:panelGrid columns="2" id="grid">
-							<p:panel header="Equipes">
-								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time"
-									columns="4">
+						<h:panelGrid columns="2" id="grid"
+							rendered="#{rodadaMB.rodada != null}">
+							<p:panel header="#{msg.times}">
+								<p:dataGrid id="times" value="#{rodadaMB.times}" var="time">
 									<p:column>
-										<p:graphicImage id="time" value="#{time.imagemStream}" />
+										<p:outputPanel id="time">
+											<p:graphicImage value="#{timeMB.path}#{time.imagem}"
+												width="30" height="30" />
+											<h:outputText value="#{time.nome}" style="font-size:10px" />
+										</p:outputPanel>
 										<p:draggable for="time" revert="true" />
+										<p:droppable datasource="times"
+											dropListener="#{rodadaMB.onDropBack}" for="time">
+										</p:droppable>
 									</p:column>
 								</p:dataGrid>
 							</p:panel>
 
+							<p:panel header="#{msg.partida}">
 
-							<h:panelGroup>
-								<h:panelGrid columns="2" style="margin-left:40px;">
-									<p:outputPanel id="partida" styleClass="slot">
-										<p:droppable tolerance="fit" activeStyleClass="slotActive"
-											scope="forward" onDrop="handleDrop" datasource="times">
-											<p:ajax listener="#{rodadaMB.onDrop}"
-												update="timesEscolhidos growl" />
+								<h:panelGrid columns="3" style="margin-left:120px;">
+									<p:outputPanel id="timeCasa" styleClass="slot">
+										<p:droppable datasource="times" for="timeCasa"
+											dropListener="#{rodadaMB.onDrop}" tolerance="fit">
 										</p:droppable>
+										<p:spacer height="20" />
 									</p:outputPanel>
-							</h:panelGroup>
+									<h:outputText value=" X " />
+									<p:outputPanel id="timeVisitante" styleClass="slot">
+										<p:droppable datasource="times" for="timeVisitante"
+											onDrop="handleDrop" tolerance="fit">
+											<p:ajax listener="#{rodadaMB.onDrop}" />
+										</p:droppable>
+										<p:spacer height="20" />
+									</p:outputPanel>
+								</h:panelGrid>
+							</p:panel>
 
-
-							<p:commandButton value="Limpar" type="reset" />
-							<p:commandButton value="Adicionar" update="books msgs @parent"
-								action="#{rodadaMB.criarRodada}">
-								<p:collector value="#{rodadaMB.partida}"
-									addTo="#{rodadaMB.partidas}" />
-							</p:commandButton>
 						</h:panelGrid>
+
+						<p:commandButton value="Limpar" type="reset" />
+						<p:commandButton value="Adicionar" update="books msgs @parent"
+							action="#{rodadaMB.criarRodada}">
+							<p:collector value="#{rodadaMB.partida}"
+								addTo="#{rodadaMB.partidas}" />
+						</p:commandButton>
+
 					</p:panel>
+				</p:fieldset>
 			</h:form></div>
 
 		</ui:define>
