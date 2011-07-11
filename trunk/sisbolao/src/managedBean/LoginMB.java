@@ -30,7 +30,9 @@ public class LoginMB {
 	private String novaSenha;
 	private String confirmaNovaSenha;
 	private FacesContext ctx;
-	
+	private static Usuario usuarioLogadoCP;
+	private boolean testLogged;
+	private String lastPage;
 
 	public IUsuarioBO usuarioBO;
 
@@ -38,16 +40,23 @@ public class LoginMB {
 		usuario = new Usuario();
 		usuarioBO = new UsuarioBO();
 		isAdmin = false;
+		testLogged = false;
+		
 	}
 	
 	
-	
+	public static Usuario getUsuarioLogadoExt() {
+		return usuarioLogadoCP;
+	}
 	public String entrar() {
 
 		usuarioLogado = usuarioBO.login(usuario);
+		
 		usuario = new Usuario();
 		if (usuarioLogado != null) {
 			usuarioLogado.setPermissoes(getPermissoes());
+			usuarioLogadoCP = usuarioLogado;	
+			testLogged = true;
 			return "principal?faces-redirect=true";
 		} else {
 
@@ -222,6 +231,26 @@ public class LoginMB {
 
 	public String getConfirmaNovaSenha() {
 		return confirmaNovaSenha;
+	}
+
+
+	public void setLastPage(String lastPage) {
+		this.lastPage = lastPage;
+	}
+
+
+	public String getLastPage() {
+		return lastPage;
+	}
+
+
+	public void setTestLogged(boolean testLogged) {
+		this.testLogged = testLogged;
+	}
+
+
+	public boolean isTestLogged() {
+		return testLogged;
 	}
 
 }

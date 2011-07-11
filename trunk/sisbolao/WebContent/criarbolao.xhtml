@@ -17,9 +17,23 @@
 	<ui:composition template="template/common.xhtml">
 		<ui:define name="content">
 			<div class="post"><h:form>
-				<p:outputPanel>
+				<p:panel>
+					<p:messages />
+					<h:panelGrid columns="2">
+					<h:outputLabel for="nome" value="#{msg.nome}" />
+					<p:inputText required="true" id="nome" value="#{bolaoMB.bolao.nome}"></p:inputText>
 					
-				</p:outputPanel>
+					<h:outputLabel  for="campeonato" value="#{msg.campeonato}"/>
+					<p:selectOneMenu converter="campeonatoConverter" id="campeonato" required="true" value="#{bolaoMB.bolao.campeonato}" >
+						<f:selectItems value="#{bolaoMB.campeonatosSI}"></f:selectItems>
+					</p:selectOneMenu>
+					
+					<h:outputLabel for="participantes" value="#{msg.participantes}"/>
+					<p:inputTextarea value="#{bolaoMB.participantes}">
+					</p:inputTextarea>
+					</h:panelGrid>		
+					<p:commandButton value="#{msg.criar}" action="#{bolaoMB.criar}"></p:commandButton>	
+				</p:panel>
 			</h:form></div>
 
 		</ui:define>

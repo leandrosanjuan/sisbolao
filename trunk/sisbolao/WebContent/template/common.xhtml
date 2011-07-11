@@ -49,7 +49,7 @@
 		<h:form >
 			<p:menubar  autoSubmenuDisplay="true"  rendered="#{loginMB.usuarioLogado != null}" >
 				<p:submenu label="#{msg.bolao}">
-					<p:menuitem   value="#{msg.criar}" ajax="true"  action="#{loginMB.criarBolao}"/>
+					<p:menuitem   value="#{msg.criar}" ajax="true"  action="#{bolaoMB.preCriar}"/>
 					<p:menuitem  value="#{msg.meusBoloes}"/>
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}"  label="#{msg.time}">
