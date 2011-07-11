@@ -94,7 +94,13 @@ public class RodadaMB {
 	}
 
 	public void filtrarRodadas() {
-		rodadas = rodadaBO.findByCampeonato(campeonato);
+		
+		if(campeonato==null){
+			this.rodadas=new ArrayList<Rodada>();
+		} else {
+			rodadas = rodadaBO.findByCampeonato(campeonato);
+		}
+		
 	}
 
 	public void alterarRodada() {
