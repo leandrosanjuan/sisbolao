@@ -109,10 +109,18 @@ public class RodadaBO implements IRodadaBO {
 
 	@Override
 	public List<Rodada> findByCampeonato(Campeonato campeonato) {
-
-		List<Rodada> listaRodada = rodadaDao.findByCampeonato(campeonato);
-		return listaRodada;
-
+		List<Rodada> listaRodada = new ArrayList<Rodada>();
+		try {
+			if (campeonato != null) {
+				listaRodada = rodadaDao.findByCampeonato(campeonato);
+				return listaRodada;
+			} else {
+				return listaRodada;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }
