@@ -47,9 +47,9 @@ public class RodadaMB {
 	private Time timeVisitante;
 
 	private Calendar dataHora;
-	
+
 	private Partida partida;
-	private List<Partida> partidas; 
+	private List<Partida> partidas;
 
 	public RodadaMB() {
 		rodada = new Rodada();
@@ -78,7 +78,7 @@ public class RodadaMB {
 		FacesContext.getCurrentInstance().addMessage(null,
 				new FacesMessage(time.getNome() + " adicionado"));
 	}
-	
+
 	public void onDropBack(DragDropEvent event) {
 		Time time = (Time) event.getData();
 
@@ -94,13 +94,13 @@ public class RodadaMB {
 	}
 
 	public void filtrarRodadas() {
-		
-		if(campeonato==null){
-			this.rodadas=new ArrayList<Rodada>();
+
+		if (campeonato == null) {
+			this.setRodadas(new ArrayList<Rodada>());
 		} else {
-			rodadas = rodadaBO.findByCampeonato(campeonato);
+			setRodadas(rodadaBO.findByCampeonato(campeonato));
 		}
-		
+
 	}
 
 	public void alterarRodada() {
@@ -155,14 +155,22 @@ public class RodadaMB {
 		return timesEscolhidos;
 	}
 
-	public List<SelectItem> getRodadas() {
-		List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
-		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
+	// public List<SelectItem> getRodadas() {
+	// List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
+	// List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
+	//
+	// for (Rodada rodada : rodadas) {
+	// rodadasSI.add(new SelectItem(rodada, rodada.getNome()));
+	// }
+	// return rodadasSI;
+	// }
 
-		for (Rodada rodada : rodadas) {
-			rodadasSI.add(new SelectItem(rodada, rodada.getNome()));
-		}
-		return rodadasSI;
+	public void setRodadas(List<Rodada> rodadas) {
+		this.rodadas = rodadas;
+	}
+
+	public List<Rodada> getRodadas() {
+		return rodadas;
 	}
 
 	public void setCampeonatos(List<Campeonato> campeonatos) {
@@ -200,5 +208,4 @@ public class RodadaMB {
 	public Partida getPartida() {
 		return partida;
 	}
-
 }

@@ -5,11 +5,10 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import pojo.Campeonato;
 import pojo.Time;
 import bo.implementation.TimeBO;
 
-@FacesConverter(forClass = Campeonato.class, value = "timeConverter")
+@FacesConverter(forClass = Time.class, value = "timeConverter")
 public class TimeConverter implements Converter {
 
 	@Override
