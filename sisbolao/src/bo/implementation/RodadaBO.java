@@ -122,5 +122,4 @@ public class RodadaBO implements IRodadaBO {
 		}
 		return null;
 	}
-
 }

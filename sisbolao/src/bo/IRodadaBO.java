@@ -17,4 +17,5 @@ public interface IRodadaBO {
 	public List<Rodada> findAll();
 	
 	public List<Rodada> findByCampeonato(Campeonato campeonato);
+
 }
