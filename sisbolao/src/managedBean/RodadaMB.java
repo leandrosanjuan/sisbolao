@@ -21,6 +21,7 @@ import pojo.Usuario;
 import bo.ICampeonatoBO;
 import bo.IRodadaBO;
 import bo.ITimeBO;
+import bo.implementation.CampeonatoBO;
 import bo.implementation.RodadaBO;
 import bo.implementation.TimeBO;
 
@@ -57,7 +58,8 @@ public class RodadaMB {
 		timeBO = new TimeBO();
 		times = timeBO.findAll(); // Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
-		campeonatos = new ArrayList<Campeonato>();
+		campeonatoBO = new CampeonatoBO();
+		campeonatos = campeonatoBO.findAll();
 		campeonato = new Campeonato();
 
 	}

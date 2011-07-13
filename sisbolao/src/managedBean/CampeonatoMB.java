@@ -72,16 +72,16 @@ public class CampeonatoMB {
 		campeonatoBO.delete(campeonato);
 	}
 
-	public List<SelectItem> getCampeonatosSI() {
-		List<Campeonato> campeonatos = getCampeonatos();
-		
-		List<SelectItem> campeonatosSI = new ArrayList<SelectItem>();
-		for (Campeonato campeonato : campeonatos) {
-			SelectItem si = new SelectItem(campeonato,campeonato.getNome());
-			campeonatosSI.add(si);
-		}
-		return campeonatosSI;
-	}
+//	public List<SelectItem> getCampeonatosSI() {
+//		List<Campeonato> campeonatos = getCampeonatos();
+//		
+//		List<SelectItem> campeonatosSI = new ArrayList<SelectItem>();
+//		for (Campeonato campeonato : campeonatos) {
+//			SelectItem si = new SelectItem(campeonato,campeonato.getNome());
+//			campeonatosSI.add(si);
+//		}
+//		return campeonatosSI;
+//	}
 
 	public Campeonato getCampeonato() {
 		return campeonato;
