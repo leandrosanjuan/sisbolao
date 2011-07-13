@@ -20,21 +20,26 @@ import pojo.Rodada;
 import pojo.Time;
 import pojo.Usuario;
 import bo.ICampeonatoBO;
+import bo.IPartidaBO;
 import bo.IRodadaBO;
 import bo.ITimeBO;
 import bo.implementation.CampeonatoBO;
+import bo.implementation.PartidaBO;
 import bo.implementation.RodadaBO;
 import bo.implementation.TimeBO;
 
 @ManagedBean(name = "rodadaMB")
 @SessionScoped
-public class RodadaMB  implements Serializable {
+public class RodadaMB implements Serializable {
 
 	private static Usuario usuario;
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
+	private long rodadaID;
 	private List<Rodada> rodadas;
+
+	private SelectItem rodadaSI;
 
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
@@ -50,18 +55,24 @@ public class RodadaMB  implements Serializable {
 
 	private Calendar dataHora;
 
+	private IPartidaBO partidaBO;
 	private Partida partida;
 	private List<Partida> partidas;
 
 	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
+		
 		timeBO = new TimeBO();
 		times = timeBO.findAll(); // Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
 		campeonato = new Campeonato();
+		
+		partidaBO = new PartidaBO();
+		partida = new Partida();
+		partidas = new ArrayList<Partida>();
 
 	}
 
@@ -88,12 +99,29 @@ public class RodadaMB  implements Serializable {
 		timesEscolhidos.remove(time);
 	}
 
-	public void criarRodada() {
+	public void criarPartida() {
 		Partida partida = new Partida();
 		partida.setTimeCasa(timeCasa);
 		partida.setTimeVisitante(timeVisitante);
 		partida.setDataHora(dataHora);
-		partida.setRodada(rodada);
+
+		rodada.setId(rodadaID);
+		partida.setRodada(rodadaBO.findById(rodada));
+		
+		
+		partidas.add(partida);
+	}
+	
+	public void gravarPartidas(){
+		for (Partida partida :partidas){
+			partidaBO.update(partida);
+		}
+	}
+	
+	public void gravarRodada(){
+		gravarPartidas();
+		rodada.setPartidas(partidas);
+		rodadaBO.update(rodada);
 	}
 
 	public void filtrarRodadas() {
@@ -158,23 +186,23 @@ public class RodadaMB  implements Serializable {
 		return timesEscolhidos;
 	}
 
-	// public List<SelectItem> getRodadas() {
-	// List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
-	// List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
-	//
-	// for (Rodada rodada : rodadas) {
-	// rodadasSI.add(new SelectItem(rodada, rodada.getNome()));
-	// }
-	// return rodadasSI;
-	// }
+	public List<SelectItem> getRodadas() {
+		List<Rodada> rodadas = rodadaBO.findByCampeonato(campeonato);
+		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
+
+		for (Rodada rodada : rodadas) {
+			rodadasSI.add(new SelectItem(rodada.getId(), rodada.getNome()));
+		}
+		return rodadasSI;
+	}
 
 	public void setRodadas(List<Rodada> rodadas) {
 		this.rodadas = rodadas;
 	}
 
-	public List<Rodada> getRodadas() {
-		return rodadas;
-	}
+	// public List<Rodada> getRodadas() {
+	// return rodadas;
+	// }
 
 	public void setCampeonatos(List<Campeonato> campeonatos) {
 		this.campeonatos = campeonatos;
@@ -210,5 +238,13 @@ public class RodadaMB  implements Serializable {
 
 	public Partida getPartida() {
 		return partida;
+	}
+
+	public void setRodadaID(long rodadaID) {
+		this.rodadaID = rodadaID;
+	}
+
+	public long getRodadaID() {
+		return rodadaID;
 	}
 }

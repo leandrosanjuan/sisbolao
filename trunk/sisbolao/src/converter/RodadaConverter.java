@@ -5,6 +5,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+
 import pojo.Rodada;
 import bo.IRodadaBO;
 import bo.implementation.RodadaBO;
@@ -14,16 +15,22 @@ public class RodadaConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext ctx, UIComponent arg1, String texto) {
-		if (texto == null) {
-			return null;
+
+		try {
+			if (texto == null) {
+				return null;
+			}
+
+			IRodadaBO rodadaBO = new RodadaBO();
+			Rodada rodada = new Rodada();
+
+			rodada.setId(Long.parseLong(texto));
+
+			return rodadaBO.findById(rodada);
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
 		}
-
-		IRodadaBO rodadaBO = new RodadaBO();
-		Rodada rodada = new Rodada();
-
-		rodada.setId(Long.valueOf(texto));
-
-		return rodadaBO.findById(rodada);
+		return null;
 	}
 
 	@Override
@@ -33,8 +40,13 @@ public class RodadaConverter implements Converter {
 			if (obj == null || obj.toString().equals("")) {
 				return "";
 			} else {
-				Rodada rodada = (Rodada) obj;
-				return rodada.getNome();
+				Rodada rodada = new Rodada();
+				rodada.setId((Long) obj);
+				
+				IRodadaBO rodadaBO = new RodadaBO();
+				Rodada umaRodada = rodadaBO.findById(rodada);
+				
+				return umaRodada.getNome();
 			}
 
 		} catch (ClassCastException e) {
