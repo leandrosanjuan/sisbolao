@@ -28,11 +28,19 @@ public class TimeBO implements ITimeBO {
 	public void create(Time time) {
 		ctx = FacesContext.getCurrentInstance();
 		try {
-			timeDao.create(time);
-			String mensagem = MessagesReader.getMessages().getProperty(
-					"timeCadastradoSucesso");
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
-					mensagem);
+			if (!timeDao.existeTime(time.getNome())) {
+				timeDao.create(time);
+				String mensagem = MessagesReader.getMessages().getProperty(
+						"timeCadastradoSucesso");
+				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
+						mensagem);
+
+			} else {
+				String mensagem = MessagesReader.getMessages().getProperty(
+						"timeJaExiste");
+				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
+						mensagem);
+			}
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());

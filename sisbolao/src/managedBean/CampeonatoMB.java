@@ -1,19 +1,14 @@
 package managedBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.model.SelectItem;
 
 import pojo.Campeonato;
 import pojo.Permissao;
-import pojo.Rodada;
 import pojo.Usuario;
-import util.MessagesReader;
 import bo.ICampeonatoBO;
-import bo.IRodadaBO;
 import bo.implementation.CampeonatoBO;
 import bo.implementation.RodadaBO;
 
@@ -23,7 +18,6 @@ public class CampeonatoMB {
 	private static Usuario usuario;
 
 	private ICampeonatoBO campeonatoBO;
-	private IRodadaBO rodadaBO;
 	private Campeonato campeonato;
 	
 	
@@ -48,17 +42,8 @@ public class CampeonatoMB {
 		campeonato = new Campeonato();
 		return "criarcampeonato?faces-redirect=true";
 	}
-	public void criarCampeonato() {
-		rodadaBO = new RodadaBO();
-		campeonatoBO.create(campeonato);	
-		for(int i =0;i<numRodadas;i++){
-			Rodada rodada = new Rodada();
-			String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodadas");
-			rodada.setNome((i+1)+nomeRodada);
-			rodada.setCampeonato(campeonato);
-			rodadaBO.create(rodada);
-		}			
-		
+	public void criarCampeonato() {		
+		campeonatoBO.create(campeonato,numRodadas);				
 			
 		campeonato = new Campeonato();
 		numRodadas = 1;

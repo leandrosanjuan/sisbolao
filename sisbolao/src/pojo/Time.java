@@ -1,19 +1,14 @@
 package pojo;
 
-import java.io.ByteArrayInputStream;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
-import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 @Entity
@@ -25,7 +20,7 @@ public class Time {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "time_seq")
 	private Long id;
 
-	@Column
+	@Column(unique=true)
 	private String nome;
 
 	@Column
