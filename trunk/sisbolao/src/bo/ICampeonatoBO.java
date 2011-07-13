@@ -6,7 +6,7 @@ import pojo.Bolao;
 import pojo.Campeonato;
 
 public interface ICampeonatoBO {
-	public void create(Campeonato campeonato);
+	public void create(Campeonato campeonato,int numRodadas);
 
 	public void update(Campeonato campeonato);
 

@@ -21,7 +21,7 @@ public class Campeonato   {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "campeonato_seq")
 	private Long id;
 
-	@Column
+	@Column(unique=true)
 	private String nome;
 
 	/**

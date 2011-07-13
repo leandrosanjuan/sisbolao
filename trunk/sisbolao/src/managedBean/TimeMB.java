@@ -1,6 +1,8 @@
 package managedBean;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -12,6 +14,7 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -59,7 +62,9 @@ public class TimeMB {
 
 	public void upload(FileUploadEvent event) {
 
-		arquivo = event.getFile();
+		arquivo = event.getFile();		
+		
+		imagem = new DefaultStreamedContent(new ByteArrayInputStream(arquivo.getContents()));
 	}
 
 	public void criar() {

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import pojo.Bolao;
 import pojo.Campeonato;
+import pojo.Rodada;
 import util.MessagesReader;
 import bo.ICampeonatoBO;
 import dao.CampeonatoDao;
@@ -26,18 +27,35 @@ public class CampeonatoBO implements ICampeonatoBO {
 	}
 
 	@Override
-	public void create(Campeonato campeonato) {
+	public void create(Campeonato campeonato,int numRodadas) {
 		ctx = FacesContext.getCurrentInstance();
+		String mensagem;
 		try {
-			campeonatoDAO.create(campeonato);
-			String mensagem = MessagesReader.getMessages().getProperty(
-					"campeonatoCadastroSucesso");
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
-					mensagem);
+			if(!campeonatoDAO.existeCampeonato(campeonato.getNome())){
+				campeonatoDAO.create(campeonato);
+				for(int i =0;i<numRodadas;i++){
+					RodadaBO rodadaBO = new RodadaBO();
+					Rodada rodada = new Rodada();
+					String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodadas");
+					rodada.setNome((i+1)+nomeRodada);
+					rodada.setCampeonato(campeonato);
+					rodadaBO.create(rodada);
+				}		
+				mensagem = MessagesReader.getMessages().getProperty(
+						"campeonatoCadastroSucesso");
+				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
+						mensagem);
+			} else {
+				mensagem = MessagesReader.getMessages().getProperty(
+				"campeonatoJaCadastrado");
+				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
+				mensagem);
+			}
+			
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
-			String mensagem = MessagesReader.getMessages().getProperty(
+			mensagem = MessagesReader.getMessages().getProperty(
 					"erroPersistUpdate");
 			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
 					mensagem);
