@@ -19,9 +19,9 @@ public class CampeonatoConverter implements Converter {
 		if (texto == null) {
 			return null;
 		}
-		
-		CampeonatoBO campeonatoBO= new CampeonatoBO();
-		
+
+		CampeonatoBO campeonatoBO = new CampeonatoBO();
+
 		return campeonatoBO.findByName(texto);
 	}
 
@@ -29,8 +29,12 @@ public class CampeonatoConverter implements Converter {
 	public String getAsString(FacesContext ctx, UIComponent arg1, Object obj) {
 
 		try {
-			Campeonato campeonato = (Campeonato) obj;
-			return campeonato.getNome();
+			if (obj == null || obj.toString().equals("")) {
+				return "";
+			} else {
+				Campeonato campeonato = (Campeonato) obj;
+				return campeonato.getNome();
+			}
 
 		} catch (ClassCastException e) {
 			e.printStackTrace();
