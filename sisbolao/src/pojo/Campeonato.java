@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "campeonato")
-public class Campeonato {
+public class Campeonato   {
 
 	@Id
 	@SequenceGenerator(name = "campeonato_seq", sequenceName = "campeonato_seq")
