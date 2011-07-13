@@ -2,6 +2,7 @@ package dao;
 
 import javax.persistence.Query;
 
+import pojo.Categoria;
 import pojo.Time;
 
 public class TimeDao extends AbstractDao<Time> {
@@ -17,6 +18,15 @@ public class TimeDao extends AbstractDao<Time> {
 		return false;
 		
 		
+	}
+	
+	public int updateCategoriaDefault(Categoria categoria,Categoria categoriaDefault){		
+		Query query = em.createQuery("UPDATE Time t SET t.categoria = :categoriaDefault " +
+				"WHERE t.categoria = categoria");
+		query.setParameter("categoriaDefault",categoriaDefault );
+		query.setParameter("categoria",categoria );
+		
+		return query.executeUpdate();
 	}
 	
 }

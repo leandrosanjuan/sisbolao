@@ -2,7 +2,6 @@ package managedBean;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,11 +17,14 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
+import pojo.Categoria;
 import pojo.Permissao;
 import pojo.Time;
 import pojo.Usuario;
 import util.MessagesReader;
+import bo.ICategoriaBO;
 import bo.ITimeBO;
+import bo.implementation.CategoriaBO;
 import bo.implementation.TimeBO;
 import config.Config;
 
@@ -32,15 +34,19 @@ public class TimeMB {
 	FacesContext ctx;
 	FacesMessage msg;
 	private ITimeBO timeBO;
+	private ICategoriaBO categoriaBO;
 	private Time time;
 	private List<Time> times;
 	private StreamedContent imagem;
 	private UploadedFile arquivo;
 	private String filePath;
 	private String path;
+	
+	private List<Categoria> categorias;
 
 	public TimeMB() {
 		timeBO = new TimeBO();
+		categoriaBO = new CategoriaBO();
 		time = new Time();
 		filePath = FacesContext.getCurrentInstance().getExternalContext()
 				.getRealPath(Config.getProperty("imagesPath"));
@@ -159,5 +165,10 @@ public class TimeMB {
 
 	public String getPath() {
 		return path;
+	}
+
+	public List<Categoria> getCategorias() {
+		categoriaBO = new CategoriaBO();
+		return categoriaBO.findAll();
 	}
 }

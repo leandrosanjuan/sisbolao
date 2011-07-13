@@ -27,31 +27,32 @@ public class CampeonatoBO implements ICampeonatoBO {
 	}
 
 	@Override
-	public void create(Campeonato campeonato,int numRodadas) {
+	public void create(Campeonato campeonato, int numRodadas) {
 		ctx = FacesContext.getCurrentInstance();
 		String mensagem;
 		try {
-			if(!campeonatoDAO.existeCampeonato(campeonato.getNome())){
+			if (!campeonatoDAO.existeCampeonato(campeonato.getNome())) {
 				campeonatoDAO.create(campeonato);
-				for(int i =0;i<numRodadas;i++){
+				for (int i = 0; i < numRodadas; i++) {
 					RodadaBO rodadaBO = new RodadaBO();
 					Rodada rodada = new Rodada();
-					String nomeRodada = MessagesReader.getMessages().getProperty("nomeRodadas");
-					rodada.setNome((i+1)+nomeRodada);
+					String nomeRodada = MessagesReader.getMessages()
+							.getProperty("nomeRodadas");
+					rodada.setNome((i + 1) + nomeRodada);
 					rodada.setCampeonato(campeonato);
 					rodadaBO.create(rodada);
-				}		
+				}
 				mensagem = MessagesReader.getMessages().getProperty(
 						"campeonatoCadastroSucesso");
 				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
 						mensagem);
 			} else {
 				mensagem = MessagesReader.getMessages().getProperty(
-				"campeonatoJaCadastrado");
+						"campeonatoJaCadastrado");
 				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
-				mensagem);
+						mensagem);
 			}
-			
+
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -68,11 +69,18 @@ public class CampeonatoBO implements ICampeonatoBO {
 	public void update(Campeonato campeonato) {
 		ctx = FacesContext.getCurrentInstance();
 		try {
-			campeonatoDAO.update(campeonato);
-			String mensagem = MessagesReader.getMessages().getProperty(
-					"campeonatoAlteradoSucesso");
-			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
-					mensagem);
+			if (!campeonatoDAO.existeCampeonato(campeonato.getNome())) {
+				campeonatoDAO.update(campeonato);
+				String mensagem = MessagesReader.getMessages().getProperty(
+						"campeonatoAlteradoSucesso");
+				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
+						mensagem);
+			} else {
+				String mensagem = MessagesReader.getMessages().getProperty(
+						"campeonatoJaCadastrado");
+				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
+						mensagem);
+			}
 			ctx.addMessage(null, msg);
 		} catch (Exception e) {
 			logger.error(e.getMessage());
