@@ -25,8 +25,12 @@ public class TimeConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object obj) {
 		try {
-			Time time = (Time) obj;
-			return time.getNome();
+			if (obj == null || obj.toString().equals("")) {
+				return "";
+			} else {
+				Time time = (Time) obj;
+				return time.getNome();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

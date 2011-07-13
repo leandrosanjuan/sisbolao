@@ -1,5 +1,6 @@
 package managedBean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,7 +28,7 @@ import bo.implementation.TimeBO;
 
 @ManagedBean(name = "rodadaMB")
 @SessionScoped
-public class RodadaMB {
+public class RodadaMB  implements Serializable {
 
 	private static Usuario usuario;
 

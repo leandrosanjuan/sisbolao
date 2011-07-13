@@ -5,7 +5,6 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import pojo.Campeonato;
 import pojo.Rodada;
 import bo.IRodadaBO;
 import bo.implementation.RodadaBO;
@@ -31,8 +30,12 @@ public class RodadaConverter implements Converter {
 	public String getAsString(FacesContext ctx, UIComponent arg1, Object obj) {
 
 		try {
-			Campeonato campeonato = (Campeonato) obj;
-			return campeonato.getNome();
+			if (obj == null || obj.toString().equals("")) {
+				return "";
+			} else {
+				Rodada rodada = (Rodada) obj;
+				return rodada.getNome();
+			}
 
 		} catch (ClassCastException e) {
 			e.printStackTrace();
