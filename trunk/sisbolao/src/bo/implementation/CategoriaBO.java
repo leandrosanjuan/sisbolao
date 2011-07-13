@@ -8,36 +8,40 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pojo.Time;
+import pojo.Campeonato;
+import pojo.Categoria;
 import util.MessagesReader;
-import bo.ITimeBO;
+import bo.ICategoriaBO;
+
+import com.ibm.ctg.client.T;
+
+import dao.CategoriaDao;
 import dao.TimeDao;
 
-public class TimeBO implements ITimeBO {
+public class CategoriaBO implements ICategoriaBO {
 	FacesContext ctx;
 	FacesMessage msg;
-	TimeDao timeDao;
+	CategoriaDao categoriaDao;
 	Logger logger;
-
-	public TimeBO() {
-		timeDao = new TimeDao();
-		logger = LoggerFactory.getLogger("TimeBO");
+	
+	public CategoriaBO() {
+		categoriaDao = new CategoriaDao();
+		logger = LoggerFactory.getLogger("CategoriaDao");
 	}
-
 	@Override
-	public void create(Time time) {
+	public void create(Categoria categoria) {
 		ctx = FacesContext.getCurrentInstance();
 		try {
-			if (!timeDao.existeTime(time.getNome())) {
-				timeDao.create(time);
+			if (!categoriaDao.existeCategoria(categoria.getNome())) {
+				categoriaDao.create(categoria);
 				String mensagem = MessagesReader.getMessages().getProperty(
-						"timeCadastradoSucesso");
+						"categoriaCadastradaSucesso");
 				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
 						mensagem);
 
 			} else {
 				String mensagem = MessagesReader.getMessages().getProperty(
-						"timeJaExiste");
+						"categoriaJaExiste");
 				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
 						mensagem);
 			}
@@ -50,22 +54,23 @@ public class TimeBO implements ITimeBO {
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-
+		
 	}
 
 	@Override
-	public void update(Time time) {
+	public void update(Categoria categoria) {
 		ctx = FacesContext.getCurrentInstance();
 		try {
-			if (!timeDao.existeTime(time.getNome())) {
-				timeDao.update(time);
+			if (!categoriaDao.existeCategoria(categoria.getNome())) {
+				categoriaDao.update(categoria);
 				String mensagem = MessagesReader.getMessages().getProperty(
-						"timeAlteradoSucesso");
+						"categoriaAlteradaSucesso");
 				msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
 						mensagem);
+
 			} else {
 				String mensagem = MessagesReader.getMessages().getProperty(
-						"timeJaExiste");
+						"categoriaJaExiste");
 				msg = new FacesMessage(FacesMessage.SEVERITY_WARN, mensagem,
 						mensagem);
 			}
@@ -78,16 +83,19 @@ public class TimeBO implements ITimeBO {
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-
+		
 	}
 
 	@Override
-	public void delete(Time time) {
+	public void delete(Categoria categoria) {
 		ctx = FacesContext.getCurrentInstance();
 		try {
-			timeDao.delete(time);
+			Categoria categoriaDefault = categoriaDao.findById(Categoria.class, 0);
+			TimeDao timeDao = new TimeDao();
+			timeDao.updateCategoriaDefault(categoria, categoriaDefault);
+			categoriaDao.delete(categoria);
 			String mensagem = MessagesReader.getMessages().getProperty(
-					"timeExcluidoSucesso");
+					"categoriaExcluidaSucesso");
 			msg = new FacesMessage(FacesMessage.SEVERITY_INFO, mensagem,
 					mensagem);
 			ctx.addMessage(null, msg);
@@ -99,31 +107,21 @@ public class TimeBO implements ITimeBO {
 					mensagem);
 			ctx.addMessage(null, msg);
 		}
-
+		
 	}
 
 	@Override
-	public Time findById(Time time) {
-		return timeDao.findById(Time.class, time.getId());
+	public Categoria findById(Categoria categoria) {
+		return categoriaDao.findById(Categoria.class, categoria.getId());
 	}
 
 	@Override
-	public List<Time> findAll() {
-		return (List<Time>) timeDao.findAll(Time.class);
+	public List<Categoria> findAll() {
+		return (List<Categoria>) categoriaDao.findAll(Categoria.class);
+	}
+	
+	public Categoria findByName(String nome){
+		return categoriaDao.findByName(nome);
 	}
 
-	public Time findByName(String texto) {
-		try {
-			List<Time> times = this.findAll();
-
-			for (Time time : times) {
-				if (time.getNome().equals(texto)) {
-					return time;
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
 }
