@@ -41,19 +41,19 @@ public class RodadaMB implements Serializable {
 	private long rodadaID;
 	private List<Rodada> rodadas;
 
-	private SelectItem rodadaSI;
+//	private SelectItem rodadaSI;
 
-	private List<Campeonato> campeonatos;
+	private List<Campeonato> campeonatos;//ok
 	private ICampeonatoBO campeonatoBO;
-	private Campeonato campeonato;
+	private Campeonato campeonato;//ok
 
 	private ITimeBO timeBO;
 	private List<Time> times;
 	private List<Time> timesEscolhidos;
 
-	private Time timeCasa;
-
-	private Time timeVisitante;
+//	private Time timeCasa;
+//
+//	private Time timeVisitante;
 
 	private Date dataHora;
 
@@ -102,19 +102,19 @@ public class RodadaMB implements Serializable {
 	}
 
 	public void criarPartida() {
-		Partida partida = new Partida();
-		partida.setTimeCasa(timeCasa);
-		partida.setTimeVisitante(timeVisitante);
+
+//		partida.setTimeCasa(timeCasa);
+//		partida.setTimeVisitante(timeVisitante);
 		
-		Calendar dtHora= new GregorianCalendar();
-		dtHora.setTime(dataHora);
-		partida.setDataHora(dtHora);
+//		Calendar dtHora= new GregorianCalendar();
+//		dtHora.setTime(dataHora);
+//		partida.setDataHora(dtHora);
 
 		rodada.setId(rodadaID);
 		partida.setRodada(rodadaBO.findById(rodada));
-		
-		
-		partidas.add(partida);
+			
+		partidas.add(partida);		
+		partida = new Partida();
 	}
 	
 	public void gravarPartidas(){
@@ -159,21 +159,21 @@ public class RodadaMB implements Serializable {
 		return rodada;
 	}
 
-	public Time getTimeCasa() {
-		return timeCasa;
-	}
-
-	public void setTimeCasa(Time timeCasa) {
-		this.timeCasa = timeCasa;
-	}
-
-	public Time getTimeVisitante() {
-		return timeVisitante;
-	}
-
-	public void setTimeVisitante(Time timeVisitante) {
-		this.timeVisitante = timeVisitante;
-	}
+//	public Time getTimeCasa() {
+//		return timeCasa;
+//	}
+//
+//	public void setTimeCasa(Time timeCasa) {
+//		this.timeCasa = timeCasa;
+//	}
+//
+//	public Time getTimeVisitante() {
+//		return timeVisitante;
+//	}
+//
+//	public void setTimeVisitante(Time timeVisitante) {
+//		this.timeVisitante = timeVisitante;
+//	}
 
 	public void setTimes(List<Time> times) {
 		this.times = times;

@@ -42,8 +42,9 @@
 
 						<h:panelGrid columns="5" id="grid">
 							<h:outputLabel value="#{msg.timeCasa}" for="sl_casa"></h:outputLabel>
-							<p:selectOneMenu id="sl_casa" value="#{rodadaMB.timeCasa}"
-								required="true" converter="timeConverter">
+							<p:selectOneMenu id="sl_casa"
+								value="#{rodadaMB.partida.timeCasa}" required="true"
+								converter="timeConverter" style="font-size:10px;">
 								<f:selectItem itemLabel="#{msg.selecioneTime}" itemValue="" />
 								<f:selectItems value="#{rodadaMB.times}" var="timeCasa"
 									itemLabel="#{timeCasa.nome}" itemValue="#{timeCasa}" />
@@ -53,25 +54,29 @@
 
 							<h:outputLabel value="#{msg.timeVisitante}" for="sl_visitante"></h:outputLabel>
 							<p:selectOneMenu id="sl_visitante"
-								value="#{rodadaMB.timeVisitante}" required="true"
-								converter="timeConverter">
+								value="#{rodadaMB.partida.timeVisitante}" required="true"
+								converter="timeConverter" style="font-size:10px;">
 								<f:selectItem itemLabel="#{msg.selecioneTime}" itemValue="" />
 								<f:selectItems value="#{rodadaMB.times}" var="timeVisitante"
 									itemLabel="#{timeVisitante.nome}" itemValue="#{timeVisitante}" />
 							</p:selectOneMenu>
-							
+
 							<h:outputLabel value="#{msg.dataPartida}" for="dataHora"></h:outputLabel>
-							<p:calendar id="dataHora" value="#{rodadaMB.dataHora}" pattern="dd/MM/yyyy HH:mm" />							
-							
-							<p:commandButton value="#{msg.criarPartida}" action="#{rodadaMB.criarPartida}" update="partidas"/>								
-							
+							<p:calendar id="dataHora" value="#{rodadaMB.partida.dtHora}"
+								pattern="dd/MM/yyyy HH:mm" />
+
+							<p:commandButton value="#{msg.criarPartida}"
+								action="#{rodadaMB.criarPartida}" update="partidas"
+								style="font-size:10px;" />
+
 						</h:panelGrid>
 					</p:panel>
 
 					<br />
 
 					<p:outputPanel id="partidas">
-						<p:dataTable value="#{rodadaMB.partidas}" var="partida">
+						<p:dataTable value="#{rodadaMB.partidas}" var="partida"
+							id="dTblPartida">
 
 							<p:column>
 								<f:facet name="header">
@@ -89,9 +94,16 @@
 
 							<p:column>
 								<f:facet name="header">
+									<h:outputText value="#{msg.dataPartida}" />
+								</f:facet>
+								<h:outputText value="#{partida.dtHora}" />
+							</p:column>
+
+							<p:column>
+								<f:facet name="header">
 									<h:outputText value="#{msg.opcoes}" />
 								</f:facet>
-								<p:commandLink value="#{msg.remover}" update="partidas"
+								<p:commandLink value="#{msg.remover}" update="form:partidas"
 									process="@this">
 									<p:collector value="#{partida}"
 										removeFrom="#{rodadaMB.partidas}" />
@@ -99,9 +111,10 @@
 							</p:column>
 
 						</p:dataTable>
-						
-						<p:commandButton value="#{msg.gravarRodada}" action="#{rodadaMB.gravarRodada}"/>
-						
+
+						<p:commandButton value="#{msg.gravarRodada}"
+							action="#{rodadaMB.gravarRodada}" />
+
 					</p:outputPanel>
 				</p:fieldset>
 			</h:form></div>
