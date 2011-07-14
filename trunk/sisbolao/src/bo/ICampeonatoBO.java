@@ -2,8 +2,8 @@ package bo;
 
 import java.util.List;
 
-import pojo.Bolao;
 import pojo.Campeonato;
+import pojo.Usuario;
 
 public interface ICampeonatoBO {
 	public void create(Campeonato campeonato,int numRodadas);
@@ -17,4 +17,6 @@ public interface ICampeonatoBO {
 	public List<Campeonato> findAll();
 
 	public Campeonato findByName(String label);
+	
+	public List<Campeonato> findByBoloesUsuario(Usuario usuario);
 }
