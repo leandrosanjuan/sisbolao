@@ -18,6 +18,29 @@
 		<ui:define name="content">
 			<h:form>
 				<p:accordionPanel collapsible="false">
+					<p:tab title="#{msg.proxRodada}">
+						<p:panel id="proxRodada" header="#{msg.proxRodada}">
+							<h:outputLabel for="campeonato" value="#{msg.campeonato}" />
+							<p:selectOneMenu value="#{palpiteMB.campeonato}"
+								converter="campeonatoConverter">
+								<f:selectItem itemLabel="#{msg.selecioneCampeonato}"
+									itemValue=""></f:selectItem>
+								<f:selectItems value="#{palpiteMB.campeonatos}" var="campeonato"
+									itemLabel="#{campeonato.nome}" itemValue="#{campeonato}"></f:selectItems>
+								<p:ajax listener="#{palpiteMB.proximaRodada}" event="change"
+									update="pnlProxRodada" />
+							</p:selectOneMenu>
+							<p:dataTable id="pnlProxRodada" value="#{palpiteMB.partidasProxRodada}"
+								var="partida">
+								<p:column headerText="Casa">
+									<h:outputText value="#{partida.timeCasa}" />
+								</p:column>
+								<p:column headerText="Visitante">
+									<h:outputText value="#{partida.timeVisitante}" />
+								</p:column>
+							</p:dataTable>
+						</p:panel>
+					</p:tab>
 					<p:tab title="#{msg.ranking}">
 						<p:panel id="ranking" header="#{msg.ranking}">
 							<ol>
@@ -28,29 +51,7 @@
 							</ol>
 						</p:panel>
 					</p:tab>
-					<p:tab title="#{msg.proxRodada}">
-						<p:panel id="proxRodada" header="#{msg.proxRodada}">
-							<h:panelGrid columns="5">
-								<h:outputText value="FLAMENGO" />
-								<p:inputText size="2" />
-								<h:outputText value="X"></h:outputText>
-								<h:outputText value="Fluminense" />
-								<p:inputText size="2" />
 
-								<h:outputText value="auishd" />
-								<p:inputText size="2" />
-								<h:outputText value="X"></h:outputText>
-								<h:outputText value="gasfsd" />
-								<p:inputText size="2" />
-
-								<h:outputText value="adfs" />
-								<p:inputText size="2" />
-								<h:outputText value="X"></h:outputText>
-								<h:outputText value="gfds" />
-								<p:inputText size="2" />
-							</h:panelGrid>
-						</p:panel>
-					</p:tab>
 					<p:tab title="#{msg.resUltimaRodada}">
 
 						<p:panel id="resUltimaRodada" header="#{msg.resUltimaRodada}">

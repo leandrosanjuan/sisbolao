@@ -11,8 +11,10 @@ import org.slf4j.LoggerFactory;
 import pojo.Bolao;
 import pojo.Campeonato;
 import pojo.Rodada;
+import pojo.Usuario;
 import util.MessagesReader;
 import bo.ICampeonatoBO;
+import dao.BolaoDao;
 import dao.CampeonatoDao;
 
 public class CampeonatoBO implements ICampeonatoBO {
@@ -140,6 +142,11 @@ public class CampeonatoBO implements ICampeonatoBO {
 		}
 		return null;
 
+	}
+	
+	@Override
+	public List<Campeonato> findByBoloesUsuario(Usuario usuario) {
+		return campeonatoDAO.findByBoloesUsuario(usuario);	
 	}
 
 }
