@@ -8,13 +8,9 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import pojo.Campeonato;
 import pojo.Categoria;
 import util.MessagesReader;
 import bo.ICategoriaBO;
-
-import com.ibm.ctg.client.T;
-
 import dao.CategoriaDao;
 import dao.TimeDao;
 
