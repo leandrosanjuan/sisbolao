@@ -24,7 +24,7 @@ public class PartidaBO implements IPartidaBO {
 	Logger logger;
 	
 	public PartidaBO(){
-		PartidaDao partidaDao = new PartidaDao();
+		partidaDao = new PartidaDao();
 		logger = LoggerFactory.getLogger("PartidaBO");
 	}
 

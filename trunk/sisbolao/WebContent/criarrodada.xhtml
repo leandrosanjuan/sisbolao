@@ -60,6 +60,9 @@
 									itemLabel="#{timeVisitante.nome}" itemValue="#{timeVisitante}" />
 							</p:selectOneMenu>
 							
+							<h:outputLabel value="#{msg.dataPartida}" for="dataHora"></h:outputLabel>
+							<p:calendar id="dataHora" value="#{rodadaMB.dataHora}" pattern="dd/MM/yyyy HH:mm" />							
+							
 							<p:commandButton value="#{msg.criarPartida}" action="#{rodadaMB.criarPartida}" update="partidas"/>								
 							
 						</h:panelGrid>
