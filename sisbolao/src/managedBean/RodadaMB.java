@@ -3,6 +3,8 @@ package managedBean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -53,7 +55,7 @@ public class RodadaMB implements Serializable {
 
 	private Time timeVisitante;
 
-	private Calendar dataHora;
+	private Date dataHora;
 
 	private IPartidaBO partidaBO;
 	private Partida partida;
@@ -103,7 +105,10 @@ public class RodadaMB implements Serializable {
 		Partida partida = new Partida();
 		partida.setTimeCasa(timeCasa);
 		partida.setTimeVisitante(timeVisitante);
-		partida.setDataHora(dataHora);
+		
+		Calendar dtHora= new GregorianCalendar();
+		dtHora.setTime(dataHora);
+		partida.setDataHora(dtHora);
 
 		rodada.setId(rodadaID);
 		partida.setRodada(rodadaBO.findById(rodada));
@@ -114,7 +119,7 @@ public class RodadaMB implements Serializable {
 	
 	public void gravarPartidas(){
 		for (Partida partida :partidas){
-			partidaBO.update(partida);
+			partidaBO.create(partida);
 		}
 	}
 	
@@ -246,5 +251,13 @@ public class RodadaMB implements Serializable {
 
 	public long getRodadaID() {
 		return rodadaID;
+	}
+
+	public Date getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(Date dataHora) {
+		this.dataHora = dataHora;
 	}
 }
