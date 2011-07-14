@@ -1,6 +1,8 @@
 package pojo;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -14,16 +16,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
-@Table(name="partida")
+@Table(name = "partida")
 public class Partida {
 
 	@Id
 	@SequenceGenerator(name = "partida_seq", sequenceName = "partida_seq")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "partida_seq")
 	private Long id;
-	
+
 	@Column
 	private int golCasa;
 
@@ -32,22 +35,25 @@ public class Partida {
 
 	@Column
 	private Calendar dataHora;
-	
-	@ManyToOne(targetEntity=Rodada.class,fetch=FetchType.LAZY)
+
+	@Transient
+	private Date dtHora;
+
+	@ManyToOne(targetEntity = Rodada.class, fetch = FetchType.LAZY)
 	private Rodada rodada;
 	/**
 	 * 
 	 * @element-type Palpite
 	 */
-	@OneToMany(mappedBy="partida")
+	@OneToMany(mappedBy = "partida")
 	private List<Palpite> palpite;
 
-	@OneToOne(targetEntity=Time.class)
+	@OneToOne(targetEntity = Time.class)
 	private Time timeCasa;
-	
-	@OneToOne(targetEntity=Time.class)
+
+	@OneToOne(targetEntity = Time.class)
 	private Time timeVisitante;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -112,8 +118,17 @@ public class Partida {
 		this.timeVisitante = timeVisitante;
 	}
 
-	
-	
-	
+	public void setDtHora(Date dtHora) {
+		this.dtHora = dtHora;
+
+		// Setando a variável persistente dataHora
+		Calendar dtHr = new GregorianCalendar();
+		dtHr.setTime(dtHora);
+		this.dataHora = dtHr;
+	}
+
+	public Date getDtHora() {
+		return dtHora;
+	}
 
 }
