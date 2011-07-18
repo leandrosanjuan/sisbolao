@@ -178,6 +178,13 @@ public class LoginMB {
 		}
 		return null;
 	}
+	
+	public String alterarRodada() {
+		if (RodadaMB.permissao(usuarioLogado)) {
+			return "alterarrodada?faces-redirect=true";
+		}
+		return null;
+	}
 
 	public String criarTime() {
 		if (TimeMB.permissao(usuarioLogado)) {
