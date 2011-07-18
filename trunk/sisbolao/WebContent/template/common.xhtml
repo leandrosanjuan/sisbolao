@@ -62,7 +62,8 @@
 					<p:menuitem value="#{msg.listar}" action="listarcampeonatos?faces-redirect=true"/>				
 				</p:submenu >
 				<p:submenu rendered="#{loginMB.isAdmin}" label="#{msg.rodada}">
-					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarRodada}"/>									
+					<p:menuitem  value="#{msg.criar}" action="#{loginMB.criarRodada}"/>
+					<p:menuitem  value="#{msg.alterar}" action="#{loginMB.alterarRodada}"/>									
 				</p:submenu >
 				<p:submenu  label="#{msg.dadosUsuario}">
 					<p:menuitem  value="#{msg.alterarEmail}" action="#{loginMB.preAlterar}">
