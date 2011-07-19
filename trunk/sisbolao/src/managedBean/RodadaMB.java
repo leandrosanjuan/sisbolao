@@ -36,7 +36,7 @@ import bo.implementation.TimeBO;
 public class RodadaMB implements Serializable {
 
 	private static Usuario usuario;
-	
+
 	private FacesContext ctx;
 
 	private IRodadaBO rodadaBO;
@@ -44,19 +44,13 @@ public class RodadaMB implements Serializable {
 	private long rodadaID;
 	private List<Rodada> rodadas;
 
-//	private SelectItem rodadaSI;
-
-	private List<Campeonato> campeonatos;//ok
+	private List<Campeonato> campeonatos;// ok
 	private ICampeonatoBO campeonatoBO;
-	private Campeonato campeonato;//ok
+	private Campeonato campeonato;// ok
 
 	private ITimeBO timeBO;
 	private List<Time> times;
 	private List<Time> timesEscolhidos;
-
-//	private Time timeCasa;
-//
-//	private Time timeVisitante;
 
 	private Date dataHora;
 
@@ -67,14 +61,14 @@ public class RodadaMB implements Serializable {
 	public RodadaMB() {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
-		
+
 		timeBO = new TimeBO();
 		times = timeBO.findAll(); // Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
 		campeonato = new Campeonato();
-		
+
 		partidaBO = new PartidaBO();
 		partida = new Partida();
 		partidas = new ArrayList<Partida>();
@@ -106,43 +100,47 @@ public class RodadaMB implements Serializable {
 
 	public void criarPartida() {
 
-//		partida.setTimeCasa(timeCasa);
-//		partida.setTimeVisitante(timeVisitante);
-		
-//		Calendar dtHora= new GregorianCalendar();
-//		dtHora.setTime(dataHora);
-//		partida.setDataHora(dtHora);
-
 		rodada.setId(rodadaID);
-		partida.setRodada(rodadaBO.findById(rodada));
-			
-		partidas.add(partida);		
+		rodada = rodadaBO.findById(rodada);
+
+		partida.setRodada(rodada);
+
+		partidas.add(partida);
 		partida = new Partida();
 	}
-	
-	public void gravarPartidas(){
-		for (Partida partida :partidas){
+
+	public void gravarPartidas() {
+		for (Partida partida : partidas) {
 			partidaBO.create(partida);
 		}
 	}
-	
-	public void gravarRodada(){
+
+	public void gravarRodada() {
 		ctx = FacesContext.getCurrentInstance();
-		
+
 		gravarPartidas();
 		rodada.setPartidas(partidas);
-		
+
 		try {
 			rodadaBO.update(rodada);
+
+			FacesContext.getCurrentInstance()
+					.addMessage(
+							null,
+							new FacesMessage(rodada.getNome() + " do "
+									+ rodada.getCampeonato().getNome()
+									+ " adicionada"));
+
+			rodada = new Rodada();
+			partidas.clear();
+
 		} catch (Exception e) {
-			String m = MessagesReader.getMessages().getProperty("erroPersistUpdate");
-			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, m, m);
+			String m = MessagesReader.getMessages().getProperty(
+					"erroPersistUpdate");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, m,
+					m);
 			e.printStackTrace();
 		}
-		
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(rodada.getNome() + " adicionada"));
-		
 	}
 
 	public void filtrarRodadas() {
@@ -151,6 +149,19 @@ public class RodadaMB implements Serializable {
 			this.setRodadas(new ArrayList<Rodada>());
 		} else {
 			setRodadas(rodadaBO.findByCampeonato(campeonato));
+		}
+
+	}
+
+	public void filtrarPartidas() {
+		
+		rodada.setId(rodadaID);
+		rodada = rodadaBO.findById(rodada);
+
+		if (campeonato == null || rodada == null) {
+			this.setPartidas(new ArrayList<Partida>());
+		} else {
+			setPartidas(partidaBO.findByRodada(rodada));
 		}
 
 	}
@@ -174,22 +185,6 @@ public class RodadaMB implements Serializable {
 	public Rodada getRodada() {
 		return rodada;
 	}
-
-//	public Time getTimeCasa() {
-//		return timeCasa;
-//	}
-//
-//	public void setTimeCasa(Time timeCasa) {
-//		this.timeCasa = timeCasa;
-//	}
-//
-//	public Time getTimeVisitante() {
-//		return timeVisitante;
-//	}
-//
-//	public void setTimeVisitante(Time timeVisitante) {
-//		this.timeVisitante = timeVisitante;
-//	}
 
 	public void setTimes(List<Time> times) {
 		this.times = times;
@@ -220,10 +215,6 @@ public class RodadaMB implements Serializable {
 	public void setRodadas(List<Rodada> rodadas) {
 		this.rodadas = rodadas;
 	}
-
-	// public List<Rodada> getRodadas() {
-	// return rodadas;
-	// }
 
 	public void setCampeonatos(List<Campeonato> campeonatos) {
 		this.campeonatos = campeonatos;

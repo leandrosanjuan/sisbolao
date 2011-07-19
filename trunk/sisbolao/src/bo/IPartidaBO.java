@@ -3,6 +3,7 @@ package bo;
 import java.util.List;
 
 import pojo.Partida;
+import pojo.Rodada;
 
 public interface IPartidaBO {
 	public void create(Partida partida);
@@ -14,4 +15,6 @@ public interface IPartidaBO {
 	public Partida findById(Partida partida);
 
 	public List<Partida> findAll();
+
+	public List<Partida> findByRodada(Rodada rodada);
 }
