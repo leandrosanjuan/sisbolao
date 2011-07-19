@@ -13,6 +13,7 @@ import dao.PartidaDao;
 
 import pojo.Bolao;
 import pojo.Partida;
+import pojo.Rodada;
 import util.MessagesReader;
 import bo.IPartidaBO;
 
@@ -113,6 +114,24 @@ public class PartidaBO implements IPartidaBO {
 			ctx.addMessage(null, msg);
 		}
 
+	}
+
+	@Override
+	public List<Partida> findByRodada(Rodada rodada) {
+		ctx = FacesContext.getCurrentInstance();
+
+		try {
+			List<Partida> partidas = partidaDao.findByRodada(rodada);
+			return partidas;
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			String mensagem = MessagesReader.getMessages().getProperty(
+					"erroFind");
+			msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, mensagem,
+					mensagem);
+			ctx.addMessage(null, msg);
+		}
+		return null;
 	}
 
 }
