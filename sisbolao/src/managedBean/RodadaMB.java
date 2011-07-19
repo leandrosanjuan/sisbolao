@@ -21,6 +21,7 @@ import pojo.Permissao;
 import pojo.Rodada;
 import pojo.Time;
 import pojo.Usuario;
+import util.MessagesReader;
 import bo.ICampeonatoBO;
 import bo.IPartidaBO;
 import bo.IRodadaBO;
@@ -35,6 +36,8 @@ import bo.implementation.TimeBO;
 public class RodadaMB implements Serializable {
 
 	private static Usuario usuario;
+	
+	private FacesContext ctx;
 
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
@@ -124,9 +127,22 @@ public class RodadaMB implements Serializable {
 	}
 	
 	public void gravarRodada(){
+		ctx = FacesContext.getCurrentInstance();
+		
 		gravarPartidas();
 		rodada.setPartidas(partidas);
-		rodadaBO.update(rodada);
+		
+		try {
+			rodadaBO.update(rodada);
+		} catch (Exception e) {
+			String m = MessagesReader.getMessages().getProperty("erroPersistUpdate");
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, m, m);
+			e.printStackTrace();
+		}
+		
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(rodada.getNome() + " adicionada"));
+		
 	}
 
 	public void filtrarRodadas() {
