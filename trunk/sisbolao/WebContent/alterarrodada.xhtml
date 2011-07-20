@@ -48,11 +48,14 @@
 								<p:dataTable value="#{rodadaMB.partidas}" var="partida"
 									id="dTblPartida" paginator="true" rows="10">
 
-									<p:column sortBy="#{partida.dtHora}" >
+									<p:column>
 										<f:facet name="header">
 											<h:outputText value="#{msg.dataPartida}" />
 										</f:facet>
-										<h:outputText value="#{partida.dtHora}" />
+										<h:outputText value="#{partida.dtHora}" lang="PT_BR">
+											<f:convertDateTime timeStyle="short" pattern="dd/MM/yyyy HH:mm"
+												timeZone="America/Sao_Paulo" locale="BR" type="both"/>
+										</h:outputText>
 									</p:column>
 
 									<p:column>
@@ -66,7 +69,11 @@
 										<f:facet name="header">
 											<h:outputText value="#{msg.golsCasa}" />
 										</f:facet>
-										<h:inputText value="#{partida.golCasa}" style=" width : 40px;"/>
+										<h:inputText value="#{partida.golCasa}" style=" width : 40px;">
+											<f:validateLongRange minimum="0" maximum="99" />
+											<f:validateRequired />
+										</h:inputText>
+
 									</p:column>
 
 									<p:column>
@@ -75,25 +82,17 @@
 										</f:facet>
 										<h:outputText value="#{partida.timeVisitante.nome}" />
 									</p:column>
-									
+
 									<p:column>
 										<f:facet name="header">
 											<h:outputText value="#{msg.golsVisitante}" />
 										</f:facet>
-										<h:inputText value="#{partida.golVisitante}" style=" width : 40px;"/>
-										
-									</p:column>
-
-									<p:column>
-										<f:facet name="header">
-											<h:outputText value="#{msg.opcoes}" />
-										</f:facet>
-										<p:commandLink value="#{msg.remover}" update="form:partidas"
-											process="@this">
-											<p:collector value="#{partida}"
-												removeFrom="#{rodadaMB.partidas}" />
-										</p:commandLink>
-									</p:column>
+										<h:inputText value="#{partida.golVisitante}"
+											style=" width : 40px;">
+											<f:validateLongRange minimum="0" maximum="99" />
+											<f:validateRequired />
+										</h:inputText>
+									</p:column>									
 
 								</p:dataTable>
 
