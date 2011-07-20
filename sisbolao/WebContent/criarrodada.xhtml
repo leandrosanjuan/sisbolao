@@ -20,7 +20,7 @@
 				<h:form id="form">
 
 					<p:fieldset legend="#{msg.criarRodada}">
-					<p:messages id="msg"/>
+						<p:messages id="msg" />
 						<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
 						<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 							converter="campeonatoConverter" required="true">
@@ -29,13 +29,16 @@
 								itemLabel="#{campeonatoSI.nome}" itemValue="#{campeonatoSI}" />
 							<p:ajax listener="#{rodadaMB.filtrarRodadas}" event="change"
 								update="rodadas" />
+							<f:validateRequired />
 						</p:selectOneMenu>
 
 						<h:outputLabel for="rodadas" value="#{msg.rodada}" />
-						<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodadaID}" required="true">
+						<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodadaID}"
+							required="true">
 							<f:selectItem itemLabel="#{msg.selecioneRodada}" itemValue="" />
 							<f:selectItems var="rodadaSI" value="#{rodadaMB.rodadas}"
 								itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
+							<f:validateRequired />
 						</p:selectOneMenu>
 
 						<p:spacer />
@@ -50,6 +53,7 @@
 									<f:selectItem itemLabel="#{msg.selecioneTime}" itemValue="" />
 									<f:selectItems value="#{rodadaMB.times}" var="timeCasa"
 										itemLabel="#{timeCasa.nome}" itemValue="#{timeCasa}" />
+									<f:validateRequired />
 								</p:selectOneMenu>
 
 								<h:outputText value="  X  " />
@@ -61,12 +65,15 @@
 									<f:selectItem itemLabel="#{msg.selecioneTime}" itemValue="" />
 									<f:selectItems value="#{rodadaMB.times}" var="timeVisitante"
 										itemLabel="#{timeVisitante.nome}" itemValue="#{timeVisitante}" />
+									<f:validateRequired />
 								</p:selectOneMenu>
 
 								<h:outputLabel value="#{msg.dataPartida}" for="dataHora"></h:outputLabel>
 								<p:calendar id="dataHora" value="#{rodadaMB.partida.dtHora}"
 									pattern="dd/MM/yyyy HH:mm" required="true" mode="popup"
-									showOn="button"  locale="pt_BR" timeZone="America/Sao_Paulo" />
+									showOn="button" locale="pt_BR" timeZone="America/Sao_Paulo">
+									<f:validateRequired />
+								</p:calendar>
 
 								<p:commandButton value="#{msg.criarPartida}"
 									action="#{rodadaMB.criarPartida}" update="form:partidas"
@@ -77,7 +84,7 @@
 
 						<br />
 
-						<p:outputPanel id="partidas">						
+						<p:outputPanel id="partidas">
 							<p:dataTable value="#{rodadaMB.partidas}" var="partida"
 								id="dTblPartida">
 
@@ -100,7 +107,8 @@
 										<h:outputText value="#{msg.dataPartida}" />
 									</f:facet>
 									<h:outputText value="#{partida.dtHora}" lang="PT_BR">
-										<f:convertDateTime timeStyle="short" timeZone="America/Sao_Paulo" locale="BR"   type="both"   ></f:convertDateTime>
+										<f:convertDateTime timeStyle="short"
+											timeZone="America/Sao_Paulo" locale="BR" type="both"/>
 									</h:outputText>
 								</p:column>
 
