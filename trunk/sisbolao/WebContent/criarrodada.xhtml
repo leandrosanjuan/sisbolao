@@ -66,7 +66,7 @@
 								<h:outputLabel value="#{msg.dataPartida}" for="dataHora"></h:outputLabel>
 								<p:calendar id="dataHora" value="#{rodadaMB.partida.dtHora}"
 									pattern="dd/MM/yyyy HH:mm" required="true" mode="popup"
-									showOn="button" locale="PT-BR" />
+									showOn="button"  locale="pt_BR" timeZone="America/Sao_Paulo" />
 
 								<p:commandButton value="#{msg.criarPartida}"
 									action="#{rodadaMB.criarPartida}" update="form:partidas"
@@ -99,7 +99,9 @@
 									<f:facet name="header">
 										<h:outputText value="#{msg.dataPartida}" />
 									</f:facet>
-									<h:outputText value="#{partida.dtHora}" lang="PT_BR"/>
+									<h:outputText value="#{partida.dtHora}" lang="PT_BR">
+										<f:convertDateTime timeStyle="short" timeZone="America/Sao_Paulo" locale="BR"   type="both"   ></f:convertDateTime>
+									</h:outputText>
 								</p:column>
 
 								<p:column>
