@@ -9,13 +9,13 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import dao.PartidaDao;
-
-import pojo.Bolao;
+import pojo.Campeonato;
 import pojo.Partida;
 import pojo.Rodada;
 import util.MessagesReader;
 import bo.IPartidaBO;
+import dao.PartidaDao;
+import dao.RodadaDao;
 
 public class PartidaBO implements IPartidaBO {
 	
@@ -132,6 +132,11 @@ public class PartidaBO implements IPartidaBO {
 			ctx.addMessage(null, msg);
 		}
 		return null;
+	}
+	
+	public List<Partida> findProximaRodada(Campeonato campeonato) {
+		RodadaDao rodadaDao = new RodadaDao();		
+		return partidaDao.findByRodada(rodadaDao.findProximaRodada(campeonato));
 	}
 
 }

@@ -22,5 +22,7 @@ public class PartidaDao extends AbstractDao<Partida>{
 		}
 		return null;
 	}
+	
+	
 
 }

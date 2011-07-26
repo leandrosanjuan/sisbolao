@@ -31,12 +31,13 @@ public class PalpiteMB {
 	}
 	
 	public void proximaRodada() {
+		setPartidasProxRodada(new ArrayList<Partida>());
+		if (campeonato != null) {
+			partidaBO = new PartidaBO();
+			partidasProxRodada = partidaBO.findProximaRodada(campeonato);
+		} 
+		 
 		
-		if (campeonato == null) {
-			setPartidasProxRodada(new ArrayList<Partida>());
-		} else {
-			partidaBO = new PartidaBO();			
-		}
 	}
 	
 	public void setCampeonato(Campeonato campeonato) {

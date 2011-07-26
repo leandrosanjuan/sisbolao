@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -21,6 +22,7 @@ import pojo.Categoria;
 import pojo.Permissao;
 import pojo.Time;
 import pojo.Usuario;
+import util.CriaHash;
 import util.MessagesReader;
 import bo.ICategoriaBO;
 import bo.ITimeBO;
@@ -41,7 +43,7 @@ public class TimeMB {
 	private UploadedFile arquivo;
 	private String filePath;
 	private String path;
-	
+
 	private List<Categoria> categorias;
 
 	public TimeMB() {
@@ -68,19 +70,21 @@ public class TimeMB {
 
 	public void upload(FileUploadEvent event) {
 
-		arquivo = event.getFile();		
-		
-		imagem = new DefaultStreamedContent(new ByteArrayInputStream(arquivo.getContents()));
+		arquivo = event.getFile();
+
+		imagem = new DefaultStreamedContent(new ByteArrayInputStream(
+				arquivo.getContents()));
 	}
 
 	public void criar() {
 		ctx = FacesContext.getCurrentInstance();
 		FacesMessage facesMsg;
 		try {
-			
+
 			time.setImagem("/"
 					+ Config.getProperty("nomeArqImagem")
 					+ Config.getProperty("numImagem")
+					+ CriaHash.SHA1(arquivo.getFileName())
 					+ arquivo.getFileName().substring(
 							arquivo.getFileName().lastIndexOf(".")));
 			File path = new File(filePath);
@@ -92,10 +96,11 @@ public class TimeMB {
 			if (!arqImagem.exists()) {
 				arqImagem.createNewFile();
 			}
-			Integer numImagem = Integer.parseInt( Config.getProperty("numImagem")) +1;
+			Integer numImagem = Integer.parseInt(Config
+					.getProperty("numImagem")) + 1;
 			Config.setProperty("numImagem", numImagem.toString());
 			FileOutputStream fos;
-			
+
 			fos = new FileOutputStream(arqImagem);
 
 			fos.write(arquivo.getContents());
@@ -111,6 +116,12 @@ public class TimeMB {
 			ctx.addMessage(null, facesMsg);
 			e.printStackTrace();
 		} catch (IOException e) {
+			String msg = MessagesReader.getMessages().getProperty(
+					"problemaArquivo");
+			facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
+
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
 			String msg = MessagesReader.getMessages().getProperty(
 					"problemaArquivo");
 			facesMsg = new FacesMessage(FacesMessage.SEVERITY_ERROR, msg, msg);
