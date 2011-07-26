@@ -18,7 +18,7 @@ import bo.implementation.PartidaBO;
 @SessionScoped
 public class PalpiteMB {
 
-	private Palpite palpite;
+	private List<Palpite> palpites;
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
@@ -31,12 +31,25 @@ public class PalpiteMB {
 	}
 	
 	public void proximaRodada() {
+		palpites = new ArrayList<Palpite>();
 		setPartidasProxRodada(new ArrayList<Partida>());
 		if (campeonato != null) {
 			partidaBO = new PartidaBO();
 			partidasProxRodada = partidaBO.findProximaRodada(campeonato);
+			for (Partida partida : partidasProxRodada) {
+				Palpite palpite = new Palpite();
+				palpite.setPartida(partida);
+				palpites.add(palpite);
+			}
 		} 
 		 
+		
+	}
+	
+	public void salvarPalpiteProxRodada(){
+		for (Palpite palpite : palpites) {
+			System.out.println(palpite.getGolCasa());
+		}
 		
 	}
 	
@@ -54,13 +67,6 @@ public class PalpiteMB {
 		return campeonatoBO.findByBoloesUsuario(LoginMB.getUsuarioLogadoExt());
 	}
 
-	public void setPalpite(Palpite palpite) {
-		this.palpite = palpite;
-	}
-
-	public Palpite getPalpite() {
-		return palpite;
-	}
 
 	public void setPartidasProxRodada(List<Partida> partidasProxRodada) {
 		this.partidasProxRodada = partidasProxRodada;
@@ -68,5 +74,13 @@ public class PalpiteMB {
 
 	public List<Partida> getPartidasProxRodada() {
 		return partidasProxRodada;
+	}
+
+	public void setPalpites(List<Palpite> palpites) {
+		this.palpites = palpites;
+	}
+
+	public List<Palpite> getPalpites() {
+		return palpites;
 	}
 }

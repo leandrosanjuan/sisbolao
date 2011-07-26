@@ -17,8 +17,8 @@
 	<ui:composition template="template/common-nosidebar.xhtml">
 		<ui:define name="content">
 			<h:form>
-				<p:accordionPanel collapsible="false" styleClass="dashboard">
-					<p:tab title="#{msg.proxRodada}">
+				<p:accordionPanel id="apPrincipal" collapsible="false" styleClass="dashboard">
+					<p:tab  title="#{msg.proxRodada}">
 						<p:panel id="proxRodada" header="#{msg.proxRodada}">
 							<h:outputLabel for="campeonato" value="#{msg.campeonato}" />
 							<p:selectOneMenu value="#{palpiteMB.campeonato}"
@@ -28,31 +28,32 @@
 								<f:selectItems value="#{palpiteMB.campeonatos}" var="campeonato"
 									itemLabel="#{campeonato.nome}" itemValue="#{campeonato}"></f:selectItems>
 								<p:ajax listener="#{palpiteMB.proximaRodada}" event="change"
-									update="proxRodada" />
+									update="apPrincipal" />
 							</p:selectOneMenu>
 
 							<h:outputText value="#{msg.proxRodada}" />
 							<h:panelGrid>
-								<ui:repeat value="#{palpiteMB.partidasProxRodada}" var="partida">
+								<ui:repeat value="#{palpiteMB.palpites}" var="palpite">
 									<div class="palpites">
 										<h:outputText styleClass="timeC"
-											value="#{partida.timeCasa.nome} " />
+											value="#{palpite.partida.timeCasa.nome} " />
 										
 										<p:inputText styleClass="golsC" size="1"
-											value="#{partida.golCasa}"></p:inputText>
+											value="#{palpite.golCasa}"></p:inputText>
 
 										<h:outputText styleClass="x" value="x" />
 
 
 										<p:inputText styleClass="golsV" size="1"
-											value="#{partida.golVisitante}"></p:inputText>
+											value="#{palpite.golVisitante}"></p:inputText>
 
 
 										<h:outputText styleClass="timeV"
-											value="#{partida.timeVisitante.nome} " />
+											value="#{palpite.partida.timeVisitante.nome} " />
 									</div>
 								</ui:repeat>
 							</h:panelGrid>
+							<p:commandButton action="#{palpiteMB.salvarPalpiteProxRodada}" value="#{msg.salvar}"></p:commandButton>
 						</p:panel>
 					</p:tab>
 					<p:tab title="#{msg.ranking}">

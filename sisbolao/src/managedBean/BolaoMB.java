@@ -71,7 +71,7 @@ public class BolaoMB {
 		for(String convidado:convidados) {
 			
 			try {
-			//	EnviaEmail.enviar("convite", "sisbolao", convidado, convidado);
+				EnviaEmail.enviar("convite", "sisbolao", convidado, convidado);
 				
 				bolaoBO.create(bolao);							
 			} catch (Exception e) {
