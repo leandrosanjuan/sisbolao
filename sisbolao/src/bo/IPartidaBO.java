@@ -2,6 +2,7 @@ package bo;
 
 import java.util.List;
 
+import pojo.Campeonato;
 import pojo.Partida;
 import pojo.Rodada;
 
@@ -17,4 +18,6 @@ public interface IPartidaBO {
 	public List<Partida> findAll();
 
 	public List<Partida> findByRodada(Rodada rodada);
+	
+	public List<Partida> findProximaRodada(Campeonato campeonato);
 }

@@ -23,7 +23,7 @@
 				<p:panel id="pnlTime" header="#{msg.criarTime}">
 					<p:messages />
 					<h:panelGrid columns="3">
-						<h:outputLabel for="categoria" value="#{msg.time}" />
+						<h:outputLabel for="categoria" value="#{msg.categoria}" />
 						<p:selectOneMenu required="true" value="#{timeMB.time.categoria}" converter="categoriaConverter">
 							<f:selectItems value="#{timeMB.categorias}" var="categoria"
 								itemLabel="#{categoria.nome}" itemValue="#{categoria}"></f:selectItems>
