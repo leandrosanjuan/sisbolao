@@ -20,10 +20,10 @@ public class Palpite {
 	private Long id;
 	
 	@Column
-	private int golCasa;
+	private String golCasa;
 
 	@Column
-	private int golVisitante;
+	private String golVisitante;
 
 	@ManyToOne(targetEntity=Usuario.class,fetch=FetchType.LAZY)	
 	private Usuario usuario;
@@ -37,22 +37,6 @@ public class Palpite {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getGolCasa() {
-		return golCasa;
-	}
-
-	public void setGolCasa(int golCasa) {
-		this.golCasa = golCasa;
-	}
-
-	public int getGolVisitante() {
-		return golVisitante;
-	}
-
-	public void setGolVisitante(int golVisitante) {
-		this.golVisitante = golVisitante;
 	}
 
 	public Usuario getUsuario() {
@@ -69,6 +53,22 @@ public class Palpite {
 
 	public void setPartida(Partida partida) {
 		this.partida = partida;
+	}
+
+	public String getGolVisitante() {
+		return golVisitante;
+	}
+
+	public void setGolVisitante(String golVisitante) {
+		this.golVisitante = golVisitante;
+	}
+
+	public String getGolCasa() {
+		return golCasa;
+	}
+
+	public void setGolCasa(String golCasa) {
+		this.golCasa = golCasa;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Rodada {
 	@OneToMany(mappedBy = "rodada")
 	private List<Partida> partidas;
 
-	@ManyToOne(targetEntity = Campeonato.class)
+	@ManyToOne(targetEntity = Campeonato.class,fetch=FetchType.LAZY)
 	private Campeonato campeonato;
 
 	public Long getId() {

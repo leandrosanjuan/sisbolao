@@ -28,10 +28,10 @@ public class Partida {
 	private Long id;
 
 	@Column
-	private int golCasa;
+	private String golCasa;
 
 	@Column
-	private int golVisitante;
+	private String golVisitante;
 
 	@Column
 	private Calendar dataHora;
@@ -60,22 +60,6 @@ public class Partida {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getGolCasa() {
-		return golCasa;
-	}
-
-	public void setGolCasa(int golCasa) {
-		this.golCasa = golCasa;
-	}
-
-	public int getGolVisitante() {
-		return golVisitante;
-	}
-
-	public void setGolVisitante(int golVisitante) {
-		this.golVisitante = golVisitante;
 	}
 
 	public Calendar getDataHora() {
@@ -129,6 +113,22 @@ public class Partida {
 
 	public Date getDtHora() {
 		return dtHora;
+	}
+
+	public void setGolCasa(String golCasa) {
+		this.golCasa = golCasa;
+	}
+
+	public String getGolCasa() {
+		return golCasa;
+	}
+
+	public void setGolVisitante(String golVisitante) {
+		this.golVisitante = golVisitante;
+	}
+
+	public String getGolVisitante() {
+		return golVisitante;
 	}
 
 }
