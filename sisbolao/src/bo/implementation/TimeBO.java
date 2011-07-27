@@ -1,5 +1,6 @@
 package bo.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -8,6 +9,8 @@ import javax.faces.context.FacesContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import pojo.Categoria;
+import pojo.Rodada;
 import pojo.Time;
 import util.MessagesReader;
 import bo.ITimeBO;
@@ -120,6 +123,22 @@ public class TimeBO implements ITimeBO {
 				if (time.getNome().equals(texto)) {
 					return time;
 				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Time> findByCategoria(Categoria categoria) {
+		List<Time> listaTime = new ArrayList<Time>();
+		try {
+			if (categoria != null) {
+				listaTime = timeDao.findByCategoria(categoria);
+				return listaTime;
+			} else {
+				return listaTime;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

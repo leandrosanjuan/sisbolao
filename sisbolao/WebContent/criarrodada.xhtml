@@ -40,6 +40,19 @@
 								itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
 							<f:validateRequired />
 						</p:selectOneMenu>
+						
+						<h:outputLabel for="categorias" value="#{msg.categoria}" />
+						<p:selectOneMenu id="categorias" value="#{rodadaMB.categoria}"
+							converter="categoriaConverter" required="true">
+							<f:selectItem itemLabel="#{msg.selecioneCategoria}" itemValue="" />
+							<f:selectItems var="categoriaSI" value="#{rodadaMB.categorias}"
+								itemLabel="#{categoriaSI.nome}" itemValue="#{categoriaSI}" />
+							<p:ajax listener="#{rodadaMB.filtrarTimes}" event="change"
+								update="form:sl_casa" />
+							<p:ajax listener="#{rodadaMB.filtrarTimes}" event="change"
+								update="form:sl_visitante" />
+							<f:validateRequired />
+						</p:selectOneMenu>
 
 						<p:spacer />
 
