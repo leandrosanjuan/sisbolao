@@ -16,6 +16,7 @@ import javax.faces.model.SelectItem;
 import org.primefaces.event.DragDropEvent;
 
 import pojo.Campeonato;
+import pojo.Categoria;
 import pojo.Partida;
 import pojo.Permissao;
 import pojo.Rodada;
@@ -23,10 +24,12 @@ import pojo.Time;
 import pojo.Usuario;
 import util.MessagesReader;
 import bo.ICampeonatoBO;
+import bo.ICategoriaBO;
 import bo.IPartidaBO;
 import bo.IRodadaBO;
 import bo.ITimeBO;
 import bo.implementation.CampeonatoBO;
+import bo.implementation.CategoriaBO;
 import bo.implementation.PartidaBO;
 import bo.implementation.RodadaBO;
 import bo.implementation.TimeBO;
@@ -44,10 +47,15 @@ public class RodadaMB implements Serializable {
 	private long rodadaID;
 	private List<Rodada> rodadas;
 
-	private List<Campeonato> campeonatos;// ok
+	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
-	private Campeonato campeonato;// ok
-
+	private Campeonato campeonato;
+	
+	
+	private ICategoriaBO categoriaBO;
+	private Categoria categoria;
+	private List<Categoria> categorias;
+	
 	private ITimeBO timeBO;
 	private List<Time> times;
 	private List<Time> timesEscolhidos;
@@ -62,13 +70,16 @@ public class RodadaMB implements Serializable {
 		rodada = new Rodada();
 		rodadaBO = new RodadaBO();
 
+		categoriaBO = new CategoriaBO();
+		categorias = categoriaBO.findAll();
+		
 		timeBO = new TimeBO();
 		times = timeBO.findAll(); // Alterar depois!!!
 		timesEscolhidos = new ArrayList<Time>();
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
-		campeonato = new Campeonato();
-
+		campeonato = new Campeonato();	
+		
 		partidaBO = new PartidaBO();
 		partida = new Partida();
 		partidas = new ArrayList<Partida>();
@@ -83,20 +94,20 @@ public class RodadaMB implements Serializable {
 		return false;
 	}
 
-	public void onDrop(DragDropEvent event) {
-		Time time = (Time) event.getData();
-
-		timesEscolhidos.add(time);
-
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(time.getNome() + " adicionado"));
-	}
-
-	public void onDropBack(DragDropEvent event) {
-		Time time = (Time) event.getData();
-
-		timesEscolhidos.remove(time);
-	}
+//	public void onDrop(DragDropEvent event) {
+//		Time time = (Time) event.getData();
+//
+//		timesEscolhidos.add(time);
+//
+//		FacesContext.getCurrentInstance().addMessage(null,
+//				new FacesMessage(time.getNome() + " adicionado"));
+//	}
+//
+//	public void onDropBack(DragDropEvent event) {
+//		Time time = (Time) event.getData();
+//
+//		timesEscolhidos.remove(time);
+//	}
 
 	public void criarPartida() {
 
@@ -162,6 +173,16 @@ public class RodadaMB implements Serializable {
 			this.setPartidas(new ArrayList<Partida>());
 		} else {
 			setPartidas(partidaBO.findByRodada(rodada));
+		}
+
+	}
+	
+	public void filtrarTimesPorCategoria() {
+
+		if (categoria == null) {
+			setTimes(new ArrayList<Time>());
+		} else {
+			setTimes(timeBO.findByCategoria(categoria));
 		}
 
 	}
@@ -266,5 +287,21 @@ public class RodadaMB implements Serializable {
 
 	public void setDataHora(Date dataHora) {
 		this.dataHora = dataHora;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
+
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
 	}
 }

@@ -2,6 +2,7 @@ package bo;
 
 import java.util.List;
 
+import pojo.Categoria;
 import pojo.Time;
 
 public interface ITimeBO {
@@ -16,4 +17,6 @@ public interface ITimeBO {
 	public List<Time> findAll();
 	
 	public Time findByName(String nome);
+
+	public List<Time> findByCategoria(Categoria categoria);
 }
