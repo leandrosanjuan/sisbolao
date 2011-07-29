@@ -13,7 +13,7 @@ public class TimeConverter implements Converter {
 
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String texto) {
-		if (texto == null) {
+		if (texto == null || texto.equals("")) {
 			return null;
 		}
 

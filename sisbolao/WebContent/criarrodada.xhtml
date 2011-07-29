@@ -43,20 +43,17 @@
 						
 						<h:outputLabel for="categorias" value="#{msg.categoria}" />
 						<p:selectOneMenu id="categorias" value="#{rodadaMB.categoria}"
-							converter="categoriaConverter" required="true">
+							converter="categoriaConverter">
 							<f:selectItem itemLabel="#{msg.selecioneCategoria}" itemValue="" />
 							<f:selectItems var="categoriaSI" value="#{rodadaMB.categorias}"
 								itemLabel="#{categoriaSI.nome}" itemValue="#{categoriaSI}" />
-							<p:ajax listener="#{rodadaMB.filtrarTimes}" event="change"
-								update="form:sl_casa" />
-							<p:ajax listener="#{rodadaMB.filtrarTimes}" event="change"
-								update="form:sl_visitante" />
+							<p:ajax event="change" update="pnlPartidas"/>							
 							<f:validateRequired />
 						</p:selectOneMenu>
 
 						<p:spacer />
 
-						<p:panel header="#{msg.criarPartida}">
+						<p:panel id="pnlPartidas" header="#{msg.criarPartida}">
 
 							<h:panelGrid columns="5" id="grid">
 								<h:outputLabel value="#{msg.timeCasa}" for="sl_casa"></h:outputLabel>

@@ -6,8 +6,8 @@
         <message-bundle>message</message-bundle>
     </application>
 	
-	<lifecycle>
+<!-- 	<lifecycle>
 		<phase-listener>filter.LoginFilter</phase-listener>
-	</lifecycle>
+	</lifecycle> -->
 	
 </faces-config>

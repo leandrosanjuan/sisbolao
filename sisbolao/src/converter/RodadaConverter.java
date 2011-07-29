@@ -17,7 +17,7 @@ public class RodadaConverter implements Converter {
 	public Object getAsObject(FacesContext ctx, UIComponent arg1, String texto) {
 
 		try {
-			if (texto == null) {
+			if (texto == null || texto.equals("")) {
 				return null;
 			}
 
