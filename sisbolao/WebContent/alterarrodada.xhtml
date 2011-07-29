@@ -20,6 +20,7 @@
 				<h:form id="form">
 
 					<p:fieldset legend="#{msg.alterarRodada}">
+					<p:messages id="msg" />
 						<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
 						<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 							converter="campeonatoConverter" required="true">
