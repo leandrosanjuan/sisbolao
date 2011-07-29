@@ -72,10 +72,12 @@ public class RodadaMB implements Serializable {
 
 		categoriaBO = new CategoriaBO();
 		categorias = categoriaBO.findAll();
+		categoria = new Categoria();
 		
 		timeBO = new TimeBO();
-		times = timeBO.findAll(); // Alterar depois!!!
+		times = new ArrayList<Time>();
 		timesEscolhidos = new ArrayList<Time>();
+		
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
 		campeonato = new Campeonato();	
@@ -177,15 +179,15 @@ public class RodadaMB implements Serializable {
 
 	}
 	
-	public void filtrarTimesPorCategoria() {
-
-		if (categoria == null) {
-			setTimes(new ArrayList<Time>());
-		} else {
-			setTimes(timeBO.findByCategoria(categoria));
-		}
-
-	}
+//	public void filtrarTimesPorCategoria() {
+//
+//		if (categoria == null) {
+//			setTimes(new ArrayList<Time>());
+//		} else {
+//			setTimes(timeBO.findByCategoria(categoria));
+//		}
+//
+//	}
 
 	public void alterarRodada() {
 		rodadaBO.update(rodada);
@@ -212,6 +214,11 @@ public class RodadaMB implements Serializable {
 	}
 
 	public List<Time> getTimes() {
+		if (categoria == null) {
+			setTimes(new ArrayList<Time>());
+		} else {
+			setTimes(timeBO.findByCategoria(categoria));
+		}		
 		return times;
 	}
 
