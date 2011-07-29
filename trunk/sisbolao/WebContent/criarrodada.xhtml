@@ -40,22 +40,25 @@
 								itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
 							<f:validateRequired />
 						</p:selectOneMenu>
-						
-						<h:outputLabel for="categorias" value="#{msg.categoria}" />
-						<p:selectOneMenu id="categorias" value="#{rodadaMB.categoria}"
-							converter="categoriaConverter">
-							<f:selectItem itemLabel="#{msg.selecioneCategoria}" itemValue="" />
-							<f:selectItems var="categoriaSI" value="#{rodadaMB.categorias}"
-								itemLabel="#{categoriaSI.nome}" itemValue="#{categoriaSI}" />
-							<p:ajax event="change" update="pnlPartidas"/>							
-							<f:validateRequired />
-						</p:selectOneMenu>
 
 						<p:spacer />
 
 						<p:panel id="pnlPartidas" header="#{msg.criarPartida}">
 
-							<h:panelGrid columns="5" id="grid">
+							<h:panelGrid columns="4" id="grid">
+
+
+								<h:outputLabel for="categoriasCasa" value="#{msg.categoria}" />
+								<p:selectOneMenu id="categoriasCasa"
+									value="#{rodadaMB.categoria}" converter="categoriaConverter">
+									<f:selectItem itemLabel="#{msg.selecioneCategoria}"
+										itemValue="" />
+									<f:selectItems var="categoriaSI" value="#{rodadaMB.categorias}"
+										itemLabel="#{categoriaSI.nome}" itemValue="#{categoriaSI}" />
+									<p:ajax event="change" update="sl_casa" />
+									<f:validateRequired />
+								</p:selectOneMenu>
+
 								<h:outputLabel value="#{msg.timeCasa}" for="sl_casa"></h:outputLabel>
 								<p:selectOneMenu id="sl_casa"
 									value="#{rodadaMB.partida.timeCasa}" required="true"
@@ -66,7 +69,17 @@
 									<f:validateRequired />
 								</p:selectOneMenu>
 
-								<h:outputText value="  X  " />
+								<h:outputLabel for="categoriasVisitante"
+									value="#{msg.categoria}" />
+								<p:selectOneMenu id="categoriasVisitante"
+									value="#{rodadaMB.categoria}" converter="categoriaConverter">
+									<f:selectItem itemLabel="#{msg.selecioneCategoria}"
+										itemValue="" />
+									<f:selectItems var="categoriaSI" value="#{rodadaMB.categorias}"
+										itemLabel="#{categoriaSI.nome}" itemValue="#{categoriaSI}" />
+									<p:ajax event="change" update="sl_visitante" />
+									<f:validateRequired />
+								</p:selectOneMenu>
 
 								<h:outputLabel value="#{msg.timeVisitante}" for="sl_visitante"></h:outputLabel>
 								<p:selectOneMenu id="sl_visitante"
@@ -118,7 +131,7 @@
 									</f:facet>
 									<h:outputText value="#{partida.dtHora}" lang="PT_BR">
 										<f:convertDateTime timeStyle="short"
-											timeZone="America/Sao_Paulo" locale="BR" type="both"/>
+											timeZone="America/Sao_Paulo" locale="BR" type="both" />
 									</h:outputText>
 								</p:column>
 
