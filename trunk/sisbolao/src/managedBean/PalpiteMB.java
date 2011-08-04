@@ -9,6 +9,8 @@ import javax.faces.bean.SessionScoped;
 import pojo.Campeonato;
 import pojo.Palpite;
 import pojo.Partida;
+import pojo.Permissao;
+import pojo.Usuario;
 import bo.ICampeonatoBO;
 import bo.IPartidaBO;
 import bo.implementation.CampeonatoBO;
@@ -18,6 +20,8 @@ import bo.implementation.PartidaBO;
 @SessionScoped
 public class PalpiteMB {
 
+	private static Usuario usuario;
+	
 	private List<Palpite> palpites;
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
@@ -28,6 +32,15 @@ public class PalpiteMB {
 	
 	public PalpiteMB() {
 		// TODO Auto-generated constructor stub
+	}
+	
+
+	public static boolean permissao(Usuario usuarioLogado) {
+		usuario = usuarioLogado;
+		if(usuario.getPermissoes().contains(Permissao.PALPITE)){
+			return true;
+		}
+		return false;
 	}
 	
 	public void proximaRodada() {
@@ -83,4 +96,5 @@ public class PalpiteMB {
 	public List<Palpite> getPalpites() {
 		return palpites;
 	}
+
 }

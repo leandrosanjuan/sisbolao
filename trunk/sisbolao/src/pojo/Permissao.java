@@ -5,7 +5,8 @@ public enum Permissao {
 	CAMPEONATO(1),
 	TIME(2),
 	RODADA(3),
-	DADOSPESSOAIS(4);
+	DADOSPESSOAIS(4),
+	PALPITE(5);
 	
 	private int permissao;
 

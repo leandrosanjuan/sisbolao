@@ -192,6 +192,13 @@ public class LoginMB {
 		}
 		return null;
 	}
+	
+	public String criarPalpite() {
+		if (PalpiteMB.permissao(usuarioLogado)) {
+			return "palpite?faces-redirect=true";
+		}
+		return null;
+	}
 
 	public String listarTimes() {
 		return "listartimes?faces-redirect=true";
