@@ -46,14 +46,14 @@
 						<p:panel header="#{msg.partidas}">
 
 							<p:outputPanel id="partidas">
-								<p:dataTable value="#{rodadaMB.partidas}" var="partida"
+								<p:dataTable value="#{rodadaMB.rodada.partidas}" var="partida"
 									id="dTblPartida" paginator="true" rows="10">
 
 									<p:column>
 										<f:facet name="header">
 											<h:outputText value="#{msg.dataPartida}" />
 										</f:facet>
-										<h:outputText value="#{partida.dtHora}" lang="PT_BR">
+										<h:outputText value="#{partida.dtHora}">
 											<f:convertDateTime timeStyle="default" pattern="dd/MM/yyyy HH:mm"
 												timeZone="America/Sao_Paulo" locale="BR" type="both"/>
 										</h:outputText>
