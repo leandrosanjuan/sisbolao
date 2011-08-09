@@ -1,0 +1,133 @@
+<!DOCTYPE html >
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.prime.com.tr/ui">
+
+<h:head>
+	<title></title>
+	<meta name="keywords" content="" />
+	<meta name="description" content="" />
+	<link href="recursos/estilo.css" rel="stylesheet" type="text/css"
+		media="screen" />
+</h:head>
+
+<ui:composition template="template/common.xhtml">
+	<ui:define name="content">
+		<div class="post">
+			<h:form id="form">
+
+				<p:fieldset legend="#{msg.criarPalpites}">
+					<p:messages id="msg" />
+					<h:outputLabel for="boloes" value="#{msg.bolao}" />
+					<p:selectOneMenu id="boloes" value="#{palpiteMB.bolao}"
+						converter="bolaoConverter" required="true">
+						<f:selectItem itemLabel="#{msg.selecioneBolao}" itemValue="" />
+						<f:selectItems var="bolaoSI" value="#{palpiteMB.boloes}"
+							itemLabel="#{bolaoSI.nome}" itemValue="#{bolaoSI}" />
+						<p:ajax listener="#{palpiteMB.filtrarRodadas}" event="change"
+							update="rodadas" />
+						<f:validateRequired />
+					</p:selectOneMenu>
+
+					<h:outputLabel for="rodadas" value="#{msg.rodada}" />
+					<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodadaID}"
+						required="true">
+						<f:selectItem itemLabel="#{msg.selecioneRodada}" itemValue="" />
+						<f:selectItems var="rodadaSI" value="#{rodadaMB.rodadas}"
+							itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
+						<f:validateRequired />
+					</p:selectOneMenu>
+					
+					<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
+						<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
+							converter="campeonatoConverter" required="true">
+							<f:selectItem itemLabel="#{msg.selecioneCampeonato}" itemValue="" />
+							<f:selectItems var="campeonatoSI" value="#{rodadaMB.campeonatos}"
+								itemLabel="#{campeonatoSI.nome}" itemValue="#{campeonatoSI}" />
+							<p:ajax listener="#{rodadaMB.filtrarRodadas}" event="change"
+								update="rodadas" />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="rodadas" value="#{msg.rodada}" />
+						<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodadaID}"
+							required="true">
+							<f:selectItem itemLabel="#{msg.selecioneRodada}" itemValue="" />
+							<f:selectItems var="rodadaSI" value="#{rodadaMB.rodadas}"
+								itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
+							<p:ajax listener="#{rodadaMB.filtrarPartidas}" event="change"
+								update="form:partidas" />
+						</p:selectOneMenu>
+
+						<p:spacer />
+
+						<p:panel header="#{msg.partidas}">
+
+							<p:outputPanel id="partidas">
+								<p:dataTable value="#{rodadaMB.rodada.partidas}" var="partida"
+									id="dTblPartida" paginator="true" rows="10">
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.dataPartida}" />
+										</f:facet>
+										<h:outputText value="#{partida.dtHora}">
+											<f:convertDateTime timeStyle="default" pattern="dd/MM/yyyy HH:mm"
+												timeZone="America/Sao_Paulo" locale="BR" type="both"/>
+										</h:outputText>
+									</p:column>
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.timeCasa}" />
+										</f:facet>
+										<h:outputText value="#{partida.timeCasa.nome}" />
+									</p:column>
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.golsCasa}" />
+										</f:facet>
+										<h:inputText value="#{partida.golCasa}" style=" width : 40px;">
+											<f:validateLongRange minimum="0" maximum="99" />
+											<f:validateRequired />
+										</h:inputText>
+
+									</p:column>
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.timeVisitante}" />
+										</f:facet>
+										<h:outputText value="#{partida.timeVisitante.nome}" />
+									</p:column>
+
+									<p:column>
+										<f:facet name="header">
+											<h:outputText value="#{msg.golsVisitante}" />
+										</f:facet>
+										<h:inputText value="#{partida.golVisitante}"
+											style=" width : 40px;">
+											<f:validateLongRange minimum="0" maximum="99" />
+											<f:validateRequired />
+										</h:inputText>
+									</p:column>									
+
+								</p:dataTable>
+
+								<p:commandButton value="#{msg.gravarRodada}"
+									action="#{rodadaMB.gravarRodada}" />
+
+							</p:outputPanel>
+
+						</p:panel>
+
+						<br />
+
+				</p:fieldset>
+			</h:form>
+		</div>
+	</ui:define>
+</ui:composition>
+</html>
