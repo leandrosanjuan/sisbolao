@@ -232,6 +232,7 @@ public class LoginMB {
 			case USUARIO:
 				permissoes.add(Permissao.BOLAO);
 				permissoes.add(Permissao.DADOSPESSOAIS);
+				permissoes.add(Permissao.PALPITE);
 
 				break;
 			case ADMINISTRADOR:
@@ -240,6 +241,7 @@ public class LoginMB {
 				permissoes.add(Permissao.DADOSPESSOAIS);
 				permissoes.add(Permissao.RODADA);
 				permissoes.add(Permissao.TIME);
+				permissoes.add(Permissao.PALPITE);
 				break;
 
 			}

@@ -5,14 +5,18 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
+import pojo.Bolao;
 import pojo.Campeonato;
 import pojo.Palpite;
 import pojo.Partida;
 import pojo.Permissao;
 import pojo.Usuario;
+import bo.IBolaoBO;
 import bo.ICampeonatoBO;
 import bo.IPartidaBO;
+import bo.implementation.BolaoBO;
 import bo.implementation.CampeonatoBO;
 import bo.implementation.PartidaBO;
 
@@ -21,17 +25,33 @@ import bo.implementation.PartidaBO;
 public class PalpiteMB {
 
 	private static Usuario usuario;
+	private FacesContext ctx;
 	
 	private List<Palpite> palpites;
+	
+	private Bolao bolao;
+	private List<Bolao> boloes;
+	private IBolaoBO bolaoBO;
+	
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
+	
 	private IPartidaBO partidaBO;
 	private List<Partida> partidasProxRodada;
 
 	
 	public PalpiteMB() {
-		// TODO Auto-generated constructor stub
+		
+		bolaoBO = new BolaoBO();
+		boloes = bolaoBO.findByParticipant(usuario);
+		bolao = new Bolao();
+		
+		campeonatoBO = new CampeonatoBO();
+		campeonatos = campeonatoBO.findAll();
+		campeonato = new Campeonato();
+		
+		
 	}
 	
 
