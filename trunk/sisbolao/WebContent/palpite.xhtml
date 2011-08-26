@@ -13,34 +13,35 @@
 		media="screen" />
 </h:head>
 
-<ui:composition template="template/common.xhtml">
-	<ui:define name="content">
-		<div class="post">
-			<h:form id="form">
+<h:body>
+	<ui:composition template="template/common.xhtml">
+		<ui:define name="content">
+			<div class="post">
+				<h:form id="form">
 
-				<p:fieldset legend="#{msg.criarPalpites}">
-					<p:messages id="msg" />
-					<h:outputLabel for="boloes" value="#{msg.bolao}" />
-					<p:selectOneMenu id="boloes" value="#{palpiteMB.bolao}"
-						converter="bolaoConverter" required="true">
-						<f:selectItem itemLabel="#{msg.selecioneBolao}" itemValue="" />
-						<f:selectItems var="bolaoSI" value="#{palpiteMB.boloes}"
-							itemLabel="#{bolaoSI.nome}" itemValue="#{bolaoSI}" />
-						<p:ajax listener="#{palpiteMB.filtrarRodadas}" event="change"
-							update="rodadas" />
-						<f:validateRequired />
-					</p:selectOneMenu>
+					<p:fieldset legend="#{msg.criarPalpites}">
+						<p:messages id="msg" />
+						<h:outputLabel for="boloes" value="#{msg.bolao}" />
+						<p:selectOneMenu id="boloes" value="#{palpiteMB.bolao}"
+							converter="bolaoConverter" required="true">
+							<f:selectItem itemLabel="#{msg.selecioneBolao}" itemValue="" />
+							<f:selectItems var="bolaoSI" value="#{palpiteMB.boloes}"
+								itemLabel="#{bolaoSI.nome}" itemValue="#{bolaoSI}" />
+							<p:ajax listener="#{palpiteMB.filtrarRodadas}" event="change"
+								update="rodadas" />
+							<f:validateRequired />
+						</p:selectOneMenu>
 
-					<h:outputLabel for="rodadas" value="#{msg.rodada}" />
-					<p:selectOneMenu id="rodadas" value="#{rodadaMB.rodadaID}"
-						required="true">
-						<f:selectItem itemLabel="#{msg.selecioneRodada}" itemValue="" />
-						<f:selectItems var="rodadaSI" value="#{rodadaMB.rodadas}"
-							itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
-						<f:validateRequired />
-					</p:selectOneMenu>
-					
-					<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
+						<h:outputLabel for="rodadas" value="#{msg.rodada}" />
+						<p:selectOneMenu id="rodadas" value="#{palpiteMB.rodadaID}"
+							required="true">
+							<f:selectItem itemLabel="#{msg.selecioneRodada}" itemValue="" />
+							<f:selectItems var="rodadaSI" value="#{palpiteMB.rodadas}"
+								itemLabel="#{rodadaSI.label}" itemValue="#{rodadaSI.value}" />
+							<f:validateRequired />
+						</p:selectOneMenu>
+
+						<h:outputLabel for="campeonatos" value="#{msg.campeonato}" />
 						<p:selectOneMenu id="campeonatos" value="#{rodadaMB.campeonato}"
 							converter="campeonatoConverter" required="true">
 							<f:selectItem itemLabel="#{msg.selecioneCampeonato}" itemValue="" />
@@ -73,8 +74,9 @@
 											<h:outputText value="#{msg.dataPartida}" />
 										</f:facet>
 										<h:outputText value="#{partida.dtHora}">
-											<f:convertDateTime timeStyle="default" pattern="dd/MM/yyyy HH:mm"
-												timeZone="America/Sao_Paulo" locale="BR" type="both"/>
+											<f:convertDateTime timeStyle="default"
+												pattern="dd/MM/yyyy HH:mm" timeZone="America/Sao_Paulo"
+												locale="BR" type="both" />
 										</h:outputText>
 									</p:column>
 
@@ -112,7 +114,7 @@
 											<f:validateLongRange minimum="0" maximum="99" />
 											<f:validateRequired />
 										</h:inputText>
-									</p:column>									
+									</p:column>
 
 								</p:dataTable>
 
@@ -125,9 +127,10 @@
 
 						<br />
 
-				</p:fieldset>
-			</h:form>
-		</div>
-	</ui:define>
-</ui:composition>
+					</p:fieldset>
+				</h:form>
+			</div>
+		</ui:define>
+	</ui:composition>
+</h:body>
 </html>
