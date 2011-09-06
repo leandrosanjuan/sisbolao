@@ -33,8 +33,8 @@ public class PalpiteMB implements Serializable {
 	private List<Palpite> palpites;
 
 	private Bolao bolao;
-	private List<Bolao> boloes;
-	private IBolaoBO bolaoBO;
+	private static List<Bolao> boloes;
+	private static IBolaoBO bolaoBO;
 
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
@@ -42,7 +42,7 @@ public class PalpiteMB implements Serializable {
 
 	private IPartidaBO partidaBO;
 	private List<Partida> partidasProxRodada;
-	
+
 	private IRodadaBO rodadaBO;
 	private Rodada rodada;
 	private long rodadaID;
@@ -51,8 +51,7 @@ public class PalpiteMB implements Serializable {
 	public PalpiteMB() {
 
 		bolaoBO = new BolaoBO();
-		boloes = bolaoBO.findByParticipant(usuario);
-		bolao = new Bolao();
+		setBolao(new Bolao());
 
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
@@ -63,9 +62,14 @@ public class PalpiteMB implements Serializable {
 	public static boolean permissao(Usuario usuarioLogado) {
 		usuario = usuarioLogado;
 		if (usuario.getPermissoes().contains(Permissao.PALPITE)) {
+			carregarBoloes();
 			return true;
 		}
 		return false;
+	}
+	
+	public static void carregarBoloes(){
+		setBoloes(bolaoBO.findByParticipant(usuario));
 	}
 
 	public void proximaRodada() {
@@ -89,13 +93,13 @@ public class PalpiteMB implements Serializable {
 		}
 
 	}
-	
+
 	public void filtrarRodadas() {
 
-		if (campeonato == null) {
+		if (bolao == null) {
 			this.setRodadas(new ArrayList<Rodada>());
 		} else {
-			setRodadas(rodadaBO.findByCampeonato(campeonato));
+			setRodadas(rodadaBO.findByCampeonato(bolao.getCampeonato()));
 		}
 
 	}
@@ -147,6 +151,30 @@ public class PalpiteMB implements Serializable {
 
 	public void setRodadaID(long rodadaID) {
 		this.rodadaID = rodadaID;
+	}
+
+	public  List<Bolao> getBoloes() {
+		return boloes;
+	}
+
+	public static void setBoloes(List<Bolao> boloes) {
+		PalpiteMB.boloes = boloes;
+	}
+
+	public Bolao getBolao() {
+		return bolao;
+	}
+
+	public void setBolao(Bolao bolao) {
+		this.bolao = bolao;
+	}
+
+	public Rodada getRodada() {
+		return rodada;
+	}
+
+	public void setRodada(Rodada rodada) {
+		this.rodada = rodada;
 	}
 
 }
