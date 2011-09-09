@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 
 import pojo.Bolao;
 import pojo.Campeonato;
@@ -35,7 +37,7 @@ public class PalpiteMB implements Serializable {
 	private Bolao bolao;
 	private static List<Bolao> boloes;
 	private static IBolaoBO bolaoBO;
-
+		
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
@@ -137,8 +139,17 @@ public class PalpiteMB implements Serializable {
 		return palpites;
 	}
 
-	public List<Rodada> getRodadas() {
-		return rodadas;
+	public List<SelectItem> getRodadas() {
+		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
+		if (bolao!=null){
+			List<Rodada> rodadas = rodadaBO.findByCampeonato(bolao.getCampeonato());
+			rodadasSI = new ArrayList<SelectItem>();
+
+			for (Rodada rodada : rodadas) {
+				rodadasSI.add(new SelectItem(rodada.getId(), rodada.getNome()));
+			}
+		}		
+		return rodadasSI;
 	}
 
 	public void setRodadas(List<Rodada> rodadas) {

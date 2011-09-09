@@ -27,10 +27,11 @@
 							<f:selectItem itemLabel="#{msg.selecioneBolao}" itemValue="" />
 							<f:selectItems var="bolaoSI" value="#{palpiteMB.boloes}"
 								itemLabel="#{bolaoSI.nome}" itemValue="#{bolaoSI}" />
-							<p:ajax listener="#{palpiteMB.filtrarRodadas}" event="change"
+							<p:ajax listener="#{palpiteMB.filtrarRodadas}"  event="change"
 								update="rodadas" />
 							<f:validateRequired />
 						</p:selectOneMenu>
+				
 
 						<h:outputLabel for="rodadas" value="#{msg.rodada}" />
 						<p:selectOneMenu id="rodadas" value="#{palpiteMB.rodadaID}"
