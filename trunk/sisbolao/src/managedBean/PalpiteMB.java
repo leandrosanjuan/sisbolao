@@ -37,7 +37,7 @@ public class PalpiteMB implements Serializable {
 	private Bolao bolao;
 	private static List<Bolao> boloes;
 	private static IBolaoBO bolaoBO;
-		
+
 	private Campeonato campeonato;
 	private List<Campeonato> campeonatos;
 	private ICampeonatoBO campeonatoBO;
@@ -53,7 +53,7 @@ public class PalpiteMB implements Serializable {
 	public PalpiteMB() {
 
 		bolaoBO = new BolaoBO();
-		setBolao(new Bolao());
+		bolao = new Bolao();
 
 		campeonatoBO = new CampeonatoBO();
 		campeonatos = campeonatoBO.findAll();
@@ -69,8 +69,8 @@ public class PalpiteMB implements Serializable {
 		}
 		return false;
 	}
-	
-	public static void carregarBoloes(){
+
+	public static void carregarBoloes() {
 		setBoloes(bolaoBO.findByParticipant(usuario));
 	}
 
@@ -141,14 +141,14 @@ public class PalpiteMB implements Serializable {
 
 	public List<SelectItem> getRodadas() {
 		List<SelectItem> rodadasSI = new ArrayList<SelectItem>();
-		if (bolao!=null){
+		if (bolao != null) {
 			List<Rodada> rodadas = rodadaBO.findByCampeonato(bolao.getCampeonato());
 			rodadasSI = new ArrayList<SelectItem>();
 
 			for (Rodada rodada : rodadas) {
 				rodadasSI.add(new SelectItem(rodada.getId(), rodada.getNome()));
 			}
-		}		
+		}
 		return rodadasSI;
 	}
 
@@ -164,7 +164,7 @@ public class PalpiteMB implements Serializable {
 		this.rodadaID = rodadaID;
 	}
 
-	public  List<Bolao> getBoloes() {
+	public List<Bolao> getBoloes() {
 		return boloes;
 	}
 
